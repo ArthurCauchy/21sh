@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/04/14 12:40:41 by arthur           ###   ########.fr        #
+#    Updated: 2018/04/14 13:04:57 by arthur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,29 @@ SRC_NAME = main.c \
 		   builtin_setenv.c \
 		   builtin_unsetenv.c \
 		   builtin_echo.c \
+		   word.c \
+		   ast.c \
+		   lexing.c \
+		   lexing_semicol.c \
+		   lexing_space.c \
+		   lexing_amp_and.c \
+		   lexing_pipe_or.c \
+		   lexing_shift.c \
+		   lexing_rshift.c \
+		   lexing_lshift.c \
+		   parsing.c \
+		   parsing_parse_arg.c \
+		   parsing_parse_pipe.c \
+		   parsing_parse_and.c \
+		   parsing_parse_or.c \
+		   parsing_parse_semicol.c \
+		   parsing_validator.c \
+		   interpreter.c \
+		   interpreter_semicol.c \
+		   interpreter_or.c \
+		   interpreter_and.c \
+		   interpreter_pipe.c \
+		   interpreter_arg.c \
 		   input.c \
 		   output.c \
 		   process.c \

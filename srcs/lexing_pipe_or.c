@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_exit.c                                     :+:      :+:    :+:   */
+/*   lexing_pipe_or.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/02/05 12:11:21 by arthur           ###   ########.fr       */
+/*   Created: 2018/04/04 14:15:05 by acauchy           #+#    #+#             */
+/*   Updated: 2018/04/14 12:51:45 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-int	builtin_exit(t_env **env, char **args)
+void	lex_pipe_or_word(char *cmdline,
+		t_word **wordlist, t_lexdata *lexdata)
 {
-	int	exit_status;
-
-	exit_status = 0;
-	if (args[1])
+	lexdata->buff[lexdata->j] = '\0';
+	lexdata->j = 0;
+	if (ft_strlen(lexdata->buff) > 0)
+		add_word(lexdata->buff, wordlist);
+	if (cmdline[lexdata->i + 1] == '|')
 	{
-		exit_status = ft_atoi(args[1]);
-		if (args[2])
-		{
-			ft_putendl_fd("exit: Too many arguments.", 2);
-			return (-1);
-		}
+		add_word("||", wordlist);
+		++lexdata->i;
 	}
-	delete_args(args);
-	clear_env(*env);
-	clear_builtins();
-	exit(exit_status);
+	else
+		add_word("|", wordlist);
 }

@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_exit.c                                     :+:      :+:    :+:   */
+/*   interpreter_pipe.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/02/05 12:11:21 by arthur           ###   ########.fr       */
+/*   Created: 2018/04/11 11:37:10 by acauchy           #+#    #+#             */
+/*   Updated: 2018/04/13 11:50:10 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-int	builtin_exit(t_env **env, char **args)
+int	exec_ast_pipe(t_ast *node, int inputfd, int outputfd)
 {
-	int	exit_status;
+	int	ret1;
+	int	ret2;
+	int	pipefd[2];
 
-	exit_status = 0;
-	if (args[1])
-	{
-		exit_status = ft_atoi(args[1]);
-		if (args[2])
-		{
-			ft_putendl_fd("exit: Too many arguments.", 2);
-			return (-1);
-		}
-	}
-	delete_args(args);
-	clear_env(*env);
-	clear_builtins();
-	exit(exit_status);
+	if (pipe(pipefd) == -1)
+		exit_error("pipe() error");
+	ret1 = exec_ast(node->left, inputfd, pipefd[1]);
+	ret2 = exec_ast(node->right, pipefd[0], outputfd);
+	if (ret2 != 0)
+		return (ret2);
+	return (ret1);
 }

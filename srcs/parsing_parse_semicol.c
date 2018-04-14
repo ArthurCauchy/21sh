@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_exit.c                                     :+:      :+:    :+:   */
+/*   parsing_parse_semicol.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/02/05 12:11:21 by arthur           ###   ########.fr       */
+/*   Created: 2018/04/02 13:53:02 by acauchy           #+#    #+#             */
+/*   Updated: 2018/04/14 12:51:03 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-int	builtin_exit(t_env **env, char **args)
+void		parse_semicol(t_word **symbol, t_ast **current)
 {
-	int	exit_status;
+	t_ast	*semicol;
 
-	exit_status = 0;
-	if (args[1])
+	parse_or(symbol, current);
+	while (*symbol && ft_strcmp((*symbol)->str, ";") == 0)
 	{
-		exit_status = ft_atoi(args[1]);
-		if (args[2])
-		{
-			ft_putendl_fd("exit: Too many arguments.", 2);
-			return (-1);
-		}
+		semicol = new_ast_node(SEMICOL, NULL);
+		semicol->left = *current;
+		parse_or(symbol, current);
+		semicol->right = *current;
+		*current = semicol;
 	}
-	delete_args(args);
-	clear_env(*env);
-	clear_builtins();
-	exit(exit_status);
 }

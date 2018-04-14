@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   interpreter.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/02/21 14:09:40 by acauchy          ###   ########.fr       */
+/*   Created: 2018/04/09 11:16:48 by acauchy           #+#    #+#             */
+/*   Updated: 2018/04/13 11:30:03 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-void	exit_error(char *errmsg)
+int	exec_ast(t_ast *node, int inputfd, int outputfd)
 {
-	if (errmsg)
-		ft_putendl_fd(errmsg, 2);
+	if (node->token == SEMICOL)
+		return (exec_ast_semicol(node, inputfd, outputfd));
+	else if (node->token == OR)
+		return (exec_ast_or(node, inputfd, outputfd));
+	else if (node->token == AND)
+		return (exec_ast_and(node, inputfd, outputfd));
+	else if (node->token == PIPE)
+		return (exec_ast_pipe(node, inputfd, outputfd));
 	else
-		ft_putendl_fd("error", 2);
-	exit(1);
-}
-
-int		is_there_a_file(char *filepath)
-{
-	if (access(filepath, F_OK) == 0)
-		return (1);
-	return (0);
-}
-
-int		is_executable(char *filepath)
-{
-	if (access(filepath, X_OK) == 0)
-		return (1);
-	return (0);
+		return (exec_ast_arg(node, inputfd, outputfd));
 }

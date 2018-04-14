@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_exit.c                                     :+:      :+:    :+:   */
+/*   interpreter_arg.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/02/05 12:11:21 by arthur           ###   ########.fr       */
+/*   Created: 2018/04/11 11:37:02 by acauchy           #+#    #+#             */
+/*   Updated: 2018/04/13 11:57:58 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-int	builtin_exit(t_env **env, char **args)
+int	exec_ast_arg(t_ast *node, int inputfd, int outputfd)
 {
-	int	exit_status;
+	t_word	*cur;
 
-	exit_status = 0;
-	if (args[1])
+	(void)inputfd;
+	(void)outputfd;
+	cur = node->arglist;
+	ft_putstr("exec : ");
+	while (cur)
 	{
-		exit_status = ft_atoi(args[1]);
-		if (args[2])
-		{
-			ft_putendl_fd("exit: Too many arguments.", 2);
-			return (-1);
-		}
+		ft_putstr(cur->str);
+		if (cur->next)
+			ft_putchar(' ');
+		cur = cur->next;
 	}
-	delete_args(args);
-	clear_env(*env);
-	clear_builtins();
-	exit(exit_status);
+	ft_putchar('\n');
+	return (0);
 }
