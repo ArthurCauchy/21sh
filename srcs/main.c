@@ -6,15 +6,16 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/14 12:55:02 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/14 14:24:51 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
+int			g_exitnow = -1;
 t_env		**g_envptr = NULL;
 
-static void	init_minishell(t_env **env, char **envp)
+static void	init_shell(t_env **env, char **envp)
 {
 	init_signals();
 	init_builtins();
@@ -29,24 +30,33 @@ static void	print_n_free_errmsg(char **errmsg)
 	*errmsg = NULL;
 }
 
-static int	input_and_parse(t_env **env, char ***args)
+static int	input_and_parse(t_ast **ast)
 {
 	char	*errmsg;
 	char	*rep;
+	t_word	*wordlist;
+	int		retcode;
+	char	*tmp;
 
 	errmsg = NULL;
-	rep = ask_for_input(0, env, &errmsg);
+	wordlist = NULL;
+	rep = ask_for_input(0, g_envptr, &errmsg);
 	if (errmsg)
 	{
 		print_n_free_errmsg(&errmsg);
 		free(rep);
 		return (-1);
 	}
-	*args = parse_input(rep, &errmsg);
-	free(rep);
-	if (errmsg)
+	lex_analysis(rep, &wordlist);
+	syntax_analysis(&wordlist, ast);
+	delete_wordlist(&wordlist);
+	retcode = validate_ast(*ast);
+	if (retcode != 0)
 	{
-		print_n_free_errmsg(&errmsg);
+		tmp = code_to_errmessage(retcode);
+		ft_putendl_fd(tmp, 2);
+		free(tmp);
+		delete_ast(ast);
 		return (-1);
 	}
 	return (0);
@@ -54,20 +64,23 @@ static int	input_and_parse(t_env **env, char ***args)
 
 int			main(int argc, char **argv, char **envp)
 {
-	char	**args;
 	t_env	*env;
+	t_ast	*ast;
 
 	(void)argc;
 	(void)argv;
 	env = NULL;
-	init_minishell(&env, envp);
-	while (42)
+	ast = NULL;
+	init_shell(&env, envp);
+	while (g_exitnow < 0)
 	{
-		if (input_and_parse(&env, &args) == 0)
+		if (input_and_parse(&ast) == 0)
 		{
-			start_command(&env, &env, args);
-			delete_args(args);
+			exec_ast(ast, 0, 1);
+			delete_ast(&ast);
 		}
 	}
-	return (EXIT_SUCCESS);
+	clear_env(env);
+	clear_builtins();
+	return (g_exitnow);
 }

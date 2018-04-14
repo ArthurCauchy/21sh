@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:42:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/02/21 17:12:41 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/14 14:08:45 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 int			g_running_proc = -1;
 
-static void	post_process(int status)
+static int	post_process(int status)
 {
 	if (WIFSIGNALED(status))
 	{
 		print_sig_error(WTERMSIG(status));
+		return (1);
 	}
+	return (WEXITSTATUS(status));
 }
 
 int			start_process(t_env **env, char **args)
@@ -42,7 +44,7 @@ int			start_process(t_env **env, char **args)
 		if (status == -1)
 			exit_error("wait() error");
 		g_running_proc = -1;
-		post_process(status);
+		return (post_process(status));
 	}
 	return (0);
 }

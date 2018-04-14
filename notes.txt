@@ -1,3 +1,7 @@
 TODO :
 - si on entre le nom d'un dossier seul : erreur execve
 - faire un vrai prompt
+- errmsg et return int pour le lexing afin de gerer les erreurs (unmatched quote)
+- dans main.c : input_and_parse, enlever retcode et utiliser errmsg a la place
+- dans interpreter_arg : utiliser les inputfd et outputfd
+- gerer les redirections

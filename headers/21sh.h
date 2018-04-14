@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/14 13:07:22 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/14 14:14:05 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct	s_ast
 	struct s_ast	*left;
 }				t_ast;
 
+extern int			g_exitnow;
 extern int			g_running_proc;
 extern t_env		**g_envptr;
 
@@ -189,13 +190,6 @@ int				exec_ast_pipe(t_ast *node, int inputfd, int outputfd);
 int				exec_ast_arg(t_ast *node, int inputfd, int outputfd);
 
 /*
-** parser.c
-*/
-
-char				**parse_input(char *input, char **errmsg);
-void				delete_args(char **args);
-
-/*
 ** signals.c
 */
 
@@ -238,6 +232,6 @@ void				init_builtins(void);
 ** starter.c
 */
 
-void				start_command(t_env **env, t_env **cmd_env, char **args);
+int					start_command(t_env **env, t_env **cmd_env, char **args);
 
 #endif
