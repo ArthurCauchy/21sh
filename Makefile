@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/02/08 12:32:51 by acauchy          ###   ########.fr        #
+#    Updated: 2018/04/14 12:40:41 by arthur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,13 +21,13 @@ COLOR_YELLOW = "\033[1;33;40m"
 COLOR_CYAN = "\033[1;36;40m"
 COLOR_RESET = "\033[0m"
 
-NAME = minishell
+NAME = 21sh
 
 CC = gcc -g3
 CFLAGS = -Wall -Wextra -Werror
 
 HEADER_PATH = headers
-HEADER_NAME = minishell.h
+HEADER_NAME = 21sh.h
 HEADER = $(addprefix $(HEADER_PATH)/,$(HEADER_NAME))
 
 SRC_PATH = srcs

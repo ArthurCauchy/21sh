@@ -1,0 +1,2 @@
+TODO :
+- si on entre le nom d'un dossier seul : erreur execve
