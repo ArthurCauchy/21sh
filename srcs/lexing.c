@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 13:53:13 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/14 12:51:23 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/17 11:38:44 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void		init_lexdata(char *cmdline, t_lexdata **lexdata)
 {
 	if (!(*lexdata = (t_lexdata*)ft_memalloc(sizeof(t_lexdata))))
 		exit_error("ft_memalloc() error");
-	if (!((*lexdata)->buff = (char*)malloc(ft_strlen(cmdline))))
+	if (!((*lexdata)->buff = (char*)malloc(ft_strlen(cmdline) + 1)))
 		exit_error("malloc() error");
 }
 

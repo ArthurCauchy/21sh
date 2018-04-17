@@ -6,13 +6,14 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/14 14:24:51 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/17 12:05:07 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-int			g_exitnow = -1;
+int			g_exitnow = 0;
+int			g_exitstatus = 0;
 t_env		**g_envptr = NULL;
 
 static void	init_shell(t_env **env, char **envp)
@@ -35,8 +36,6 @@ static int	input_and_parse(t_ast **ast)
 	char	*errmsg;
 	char	*rep;
 	t_word	*wordlist;
-	int		retcode;
-	char	*tmp;
 
 	errmsg = NULL;
 	wordlist = NULL;
@@ -48,14 +47,12 @@ static int	input_and_parse(t_ast **ast)
 		return (-1);
 	}
 	lex_analysis(rep, &wordlist);
+	free(rep);
 	syntax_analysis(&wordlist, ast);
 	delete_wordlist(&wordlist);
-	retcode = validate_ast(*ast);
-	if (retcode != 0)
+	if (validate_ast(*ast, &errmsg) != 0)
 	{
-		tmp = code_to_errmessage(retcode);
-		ft_putendl_fd(tmp, 2);
-		free(tmp);
+		print_n_free_errmsg(&errmsg);
 		delete_ast(ast);
 		return (-1);
 	}
@@ -72,7 +69,7 @@ int			main(int argc, char **argv, char **envp)
 	env = NULL;
 	ast = NULL;
 	init_shell(&env, envp);
-	while (g_exitnow < 0)
+	while (g_exitnow != 1)
 	{
 		if (input_and_parse(&ast) == 0)
 		{
@@ -82,5 +79,5 @@ int			main(int argc, char **argv, char **envp)
 	}
 	clear_env(env);
 	clear_builtins();
-	return (g_exitnow);
+	return (g_exitstatus);
 }

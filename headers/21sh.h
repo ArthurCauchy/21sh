@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/14 14:14:05 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/17 12:03:29 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct	s_ast
 }				t_ast;
 
 extern int			g_exitnow;
+extern int			g_exitstatus;
 extern int			g_running_proc;
 extern t_env		**g_envptr;
 
@@ -175,8 +176,7 @@ void			parse_semicol(t_word **symbol, t_ast **current);
 ** parsing_validator.c
 */
 
-char			*code_to_errmessage(int code);
-int				validate_ast(t_ast *root);
+int				validate_ast(t_ast *root, char **errmsg);
 
 /*
 ** interpreter.c, interpreter_[token].c
