@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/17 14:05:33 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/17 14:32:32 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 
 # include <sys/types.h>
 # include <sys/wait.h>
-# include <sys/uio.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include "libft.h"

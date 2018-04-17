@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/02/21 14:09:40 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/17 14:31:24 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ int		is_there_a_file(char *filepath)
 
 int		is_executable(char *filepath)
 {
-	if (access(filepath, X_OK) == 0)
+	struct stat	fileinfo;
+
+	if (access(filepath, X_OK) == 0
+			&& stat(filepath, &fileinfo) != -1
+			&& S_ISREG(fileinfo.st_mode))
 		return (1);
 	return (0);
 }
