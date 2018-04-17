@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 13:53:13 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/17 11:38:44 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/17 13:18:16 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void		init_lexdata(char *cmdline, t_lexdata **lexdata)
 		exit_error("malloc() error");
 }
 
-void			lex_analysis(char *cmdline, t_word **wordlist)
+void			lex_analysis(char *cmdline, t_word **wordlist, char **errmsg)
 {
 	t_lexdata	*lexdata;
 
@@ -92,6 +92,10 @@ void			lex_analysis(char *cmdline, t_word **wordlist)
 			lexdata->buff[lexdata->j++] = cmdline[lexdata->i];
 		++lexdata->i;
 	}
+	if (lexdata->quoted == 1)
+		*errmsg = ft_strdup("Unmatched '''.");
+	else if (lexdata->quoted == 2)
+		*errmsg = ft_strdup("Unmatched '\"'.");
 	free(lexdata->buff);
 	free(lexdata);
 }

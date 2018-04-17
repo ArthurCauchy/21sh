@@ -7,3 +7,4 @@ TODO :
 
 csh :
 - 'exit qweqwejiowqe' : Expression syntax.
+- '""' : : Command not found.

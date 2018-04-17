@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/17 12:05:07 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/17 13:20:51 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,14 @@ static int	input_and_parse(t_ast **ast)
 		free(rep);
 		return (-1);
 	}
-	lex_analysis(rep, &wordlist);
+	lex_analysis(rep, &wordlist, &errmsg);
 	free(rep);
+	if (errmsg)
+	{
+		print_n_free_errmsg(&errmsg);
+		delete_wordlist(&wordlist);
+		return (-1);
+	}
 	syntax_analysis(&wordlist, ast);
 	delete_wordlist(&wordlist);
 	if (validate_ast(*ast, &errmsg) != 0)
