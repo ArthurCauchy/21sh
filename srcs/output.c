@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:35:34 by acauchy           #+#    #+#             */
-/*   Updated: 2018/02/21 16:28:06 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/17 14:21:18 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 void	print_prompt(t_env **env)
 {
 	char	*user;
+	char	hostname[1024];
 
 	ft_putstr("\033[1;36;40m");
 	if ((user = read_from_env(env, "USER")))
-		ft_fminiprint(1, "%r0s%'s ", user);
-	ft_putstr("minish$ ");
+		ft_putstr(user);
+	if (gethostname(hostname, 1024) != -1)
+		ft_fminiprint(1, "@%l0s%", hostname);
+	ft_putstr("% ");
 	ft_putstr("\033[0m");
 	free(user);
 }

@@ -1,7 +1,5 @@
 TODO :
 - si on entre le nom d'un dossier seul : erreur execve
-- faire un vrai prompt
-- dans interpreter_arg : utiliser les inputfd et outputfd
 - gerer les redirections
 
 csh :
