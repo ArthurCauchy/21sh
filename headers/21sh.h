@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/17 13:13:35 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/17 14:05:33 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,7 @@ void				print_chdir_error(char *path);
 ** process.c
 */
 
-int					start_process(t_env **env, char **args);
+int					start_process(t_env **env, char **args, int inputfd, int outputfd);
 
 /*
 ** path.c
@@ -232,6 +232,6 @@ void				init_builtins(void);
 ** starter.c
 */
 
-int					start_command(t_env **env, t_env **cmd_env, char **args);
+int					start_command(t_env **env, t_env **cmd_env, char **args, int inputfd, int outputfd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/14 14:11:58 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/17 14:05:21 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ static void	replace_exec_name(char **arg, char *newname)
 	*arg = newname;
 }
 
-static int	try_start_process(t_env **cmd_env, char **args)
+static int	try_start_process(t_env **cmd_env, char **args, int inputfd, int outputfd)
 {
 	if (is_executable(args[0]))
-		return (start_process(cmd_env, args));
+		return (start_process(cmd_env, args, inputfd, outputfd));
 	ft_fminiprint(2, "%l0s%: Permission denied.\n", args[0]);
 	return (1);
 }
 
-int			start_command(t_env **env, t_env **cmd_env, char **args)
+int			start_command(t_env **env, t_env **cmd_env, char **args, int inputfd, int outputfd)
 {
 	int		retcode;
 	char	*after_path;
@@ -35,7 +35,7 @@ int			start_command(t_env **env, t_env **cmd_env, char **args)
 	if (!args[0])
 		return (0);
 	notfound = 1;
-	if ((retcode = search_start_builtin(cmd_env, args)) == -2)
+	if ((retcode = search_start_builtin(cmd_env, args)) == -2) // gerer les redirections ici aussi !!!
 	{
 		if (ft_strchr(args[0], '/'))
 		{
@@ -52,7 +52,7 @@ int			start_command(t_env **env, t_env **cmd_env, char **args)
 			ft_fminiprint(2, "%l0s%: Command not found.\n", args[0]);
 			return (1);
 		}
-		return (try_start_process(cmd_env, args));
+		return (try_start_process(cmd_env, args, inputfd, outputfd));
 	}
 	else if (retcode == -1)
 		return (1);

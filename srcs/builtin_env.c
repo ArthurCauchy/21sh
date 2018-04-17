@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/02/20 14:53:18 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/17 14:06:14 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int			builtin_env(t_env **env, char **args)
 		++i;
 	}
 	if (args[i])
-		start_command(env, &tmp_env, args + i);
+		start_command(env, &tmp_env, args + i, 0, 1); // redirections a gerer
 	else
 		print_env(&tmp_env);
 	clear_env(tmp_env);

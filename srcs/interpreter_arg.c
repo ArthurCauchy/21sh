@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 11:37:02 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/14 14:29:22 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/17 14:09:15 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	delete_args(char **args)
 	free(args);
 }
 
-static void	arglist_to_array(t_word *arglist, char **args)
+static void	analyze_arglist(t_word *arglist, char **args)
 {
 	t_word	*cur;
 	size_t	i;
@@ -46,12 +46,10 @@ int			exec_ast_arg(t_ast *node, int inputfd, int outputfd)
 	char	**args;
 	int		ret;
 
-	(void)inputfd;
-	(void)outputfd;
 	if (!(args = (char**)malloc((PARAMS_MAX + 1) * sizeof(char*))))
 		exit_error("malloc() error");
-	arglist_to_array(node->arglist, args);
-	ret = start_command(g_envptr, g_envptr, args);
+	analyze_arglist(node->arglist, args);
+	ret = start_command(g_envptr, g_envptr, args, inputfd, outputfd);
 	delete_args(args);
 	return (ret);
 }

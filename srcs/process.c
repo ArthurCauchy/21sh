@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:42:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/14 14:08:45 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/17 14:07:16 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,13 @@ static int	post_process(int status)
 	return (WEXITSTATUS(status));
 }
 
-int			start_process(t_env **env, char **args)
+static void	replace_fd(int to_close, int to_dup)
+{
+	close(to_close);
+	dup(to_dup);
+}
+
+int			start_process(t_env **env, char **args, int inputfd, int outputfd)
 {
 	pid_t	pid;
 	int		status;
@@ -34,6 +40,10 @@ int			start_process(t_env **env, char **args)
 		exit_error("fork() error");
 	if (pid == 0)
 	{
+		if (inputfd != 0)
+			replace_fd(0, inputfd);
+		if (outputfd != 1)
+			replace_fd(1, outputfd);
 		if (execve(args[0], args, env_to_array(env)))
 			exit_error("execve() error");
 	}
