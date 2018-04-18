@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/17 14:32:32 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/18 12:06:10 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,27 @@ typedef struct	s_lexdata
 	int		quoted;
 }				t_lexdata;
 
-typedef struct	s_word
-{
-	char			*str;
-	struct s_word	*next;
-}				t_word;
-
 typedef enum	e_token
 {
 	ARG,
+	LSHIFT,
+	LSHIFT2,
+	RSHIFT,
+	RSHIFT2,
+	AMP,
 	PIPE,
 	AND,
 	OR,
-	SEMICOL
+	SEMICOL,
 }				t_token;
+
+
+typedef struct	s_word
+{
+	t_token			token;
+	char			*str;
+	struct s_word	*next;
+}				t_word;
 
 typedef struct	s_ast
 {
@@ -128,7 +135,7 @@ void			exit_error(char *errmsg);
 ** word.c
 */
 
-t_word			*new_word(char *str);
+t_word			*new_word(t_token token, char *str);
 void			delete_wordlist(t_word **head);
 
 /*
@@ -143,7 +150,7 @@ void			delete_ast(t_ast **ast);
 */
 
 int				lex_is_separator(char c);
-void			add_word(char *str, t_word **wordlist);
+void			add_word(t_token token, char *str, t_word **wordlist);
 void			lex_analysis(char *cmdline, t_word **wordlist, char **errmsg);
 void			lex_semicol_word(char *cmdline,
 		t_word **wordlist, t_lexdata *lexdata);

@@ -1,6 +1,10 @@
 TODO :
 - gerer les redirections
 
+TODO bonus :
+- job control
+- 21shrc
+
 csh :
 - 'exit qweqwejiowqe' : Expression syntax.
 - '""' : : Command not found.

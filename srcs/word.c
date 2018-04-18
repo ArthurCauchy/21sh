@@ -6,13 +6,13 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 10:29:04 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/11 11:39:15 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/18 11:50:26 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-t_word	*new_word(char *str)
+t_word	*new_word(t_token token, char *str)
 {
 	t_word	*new;
 	char	*dup_str;
@@ -21,6 +21,7 @@ t_word	*new_word(char *str)
 		exit_error("malloc() error");
 	if (!(dup_str = ft_strdup(str)))
 		exit_error("ft_strdup() error");
+	new->token = token;
 	new->str = dup_str;
 	new->next = NULL;
 	return (new);

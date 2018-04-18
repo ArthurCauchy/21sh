@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 10:29:04 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/14 12:54:34 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/18 12:31:57 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_ast			*new_ast_node(t_token token, t_word *arglist)
 		exit_error("malloc() error");
 	node->token = token;
 	if (arglist)
-		node->arglist = new_word(arglist->str);
+		node->arglist = new_word(arglist->token, arglist->str);
 	else
 		node->arglist = NULL;
 	node->left = NULL;

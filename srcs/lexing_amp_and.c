@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 14:15:05 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/14 12:51:32 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/18 12:00:00 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	lex_amp_and_word(char *cmdline,
 	lexdata->buff[lexdata->j] = '\0';
 	lexdata->j = 0;
 	if (ft_strlen(lexdata->buff) > 0)
-		add_word(lexdata->buff, wordlist);
+		add_word(ARG, lexdata->buff, wordlist);
 	if (cmdline[lexdata->i + 1] == '&')
 	{
-		add_word("&&", wordlist);
+		add_word(AND, "&&", wordlist);
 		++lexdata->i;
 	}
 	else
-		add_word("&", wordlist);
+		add_word(AMP, "&", wordlist);
 }

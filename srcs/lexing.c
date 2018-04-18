@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 13:53:13 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/17 13:18:16 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/18 11:58:03 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ int				lex_is_separator(char c)
 	return (c == ' ' || c == '\t' || c == '\0');
 }
 
-void			add_word(char *str, t_word **wordlist)
+void			add_word(t_token token, char *str, t_word **wordlist)
 {
 	t_word	*word;
 	t_word	*cur;
 
-	word = new_word(str);
+	word = new_word(token, str);
 	if (!*wordlist)
 		*wordlist = word;
 	else

@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_parse_pipe.c                               :+:      :+:    :+:   */
+/*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/02 13:53:02 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/18 12:23:06 by acauchy          ###   ########.fr       */
+/*   Created: 2018/04/18 10:59:12 by acauchy           #+#    #+#             */
+/*   Updated: 2018/04/18 11:17:11 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-void		parse_pipe(t_word **symbol, t_ast **current)
+int	open_file_fd(char *filename, int append)
 {
-	t_ast	*pipe;
+	int	flags;
 
-	parse_arg(symbol, current);
-	while (*symbol && (*symbol)->token == PIPE)
-	{
-		pipe = new_ast_node(PIPE, NULL);
-		pipe->left = *current;
-		parse_arg(symbol, current);
-		pipe->right = *current;
-		*current = pipe;
-	}
+	if (append)
+		flags = O_CREAT | O_APPEND;
+	else
+		flags = O_CREAT;
+	if (open(filename, flags, 0644) == -1)
+		return (-1);
+	return (0);
 }
