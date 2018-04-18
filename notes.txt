@@ -1,5 +1,6 @@
 TODO :
 - gerer les redirections
+- catch SIGPIPE (cat /dev/random | ls)
 
 TODO bonus :
 - job control
@@ -8,3 +9,5 @@ TODO bonus :
 csh :
 - 'exit qweqwejiowqe' : Expression syntax.
 - '""' : : Command not found.
+- 'ls >' : Missing name for redirect.
+- 'ls > &&' : Missing name for redirect.

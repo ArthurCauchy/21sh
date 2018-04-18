@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 11:37:02 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/18 11:44:16 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/18 15:18:03 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,26 @@ static void	analyze_arglist(t_word *arglist, char **args)
 	i = 0;
 	while (i < PARAMS_MAX && cur)
 	{
-		args[i] = ft_strdup(cur->str); 
-		++i;
-		cur = cur->next;
+			args[i] = ft_strdup(cur->str); 
+			++i;
+			cur = cur->next;
 	}
 	args[i] = NULL;
 }
 
 int			exec_ast_arg(t_ast *node, int inputfd, int outputfd)
 {
+	char	*errmsg;
 	char	**args;
 	int		ret;
 
 	if (!(args = (char**)malloc((PARAMS_MAX + 1) * sizeof(char*))))
 		exit_error("malloc() error");
+	if (analyze_redirects(node->arglist, &errmsg) == -1)
+	{
+		print_n_free_errmsg(&errmsg);
+		return (1);
+	}
 	analyze_arglist(node->arglist, args);
 	ret = start_command(g_envptr, g_envptr, args, inputfd, outputfd);
 	delete_args(args);

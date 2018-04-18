@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/17 14:31:24 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/18 15:13:50 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,11 @@ int		is_executable(char *filepath)
 			&& S_ISREG(fileinfo.st_mode))
 		return (1);
 	return (0);
+}
+
+void	print_n_free_errmsg(char **errmsg)
+{
+	ft_putendl_fd(*errmsg, 2);
+	free(*errmsg);
+	*errmsg = NULL;
 }

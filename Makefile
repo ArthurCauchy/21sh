@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/04/14 14:02:08 by arthur           ###   ########.fr        #
+#    Updated: 2018/04/18 15:18:36 by acauchy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ SRC_NAME = main.c \
 		   parsing_parse_or.c \
 		   parsing_parse_semicol.c \
 		   parsing_validator.c \
+		   redirections.c \
 		   interpreter.c \
 		   interpreter_semicol.c \
 		   interpreter_or.c \

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/18 12:06:10 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/18 15:19:55 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include "libft.h"
@@ -91,6 +92,7 @@ extern t_env		**g_envptr;
 void				exit_error(char *errmsg);
 int					is_there_a_file(char *filepath);
 int					is_executable(char *filepath);
+void				print_n_free_errmsg(char **errmsg);
 
 /*
 ** builtin_manager.c
@@ -185,6 +187,12 @@ void			parse_semicol(t_word **symbol, t_ast **current);
 */
 
 int				validate_ast(t_ast *root, char **errmsg);
+
+/*
+** redirections.c
+*/
+
+int				analyze_redirects(t_word *arglist, char **errmsg);
 
 /*
 ** interpreter.c, interpreter_[token].c

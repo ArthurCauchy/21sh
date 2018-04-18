@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/17 13:20:51 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/18 15:14:26 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,6 @@ static void	init_shell(t_env **env, char **envp)
 	init_builtins();
 	init_env(env, envp);
 	g_envptr = env;
-}
-
-static void	print_n_free_errmsg(char **errmsg)
-{
-	ft_putendl_fd(*errmsg, 2);
-	free(*errmsg);
-	*errmsg = NULL;
 }
 
 static int	input_and_parse(t_ast **ast)
