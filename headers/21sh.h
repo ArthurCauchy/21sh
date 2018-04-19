@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/18 15:19:55 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/19 15:57:30 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,19 @@ typedef struct	s_ast
 	struct s_ast	*left;
 }				t_ast;
 
+/*
+** direction : is < or > ?
+** 0 = <
+** 1 = > or >>
+*/
+
+typedef struct	s_redirect
+{
+	int		fd_in;
+	int		fd_out;
+	char	direction;
+}				t_redirect;
+
 extern int			g_exitnow;
 extern int			g_exitstatus;
 extern int			g_running_proc;
@@ -138,6 +151,7 @@ void			exit_error(char *errmsg);
 */
 
 t_word			*new_word(t_token token, char *str);
+void			remove_word(t_word **wordlist, t_word *word);
 void			delete_wordlist(t_word **head);
 
 /*
@@ -189,10 +203,16 @@ void			parse_semicol(t_word **symbol, t_ast **current);
 int				validate_ast(t_ast *root, char **errmsg);
 
 /*
+** redirect.c
+*/
+
+t_redirect		*new_redirect(int fd_in, int fd_out, char direction);
+
+/*
 ** redirections.c
 */
 
-int				analyze_redirects(t_word *arglist, char **errmsg);
+int				analyze_redirects(t_word **arglist, t_redirect **redir_array, char **errmsg);
 
 /*
 ** interpreter.c, interpreter_[token].c

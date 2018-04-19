@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 10:59:12 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/18 15:21:04 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/19 15:58:44 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,33 @@ static int	open_file_fd(char *filename, int append)
 	return (fd);
 }
 
-int			analyze_redirects(t_word *arglist, char **errmsg)
+static void	add_redirect(t_redirect **redir_array, t_word *word, t_word *nextword)
+{
+	t_redirect	*redirect;
+	int			in_fd;
+	int			out_fd;
+	size_t		i;
+
+	in_fd = atoi(word->str);
+	if (!ft_isdigit(word->str[0]) && (word->token == RSHIFT || word->token == RSHIFT2))
+		in_fd = 1;
+	if (ft_strchr(word->str, '&'))
+		out_fd = open_file_fd(nextword->str, word->token == RSHIFT2);
+	else
+		out_fd = atoi(nextword->str);
+	redirect = new_redirect(in_fd, out_fd, word->token == LSHIFT);
+	i = 0;
+	while (i < sizeof(redir_array) / sizeof(redir_array[0]) && redir_array[i] != NULL)
+		++i;
+	redir_array[i] = redirect;
+}
+
+int			analyze_redirects(t_word **arglist, t_redirect **redir_array, char **errmsg)
 {
 	t_word	*cur;
 	t_word	*next;
-	int		tmp_fd;
 
-	cur = arglist;
+	cur = *arglist;
 	while (cur)
 	{
 		if (/*cur->token == LSHIFT
@@ -45,10 +65,12 @@ int			analyze_redirects(t_word *arglist, char **errmsg)
 				*errmsg = ft_strdup("Missing name for redirect.");
 				return (-1);
 			}
-			tmp_fd = open_file_fd(next->str, cur->token == RSHIFT2);
-			cur = cur->next;
+			add_redirect(redir_array, cur, next);
+			remove_word(arglist, cur);
+			remove_word(arglist, next);
+			cur = *arglist;
 		}
-		if (cur)
+		else
 			cur = cur->next;
 	}
 	return (0);
