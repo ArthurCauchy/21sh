@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/18 10:52:23 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/19 20:47:11 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ static void	replace_exec_name(char **arg, char *newname)
 	*arg = newname;
 }
 
-static int	try_start_process(t_env **cmd_env, char **args, int inputfd, int outputfd)
+static int	try_start_process(t_env **cmd_env, char **args, t_redirect **redir_array)
 {
 	if (is_executable(args[0]))
-		return (start_process(cmd_env, args, inputfd, outputfd));
+		return (start_process(cmd_env, args, redir_array));
 	ft_fminiprint(2, "%l0s%: Permission denied.\n", args[0]);
 	return (1);
 }
 
-int			start_command(t_env **env, t_env **cmd_env, char **args, int inputfd, int outputfd)
+int			start_command(t_env **env, t_env **cmd_env, char **args, t_redirect **redir_array)
 {
 	int		retcode;
 	char	*after_path;
@@ -52,7 +52,7 @@ int			start_command(t_env **env, t_env **cmd_env, char **args, int inputfd, int 
 			ft_fminiprint(2, "%l0s%: Command not found.\n", args[0]);
 			return (1);
 		}
-		return (try_start_process(cmd_env, args, inputfd, outputfd));
+		return (try_start_process(cmd_env, args, redir_array));
 	}
 	else if (retcode == -1)
 		return (1);

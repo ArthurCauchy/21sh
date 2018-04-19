@@ -8,9 +8,18 @@ TODO :
 TODO bonus :
 - job control
 - 21shrc
+- builtin which
+
+Notes :
+- redir_array peut actuellement etre NULL (builtin env, a fix)
+- faire attention aux commandes avec uniquement des redirections
+- BONJOUR IL FAUT FAIRE LES REDIR AVEC LES BUILTINS AUSSI (save, exec, restore les fds)
 
 csh :
 - 'exit qweqwejiowqe' : Expression syntax.
 - '""' : : Command not found.
 - 'ls >' : Missing name for redirect.
 - 'ls > &&' : Missing name for redirect.
+
+
+http://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html#tag_02_07

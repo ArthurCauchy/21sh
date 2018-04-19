@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/19 15:57:30 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/19 23:36:20 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define BUILTIN_MAX 42
 # define INPUT_MAX_LEN 16384
 # define PARAMS_MAX 512
+# define REDIRECT_MAX 512
 # define MAX_PATH_SIZE 4096
 
 typedef struct		s_env
@@ -80,17 +81,11 @@ typedef struct	s_ast
 	struct s_ast	*left;
 }				t_ast;
 
-/*
-** direction : is < or > ?
-** 0 = <
-** 1 = > or >>
-*/
-
 typedef struct	s_redirect
 {
-	int		fd_in;
-	int		fd_out;
-	char	direction;
+	char	*left;
+	char	*right;
+	t_token	token;
 }				t_redirect;
 
 extern int			g_exitnow;
@@ -206,13 +201,20 @@ int				validate_ast(t_ast *root, char **errmsg);
 ** redirect.c
 */
 
-t_redirect		*new_redirect(int fd_in, int fd_out, char direction);
+t_redirect		*new_redirect(char *left, char *right, t_token token);
 
 /*
 ** redirections.c
 */
 
+void			add_redirect(t_redirect **redir_array, char *left, char *right, t_token token);
 int				analyze_redirects(t_word **arglist, t_redirect **redir_array, char **errmsg);
+
+/*
+** redirections_apply.c
+*/
+
+void			apply_redirects(t_redirect **redir_array);
 
 /*
 ** interpreter.c, interpreter_[token].c
@@ -249,7 +251,7 @@ void				print_chdir_error(char *path);
 ** process.c
 */
 
-int					start_process(t_env **env, char **args, int inputfd, int outputfd);
+int					start_process(t_env **env, char **args, t_redirect **redir_array);
 
 /*
 ** path.c
@@ -268,6 +270,6 @@ void				init_builtins(void);
 ** starter.c
 */
 
-int					start_command(t_env **env, t_env **cmd_env, char **args, int inputfd, int outputfd);
+int					start_command(t_env **env, t_env **cmd_env, char **args, t_redirect **redir_array);
 
 #endif
