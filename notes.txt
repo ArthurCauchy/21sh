@@ -14,6 +14,8 @@ Notes :
 - redir_array peut actuellement etre NULL (builtin env, a fix)
 - faire attention aux commandes avec uniquement des redirections
 - BONJOUR IL FAUT FAIRE LES REDIR AVEC LES BUILTINS AUSSI (save, exec, restore les fds)
+- pour job control , on peut : tcsetpgrp tcgetpgrp
+- pour implementer le >& : https://stackoverflow.com/questions/11635219/dup2-dup-why-would-i-need-to-duplicate-a-file-descriptor
 
 csh :
 - 'exit qweqwejiowqe' : Expression syntax.

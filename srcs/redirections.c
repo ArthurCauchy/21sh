@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 10:59:12 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/19 23:40:07 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/20 19:44:44 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ int			analyze_redirects(t_word **arglist, t_redirect **redir_array, char **errms
 	cur = *arglist;
 	while (cur)
 	{
-		if (/*cur->token == LSHIFT
-				|| cur->token == LSHIFT2
-				||*/ cur->token == RSHIFT
+		if (cur->token == LSHIFT
+//				|| cur->token == LSHIFT2
+				|| cur->token == RSHIFT
 				|| cur->token == RSHIFT2)
 		{
 			next = cur->next;
