@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/04/19 22:21:24 by arthur           ###   ########.fr        #
+#    Updated: 2018/04/23 22:50:59 by arthur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,12 @@ SRC_NAME = main.c \
 		   redirect.c \
 		   redirections.c \
 		   redirections_apply.c \
+		   redirections_apply_pipe.c \
+		   redirections_apply_lshift.c \
+		   redirections_apply_lshift_amp.c \
+		   redirections_apply_rshift.c \
+		   redirections_apply_rshift_amp.c \
+		   redirections_apply_rshift2.c \
 		   interpreter.c \
 		   interpreter_semicol.c \
 		   interpreter_or.c \
@@ -75,7 +81,8 @@ SRC_NAME = main.c \
 		   s_env.c \
 		   env.c \
 		   path.c \
-			 init.c
+		   init.c
+
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
 OBJ_PATH = objs

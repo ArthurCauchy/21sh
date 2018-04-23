@@ -1,9 +1,9 @@
 TODO :
-- gerer les redirections
 - catch SIGPIPE (cat /dev/random | ls)
 - heredoc (<<)
 - verifier la pertinance du lex_shift_dest_redirect dans le cas des lshift
-- ne pas open le fichier au moment de l'analyze des redirections
+- faire les trucs qui closent les fd (option -)
+- ca fait de la merde si on met des lettres dans la redir >&
 
 TODO bonus :
 - job control

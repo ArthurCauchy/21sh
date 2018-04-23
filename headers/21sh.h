@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/23 14:15:17 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/23 22:50:29 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,10 +213,17 @@ void			add_redirect(t_redirect **redir_array, char *left, char *right, t_token t
 int				analyze_redirects(t_word **arglist, t_redirect **redir_array, char **errmsg);
 
 /*
-** redirections_apply.c
+** redirections_apply.c, redirections_apply_[token].c
 */
 
+int				open_file_fd(char *filename, int mode, int append);
 void			apply_redirects(t_redirect **redir_array);
+void			apply_redirect_pipe(t_redirect *redir);
+void			apply_redirect_lshift(t_redirect *redir);
+void			apply_redirect_lshift_amp(t_redirect *redir);
+void			apply_redirect_rshift(t_redirect *redir);
+void			apply_redirect_rshift_amp(t_redirect *redir);
+void			apply_redirect_rshift2(t_redirect *redir);
 
 /*
 ** interpreter.c, interpreter_[token].c
