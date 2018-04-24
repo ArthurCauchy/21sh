@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/04/23 22:50:59 by arthur           ###   ########.fr        #
+#    Updated: 2018/04/24 12:06:58 by acauchy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,6 +78,7 @@ SRC_NAME = main.c \
 		   process.c \
 		   signals.c \
 		   utils.c \
+		   utils2.c \
 		   s_env.c \
 		   env.c \
 		   path.c \

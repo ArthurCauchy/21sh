@@ -18,7 +18,11 @@ void		apply_redirect_lshift_amp(t_redirect *redir)
 
 	left_fd = ft_atoi(redir->left);
 	if (!is_numerical(redir->right))
+	{
+		if (strcmp(redir->right, "-") == 0)
+			close(left_fd);
 		return ;
+	}
 	right_fd = ft_atoi(redir->right);
 	dup2(right_fd, left_fd);
 }

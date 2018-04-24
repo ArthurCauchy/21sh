@@ -11,3 +11,18 @@ t_redirect	*new_redirect(char *left, char *right, t_token token)
 	redirect->token = token;
 	return (redirect);
 }
+
+void		delete_redir_array(t_redirect **redir_array)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < REDIRECT_MAX && redir_array[i] != NULL)
+	{
+		free(redir_array[i]->left);
+		free(redir_array[i]->right);
+		free(redir_array[i]);
+		redir_array[i] = NULL;
+		++i;
+	}
+}

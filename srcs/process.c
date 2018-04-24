@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:42:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/19 22:29:32 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/24 12:29:14 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	post_process(int status)
 	return (WEXITSTATUS(status));
 }
 
-int			start_process(t_env **env, char **args, t_redirect **redir_array)
+int			start_process(t_env **env, char **args)
 {
 	pid_t	pid;
 	int		status;
@@ -34,7 +34,6 @@ int			start_process(t_env **env, char **args, t_redirect **redir_array)
 		exit_error("fork() error");
 	if (pid == 0)
 	{
-		apply_redirects(redir_array);
 		if (execve(args[0], args, env_to_array(env)))
 			exit_error("execve() error");
 	}

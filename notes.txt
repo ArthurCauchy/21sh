@@ -1,14 +1,15 @@
 TODO :
 - catch SIGPIPE (cat /dev/random | ls)
 - heredoc (<<)
-- verifier la pertinance du lex_shift_dest_redirect dans le cas des lshift
-- faire les trucs qui closent les fd (option -)
-- ca fait de la merde si on met des lettres dans la redir >&
+- Command not found + redirection : actuellement comme sh (OK), a modifier pour faire comme csh (mieux).
+- pour le moment si une redir fail, ca l'ignore juste. A fix.
+- refaire fonction start_command + gestion builtin
 
 TODO bonus :
 - job control
 - 21shrc
 - builtin which
+- tilde expansion
 
 Notes :
 - redir_array peut actuellement etre NULL (builtin env, a fix)

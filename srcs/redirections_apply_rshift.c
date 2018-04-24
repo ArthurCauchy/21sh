@@ -10,5 +10,7 @@ void	apply_redirect_rshift(t_redirect *redir)
 	else
 		left_fd = 1;
 	file_fd = open_file_fd(redir->right, 1, 0);
+	if (file_fd < 0)
+		return ;
 	dup2(file_fd, left_fd);
 }

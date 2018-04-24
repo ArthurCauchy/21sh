@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/23 22:50:29 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/24 13:24:32 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,15 @@ extern int			g_running_proc;
 extern t_env		**g_envptr;
 
 /*
-** utils.c
+** utils.c, utils2.c
 */
 
 void				exit_error(char *errmsg);
 int					is_there_a_file(char *filepath);
 int					is_executable(char *filepath);
 void				print_n_free_errmsg(char **errmsg);
+void				save_filedes(int *fdsave_array, size_t fdmax);
+void				restore_filedes(int *fdsave_array, size_t fdmax);
 
 /*
 ** builtin_manager.c
@@ -204,6 +206,7 @@ int				validate_ast(t_ast *root, char **errmsg);
 */
 
 t_redirect		*new_redirect(char *left, char *right, t_token token);
+void			delete_redir_array(t_redirect **redir_array);
 
 /*
 ** redirections.c
@@ -260,7 +263,7 @@ void				print_chdir_error(char *path);
 ** process.c
 */
 
-int					start_process(t_env **env, char **args, t_redirect **redir_array);
+int					start_process(t_env **env, char **args);
 
 /*
 ** path.c

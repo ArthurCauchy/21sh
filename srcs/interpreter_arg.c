@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 11:37:02 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/19 23:35:56 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/24 11:59:39 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,19 @@ int			exec_ast_arg(t_ast *node, int inputfd, int outputfd)
 	ft_bzero(redir_array, REDIRECT_MAX);
 	if (!(args = (char**)malloc((PARAMS_MAX + 1) * sizeof(char*))))
 		exit_error("malloc() error");
-	if (inputfd != 0) // mouais pas sur
+	if (inputfd != 0)
 		add_redirect(redir_array, "0", ft_itoa(inputfd), PIPE);
-	if (outputfd != 1) // idem
+	if (outputfd != 1)
 		add_redirect(redir_array, "1", ft_itoa(outputfd), PIPE);
 	if (analyze_redirects(&node->arglist, redir_array, &errmsg) == -1)
 	{
 		print_n_free_errmsg(&errmsg);
-		// delete redirects
+		delete_redir_array(redir_array);
 		return (1);
 	}
 	analyze_arglist(node->arglist, args);
 	ret = start_command(g_envptr, g_envptr, args, redir_array);
 	delete_args(args);
-	// delete redirects
+	delete_redir_array(redir_array);
 	return (ret);
 }
