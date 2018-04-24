@@ -9,6 +9,7 @@ TODO bonus :
 - job control
 - 21shrc
 - builtin which
+- builtin nohup
 - tilde expansion
 
 Notes :

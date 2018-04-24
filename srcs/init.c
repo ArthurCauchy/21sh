@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "twenty_one_sh.h"
 
 void	init_env(t_env **env, char **envp)
 {

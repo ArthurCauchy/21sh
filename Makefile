@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/04/24 12:06:58 by acauchy          ###   ########.fr        #
+#    Updated: 2018/04/24 13:50:38 by acauchy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ CC = gcc -g3
 CFLAGS = -Wall -Wextra -Werror
 
 HEADER_PATH = headers
-HEADER_NAME = 21sh.h
+HEADER_NAME = twenty_one_sh.h
 HEADER = $(addprefix $(HEADER_PATH)/,$(HEADER_NAME))
 
 SRC_PATH = srcs

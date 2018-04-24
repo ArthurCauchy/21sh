@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "twenty_one_sh.h"
 
 int	exec_ast_or(t_ast *node, int inputfd, int outputfd)
 {

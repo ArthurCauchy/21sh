@@ -6,11 +6,11 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 14:15:05 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/23 14:17:40 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/24 13:56:39 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "twenty_one_sh.h"
 
 static void	lex_rshift_append(char *cmdline, t_lexdata *lexdata, t_token *token)
 {
@@ -21,7 +21,8 @@ static void	lex_rshift_append(char *cmdline, t_lexdata *lexdata, t_token *token)
 	lexdata->buff[lexdata->j++] = '>';
 }
 
-static void	lex_rshift_classic(char *cmdline, t_lexdata *lexdata, t_token *token)
+static void	lex_rshift_classic(char *cmdline,
+		t_lexdata *lexdata, t_token *token)
 {
 	*token = RSHIFT;
 	lexdata->buff[lexdata->j++] = '>';

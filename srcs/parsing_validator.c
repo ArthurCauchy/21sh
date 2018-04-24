@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "twenty_one_sh.h"
 
 static int	is_null_node(t_ast *node)
 {

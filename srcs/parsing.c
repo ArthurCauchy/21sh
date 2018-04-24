@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "twenty_one_sh.h"
 
 static void		build_tree(t_word **wordlist, t_ast **root)
 {

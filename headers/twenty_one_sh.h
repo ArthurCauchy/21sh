@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   21sh.h                                             :+:      :+:    :+:   */
+/*   twenty_one_sh.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/24 13:24:32 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/24 13:37:35 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __21SH_H
-# define __21SH_H
+#ifndef __TWENTY_ONE_SH_H
+# define __TWENTY_ONE_SH_H
 
 # include <stdio.h>
 
@@ -43,15 +43,15 @@ typedef struct		s_builtin
 	int		(*func)(t_env**, char**);
 }					t_builtin;
 
-typedef struct	s_lexdata
+typedef struct		s_lexdata
 {
 	char	*buff;
 	size_t	i;
 	size_t	j;
 	int		quoted;
-}				t_lexdata;
+}					t_lexdata;
 
-typedef enum	e_token
+typedef enum		e_token
 {
 	ARG,
 	LSHIFT,
@@ -65,30 +65,29 @@ typedef enum	e_token
 	AND,
 	OR,
 	SEMICOL,
-}				t_token;
+}					t_token;
 
-
-typedef struct	s_word
+typedef struct		s_word
 {
 	t_token			token;
 	char			*str;
 	struct s_word	*next;
-}				t_word;
+}					t_word;
 
-typedef struct	s_ast
+typedef struct		s_ast
 {
 	t_token			token;
 	t_word			*arglist;
 	struct s_ast	*right;
 	struct s_ast	*left;
-}				t_ast;
+}					t_ast;
 
-typedef struct	s_redirect
+typedef struct		s_redirect
 {
 	char	*left;
 	char	*right;
 	t_token	token;
-}				t_redirect;
+}					t_redirect;
 
 extern int			g_exitnow;
 extern int			g_exitstatus;
@@ -143,101 +142,102 @@ void				print_env(t_env **env);
 char				*read_from_env(t_env **env, char *key);
 char				**env_to_array(t_env **env);
 
-void			exit_error(char *errmsg);
-
 /*
 ** word.c
 */
 
-t_word			*new_word(t_token token, char *str);
-void			remove_word(t_word **wordlist, t_word *word);
-void			delete_wordlist(t_word **head);
+t_word				*new_word(t_token token, char *str);
+void				remove_word(t_word **wordlist, t_word *word);
+void				delete_wordlist(t_word **head);
 
 /*
 ** ast.c
 */
 
-t_ast			*new_ast_node(t_token token, t_word *arglist);
-void			delete_ast(t_ast **ast);
+t_ast				*new_ast_node(t_token token, t_word *arglist);
+void				delete_ast(t_ast **ast);
 
 /*
 ** lexing.c, lexing_[token].c
 */
 
-int				lex_is_separator(char c);
-void			add_word(t_token token, char *str, t_word **wordlist);
-void			lex_analysis(char *cmdline, t_word **wordlist, char **errmsg);
-void			lex_semicol_word(char *cmdline,
+int					lex_is_separator(char c);
+void				add_word(t_token token, char *str, t_word **wordlist);
+void				lex_analysis(char *cmdline,
+		t_word **wordlist, char **errmsg);
+void				lex_semicol_word(char *cmdline,
 		t_word **wordlist, t_lexdata *lexdata);
-void			lex_space_word(char *cmdline,
+void				lex_space_word(char *cmdline,
 		t_word **wordlist, t_lexdata *lexdata);
-void			lex_amp_and_word(char *cmdline,
+void				lex_amp_and_word(char *cmdline,
 		t_word **wordlist, t_lexdata *lexdata);
-void			lex_pipe_or_word(char *cmdline,
+void				lex_pipe_or_word(char *cmdline,
 		t_word **wordlist, t_lexdata *lexdata);
-void			lex_shift_src_redirect(char *cmdline,
+void				lex_shift_src_redirect(char *cmdline,
 		t_word **wordlist, t_lexdata *lexdata);
-void			lex_shift_dest_redirect(char *cmdline,
+void				lex_shift_dest_redirect(char *cmdline,
 		t_word **wordlist, t_lexdata *lexdata);
-void			lex_rshift_word(char *cmdline,
+void				lex_rshift_word(char *cmdline,
 		t_word **wordlist, t_lexdata *lexdata);
-void			lex_lshift_word(char *cmdline,
+void				lex_lshift_word(char *cmdline,
 		t_word **wordlist, t_lexdata *lexdata);
 
 /*
 ** parsing.c, parsing_[token].c
 */
 
-void			syntax_analysis(t_word **wordlist, t_ast **root);
-void			parse_arg(t_word **symbol, t_ast **current);
-void			parse_pipe(t_word **symbol, t_ast **current);
-void			parse_and(t_word **symbol, t_ast **current);
-void			parse_or(t_word **symbol, t_ast **current);
-void			parse_semicol(t_word **symbol, t_ast **current);
+void				syntax_analysis(t_word **wordlist, t_ast **root);
+void				parse_arg(t_word **symbol, t_ast **current);
+void				parse_pipe(t_word **symbol, t_ast **current);
+void				parse_and(t_word **symbol, t_ast **current);
+void				parse_or(t_word **symbol, t_ast **current);
+void				parse_semicol(t_word **symbol, t_ast **current);
 
 /*
 ** parsing_validator.c
 */
 
-int				validate_ast(t_ast *root, char **errmsg);
+int					validate_ast(t_ast *root, char **errmsg);
 
 /*
 ** redirect.c
 */
 
-t_redirect		*new_redirect(char *left, char *right, t_token token);
-void			delete_redir_array(t_redirect **redir_array);
+t_redirect			*new_redirect(char *left, char *right, t_token token);
+void				delete_redir_array(t_redirect **redir_array);
 
 /*
 ** redirections.c
 */
 
-void			add_redirect(t_redirect **redir_array, char *left, char *right, t_token token);
-int				analyze_redirects(t_word **arglist, t_redirect **redir_array, char **errmsg);
+void				add_redirect(t_redirect **redir_array,
+		char *left, char *right, t_token token);
+int					analyze_redirects(t_word **arglist,
+		t_redirect **redir_array, char **errmsg);
 
 /*
 ** redirections_apply.c, redirections_apply_[token].c
 */
 
-int				open_file_fd(char *filename, int mode, int append);
-void			apply_redirects(t_redirect **redir_array);
-void			apply_redirect_pipe(t_redirect *redir);
-void			apply_redirect_lshift(t_redirect *redir);
-void			apply_redirect_lshift_amp(t_redirect *redir);
-void			apply_redirect_rshift(t_redirect *redir);
-void			apply_redirect_rshift_amp(t_redirect *redir);
-void			apply_redirect_rshift2(t_redirect *redir);
+int					open_file_fd(char *filename, int mode, int append);
+void				apply_redirects(t_redirect **redir_array);
+void				apply_redirect_pipe(t_redirect *redir);
+void				apply_redirect_lshift(t_redirect *redir);
+void				apply_redirect_lshift_amp(t_redirect *redir);
+void				apply_redirect_rshift(t_redirect *redir);
+void				apply_redirect_rshift_amp(t_redirect *redir);
+void				apply_redirect_rshift2(t_redirect *redir);
 
 /*
 ** interpreter.c, interpreter_[token].c
 */
 
-int				exec_ast(t_ast *node, int inputfd, int outputfd);
-int				exec_ast_semicol(t_ast *node, int inputfd, int outputfd);
-int				exec_ast_or(t_ast *node, int inputfd, int outputfd);
-int				exec_ast_and(t_ast *node, int inputfd, int outputfd);
-int				exec_ast_pipe(t_ast *node, int inputfd, int outputfd);
-int				exec_ast_arg(t_ast *node, int inputfd, int outputfd);
+int					exec_ast(t_ast *node, int inputfd, int outputfd);
+int					exec_ast_semicol(t_ast *node, int inputfd, int outputfd);
+int					exec_ast_or(t_ast *node, int inputfd, int outputfd);
+int					exec_ast_and(t_ast *node, int inputfd, int outputfd);
+int					exec_ast_pipe(t_ast *node, int inputfd, int outputfd);
+int					exec_ast_arg(t_ast *node, int inputfd, int outputfd);
 
 /*
 ** signals.c
@@ -282,6 +282,7 @@ void				init_builtins(void);
 ** starter.c
 */
 
-int					start_command(t_env **env, t_env **cmd_env, char **args, t_redirect **redir_array);
+int					start_command(t_env **env,
+		t_env **cmd_env, char **args, t_redirect **redir_array);
 
 #endif

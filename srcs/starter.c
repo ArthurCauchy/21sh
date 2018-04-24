@@ -6,11 +6,11 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/24 13:26:15 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/24 13:52:40 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "twenty_one_sh.h"
 
 static void	replace_exec_name(char **arg, char *newname)
 {
@@ -26,7 +26,8 @@ static int	try_start_process(t_env **cmd_env, char **args)
 	return (1);
 }
 
-int			start_command(t_env **env, t_env **cmd_env, char **args, t_redirect **redir_array)
+int			start_command(t_env **env, t_env **cmd_env,
+		char **args, t_redirect **redir_array)
 {
 	int		ret;
 	int		ret_builtin;

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "twenty_one_sh.h"
 
 void	lex_space_word(char *cmdline,
 		t_word **wordlist, t_lexdata *lexdata)

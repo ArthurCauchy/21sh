@@ -6,11 +6,11 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 10:59:12 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/24 11:20:47 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/24 13:53:56 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "twenty_one_sh.h"
 
 static int	is_redirection(t_token token)
 {
@@ -28,7 +28,7 @@ static char	*extract_left_digits(char *str)
 {
 	char	buff[64];
 	size_t	i;
-	
+
 	ft_strncpy(buff, str, 64);
 	i = 0;
 	while (i < 64)
@@ -36,14 +36,15 @@ static char	*extract_left_digits(char *str)
 		if (!ft_isdigit(buff[i]))
 		{
 			buff[i] = '\0';
-			break;
+			break ;
 		}
 		++i;
 	}
 	return (ft_strdup(buff));
 }
 
-void		add_redirect(t_redirect **redir_array, char *left, char *right, t_token token)
+void		add_redirect(t_redirect **redir_array,
+		char *left, char *right, t_token token)
 {
 	t_redirect	*redirect;
 	size_t		i;
@@ -55,7 +56,8 @@ void		add_redirect(t_redirect **redir_array, char *left, char *right, t_token to
 	redir_array[i] = redirect;
 }
 
-int			analyze_redirects(t_word **arglist, t_redirect **redir_array, char **errmsg)
+int			analyze_redirects(t_word **arglist,
+		t_redirect **redir_array, char **errmsg)
 {
 	t_word	*cur;
 	t_word	*next;

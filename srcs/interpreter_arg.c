@@ -6,16 +6,16 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 11:37:02 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/24 11:59:39 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/24 14:03:12 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "twenty_one_sh.h"
 
 static void	delete_args(char **args)
 {
-	size_t  i;
-	
+	size_t	i;
+
 	i = 0;
 	while (args[i])
 	{
@@ -34,9 +34,9 @@ static void	analyze_arglist(t_word *arglist, char **args)
 	i = 0;
 	while (i < PARAMS_MAX && cur)
 	{
-			args[i] = ft_strdup(cur->str); 
-			++i;
-			cur = cur->next;
+		args[i] = ft_strdup(cur->str);
+		++i;
+		cur = cur->next;
 	}
 	args[i] = NULL;
 }

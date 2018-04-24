@@ -6,11 +6,11 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/17 11:46:38 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/24 14:04:06 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "twenty_one_sh.h"
 
 int	builtin_exit(t_env **env, char **args)
 {
@@ -29,5 +29,5 @@ int	builtin_exit(t_env **env, char **args)
 	}
 	g_exitnow = 1;
 	g_exitstatus = exit_status;
-	return(0);
+	return (0);
 }

@@ -6,11 +6,11 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 10:29:04 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/19 16:18:03 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/24 13:56:53 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "twenty_one_sh.h"
 
 t_word	*new_word(t_token token, char *str)
 {
@@ -47,7 +47,7 @@ void	remove_word(t_word **wordlist, t_word *word)
 			if (cur->str)
 				free(cur->str);
 			free(cur);
-			break;
+			break ;
 		}
 		prev = cur;
 		cur = cur->next;

@@ -6,11 +6,11 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 14:15:05 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/23 23:03:59 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/24 13:59:46 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "twenty_one_sh.h"
 
 static void	lex_lshift_append(char *cmdline, t_lexdata *lexdata, t_token *token)
 {
@@ -21,7 +21,8 @@ static void	lex_lshift_append(char *cmdline, t_lexdata *lexdata, t_token *token)
 	lexdata->buff[lexdata->j++] = '<';
 }
 
-static void	lex_lshift_classic(char *cmdline, t_lexdata *lexdata, t_token *token)
+static void	lex_lshift_classic(char *cmdline,
+		t_lexdata *lexdata, t_token *token)
 {
 	*token = LSHIFT;
 	lexdata->buff[lexdata->j++] = '<';
@@ -36,15 +37,15 @@ static void	lex_lshift_classic(char *cmdline, t_lexdata *lexdata, t_token *token
 void		lex_lshift_word(char *cmdline,
 		t_word **wordlist, t_lexdata *lexdata)
 {
-		t_token token;
+	t_token token;
 
-		lex_shift_src_redirect(cmdline, wordlist, lexdata);
-		if (cmdline[lexdata->i + 1] == '<')
-			lex_lshift_append(cmdline, lexdata, &token);
-		else
-			lex_lshift_classic(cmdline, lexdata, &token);
-		lex_shift_dest_redirect(cmdline, wordlist, lexdata);
-		lexdata->buff[lexdata->j] = '\0';
-		lexdata->j = 0;
-		add_word(token, lexdata->buff, wordlist);
+	lex_shift_src_redirect(cmdline, wordlist, lexdata);
+	if (cmdline[lexdata->i + 1] == '<')
+		lex_lshift_append(cmdline, lexdata, &token);
+	else
+		lex_lshift_classic(cmdline, lexdata, &token);
+	lex_shift_dest_redirect(cmdline, wordlist, lexdata);
+	lexdata->buff[lexdata->j] = '\0';
+	lexdata->j = 0;
+	add_word(token, lexdata->buff, wordlist);
 }

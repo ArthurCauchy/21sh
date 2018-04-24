@@ -1,5 +1,16 @@
-#include "21sh.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirections_apply.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/24 13:29:12 by acauchy           #+#    #+#             */
+/*   Updated: 2018/04/24 13:55:39 by acauchy          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "twenty_one_sh.h"
 
 /*
 ** mode :
@@ -7,11 +18,11 @@
 ** 1) write
 */
 
-int	open_file_fd(char *filename, int mode, int append)
+int		open_file_fd(char *filename, int mode, int append)
 {
 	int flags;
 	int fd;
-	
+
 	if (append)
 		flags = O_CREAT | O_APPEND;
 	else
@@ -24,9 +35,9 @@ int	open_file_fd(char *filename, int mode, int append)
 	return (fd);
 }
 
-void		apply_redirects(t_redirect **redir_array)
+void	apply_redirects(t_redirect **redir_array)
 {
-	size_t  i;
+	size_t	i;
 
 	i = 0;
 	while (i < REDIRECT_MAX && redir_array[i] != NULL)
