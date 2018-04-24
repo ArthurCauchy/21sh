@@ -6,13 +6,13 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:37:44 by acauchy           #+#    #+#             */
-/*   Updated: 2018/02/21 16:04:14 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/24 14:59:25 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-static void	sig_handler(int signo)
+static void	sigint_handler(int signo)
 {
 	if (signo == SIGINT)
 	{
@@ -24,8 +24,18 @@ static void	sig_handler(int signo)
 	}
 }
 
+static void	sigpipe_handler(int signo)
+{
+	if (signo == SIGPIPE)
+	{
+		// something helpful
+	}
+}
+
 void		init_signals(void)
 {
-	if (signal(SIGINT, sig_handler) == SIG_ERR)
-		exit_error("System won't let us catch SIGINT.");
+	if (signal(SIGINT, sigint_handler) == SIG_ERR)
+		exit_error("Can't catch SIGINT.");
+	if (signal(SIGPIPE, sigpipe_handler) == SIG_ERR)
+		exit_error("Can't catch SIGPIPE.");
 }
