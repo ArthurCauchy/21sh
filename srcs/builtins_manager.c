@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 14:24:18 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/24 14:03:46 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/25 13:09:59 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,7 @@ void				load_builtin(char *name, int (*func)(t_env**, char**))
 	builtins[i] = new;
 }
 
-/*
-** Search a builtin correspunding to 'input' param and execute
-** the correspunding function.
-**
-** Returns :
-** 0 = ok
-** -1 = error with the builtin
-** -2 = not a builtin
-*/
-
-int					search_start_builtin(t_env **env, char **args)
+t_builtin_fct		search_builtin(char *name)
 {
 	t_builtin	**builtins;
 	int			i;
@@ -78,11 +68,11 @@ int					search_start_builtin(t_env **env, char **args)
 	i = 0;
 	while (i < BUILTIN_MAX && builtins[i] != NULL)
 	{
-		if (ft_strcmp(args[0], builtins[i]->name) == 0)
+		if (ft_strcmp(name, builtins[i]->name) == 0)
 		{
-			return (builtins[i]->func(env, args));
+			return (builtins[i]->func);
 		}
 		++i;
 	}
-	return (-2);
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/19 20:50:29 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/25 13:06:01 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,5 @@ int			builtin_env(t_env **env, char **args)
 	else
 		print_env(&tmp_env);
 	clear_env(tmp_env);
-	return (0);
+	return (0); // renvoie toujours ok ????
 }

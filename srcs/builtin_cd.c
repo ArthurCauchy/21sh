@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/02/21 16:27:57 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/25 13:05:22 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	try_cd(t_env **env, char *path)
 	if (chdir(path) == -1)
 	{
 		print_chdir_error(path);
-		return (-1);
+		return (1);
 	}
 	if (nocurr)
 		set_env(env, ft_strdup("OLDPWD"), ft_strdup("/"));
@@ -48,14 +48,14 @@ static int	builtin_cd_withargs(t_env **env, char **args)
 	if (args[2])
 	{
 		ft_putendl_fd("cd: Too many arguments.", 2);
-		return (-1);
+		return (1);
 	}
 	if (ft_strcmp(args[1], "-") == 0)
 	{
 		if (!(oldpwd = read_from_env(env, "OLDPWD")))
 		{
 			ft_putendl_fd("cd: Environment variable 'OLDPWD' not found !", 2);
-			return (-1);
+			return (1);
 		}
 		retcode = try_cd(env, oldpwd);
 		free(oldpwd);
@@ -77,7 +77,7 @@ int			builtin_cd(t_env **env, char **args)
 		{
 			ft_putendl_fd("No directory is given and HOME empty"
 					" or undefined !", 2);
-			return (-1);
+			return (1);
 		}
 		retcode = try_cd(env, home);
 		free(home);

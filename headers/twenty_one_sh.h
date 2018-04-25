@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/24 13:37:35 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/25 13:54:08 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define BUILTIN_MAX 42
 # define INPUT_MAX_LEN 16384
 # define PARAMS_MAX 512
+# define FD_MAX 1024
 # define REDIRECT_MAX 512
 # define MAX_PATH_SIZE 4096
 
@@ -89,6 +90,8 @@ typedef struct		s_redirect
 	t_token	token;
 }					t_redirect;
 
+typedef int (*t_builtin_fct)(t_env**, char**);
+
 extern int			g_exitnow;
 extern int			g_exitstatus;
 extern int			g_running_proc;
@@ -102,8 +105,8 @@ void				exit_error(char *errmsg);
 int					is_there_a_file(char *filepath);
 int					is_executable(char *filepath);
 void				print_n_free_errmsg(char **errmsg);
-void				save_filedes(int *fdsave_array, size_t fdmax);
-void				restore_filedes(int *fdsave_array, size_t fdmax);
+void				save_filedes(int *fdsave_array, int fd);
+void				restore_filedes(int *fdsave_array);
 
 /*
 ** builtin_manager.c
@@ -111,7 +114,7 @@ void				restore_filedes(int *fdsave_array, size_t fdmax);
 
 void				clear_builtins(void);
 void				load_builtin(char *name, int (*func)(t_env**, char**));
-int					search_start_builtin(t_env **env, char **args);
+t_builtin_fct		search_builtin(char *name);
 
 /*
 ** builtin_[builtin_name].c
@@ -220,13 +223,13 @@ int					analyze_redirects(t_word **arglist,
 */
 
 int					open_file_fd(char *filename, int mode, int append);
-void				apply_redirects(t_redirect **redir_array);
-void				apply_redirect_pipe(t_redirect *redir);
-void				apply_redirect_lshift(t_redirect *redir);
-void				apply_redirect_lshift_amp(t_redirect *redir);
-void				apply_redirect_rshift(t_redirect *redir);
-void				apply_redirect_rshift_amp(t_redirect *redir);
-void				apply_redirect_rshift2(t_redirect *redir);
+void				apply_redirects(t_redirect **redir_array, int *fdsave_array);
+void				apply_redirect_pipe(t_redirect *redir, int *fdsave_array);
+void				apply_redirect_lshift(t_redirect *redir, int *fdsave_array);
+void				apply_redirect_lshift_amp(t_redirect *redir, int *fdsave_array);
+void				apply_redirect_rshift(t_redirect *redir, int *fdsave_array);
+void				apply_redirect_rshift_amp(t_redirect *redir, int *fdsave_array);
+void				apply_redirect_rshift2(t_redirect *redir, int *fdsave_array);
 
 /*
 ** interpreter.c, interpreter_[token].c

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/24 14:04:06 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/25 13:06:13 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	builtin_exit(t_env **env, char **args)
 		if (args[2])
 		{
 			ft_putendl_fd("exit: Too many arguments.", 2);
-			return (-1);
+			return (1);
 		}
 	}
 	g_exitnow = 1;

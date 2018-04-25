@@ -6,30 +6,24 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 11:34:35 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/24 13:52:21 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/25 14:13:33 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-void	save_filedes(int *fdsave_array, size_t fdmax)
+void	save_filedes(int *fdsave_array, int fd)
 {
-	size_t	i;
-
-	i = 0;
-	while (i < fdmax)
-	{
-		fdsave_array[i] = dup(i);
-		++i;
-	}
+	if (fd < FD_MAX && fdsave_array[fd] < 0)
+		fdsave_array[fd] = dup(fd);
 }
 
-void	restore_filedes(int *fdsave_array, size_t fdmax)
+void	restore_filedes(int *fdsave_array)
 {
 	size_t	i;
 
 	i = 0;
-	while (i < fdmax)
+	while (i < FD_MAX)
 	{
 		if (fdsave_array[i] > 0)
 		{

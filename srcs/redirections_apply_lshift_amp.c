@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 13:29:23 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/24 13:29:24 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/25 14:08:24 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ static int	is_numerical(char *str)
 	return (1);
 }
 
-void		apply_redirect_lshift_amp(t_redirect *redir)
+void		apply_redirect_lshift_amp(t_redirect *redir, int *fdsave_array)
 {
 	int	left_fd;
 	int	right_fd;
 
 	left_fd = ft_atoi(redir->left);
+	save_filedes(fdsave_array, left_fd);
 	if (!is_numerical(redir->right))
 	{
 		if (strcmp(redir->right, "-") == 0)

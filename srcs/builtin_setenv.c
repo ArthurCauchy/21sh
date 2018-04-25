@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/02/21 16:29:27 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/25 13:06:39 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ int			builtin_setenv(t_env **env, char **args)
 		{
 			ft_putendl_fd("setenv: Variable name must "
 					"contain alphanumeric charaters.", 2);
-			return (-1);
+			return (1);
 		}
 		if (ft_isdigit(*args[1]))
 		{
 			ft_putendl_fd("setenv: Variable name must begin with a letter.", 2);
-			return (-1);
+			return (1);
 		}
 		if (!args[2])
 			set_env(env, ft_strdup(args[1]), ft_strdup(""));

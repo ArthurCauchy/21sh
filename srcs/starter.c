@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/24 13:52:40 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/25 13:51:21 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,24 @@ static int	try_start_process(t_env **cmd_env, char **args)
 int			start_command(t_env **env, t_env **cmd_env,
 		char **args, t_redirect **redir_array)
 {
-	int		ret;
-	int		ret_builtin;
-	char	*after_path;
-	int		notfound;
-	int		fdsave_array[1024];
+	int				ret;
+	t_builtin_fct	builtin;
+	char			*after_path;
+	int				notfound;
+	int				fdsave_array[FD_MAX];
+	size_t			i;
 
 	ret = 0;
 	if (!args[0])
 		return (0);
 	notfound = 1;
-	save_filedes(fdsave_array, 1024);
-	apply_redirects(redir_array);
-	if ((ret_builtin = search_start_builtin(cmd_env, args)) == -2)
+	i = 0;
+	while (i < FD_MAX)
+		fdsave_array[i++] = -1;
+	apply_redirects(redir_array, fdsave_array);
+	if ((builtin = search_builtin(args[0])))
+		ret = builtin(cmd_env, args);
+	else
 	{
 		if (ft_strchr(args[0], '/'))
 		{
@@ -56,12 +61,11 @@ int			start_command(t_env **env, t_env **cmd_env,
 		if (notfound == 1)
 		{
 			ft_fminiprint(2, "%l0s%: Command not found.\n", args[0]);
-			return (1);
+			ret = 1;
 		}
-		ret = try_start_process(cmd_env, args);
+		else
+			ret = try_start_process(cmd_env, args);
 	}
-	else if (ret_builtin == -1)
-		ret = 1;
-	restore_filedes(fdsave_array, 1024);
+	restore_filedes(fdsave_array);
 	return (ret);
 }

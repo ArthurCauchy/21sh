@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 13:29:12 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/24 13:55:39 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/25 13:54:39 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		open_file_fd(char *filename, int mode, int append)
 	return (fd);
 }
 
-void	apply_redirects(t_redirect **redir_array)
+void	apply_redirects(t_redirect **redir_array, int *fdsave_array)
 {
 	size_t	i;
 
@@ -43,17 +43,17 @@ void	apply_redirects(t_redirect **redir_array)
 	while (i < REDIRECT_MAX && redir_array[i] != NULL)
 	{
 		if (redir_array[i]->token == PIPE)
-			apply_redirect_pipe(redir_array[i]);
+			apply_redirect_pipe(redir_array[i], fdsave_array);
 		else if (redir_array[i]->token == LSHIFT)
-			apply_redirect_lshift(redir_array[i]);
+			apply_redirect_lshift(redir_array[i], fdsave_array);
 		else if (redir_array[i]->token == LSHIFT_AMP)
-			apply_redirect_lshift_amp(redir_array[i]);
+			apply_redirect_lshift_amp(redir_array[i], fdsave_array);
 		else if (redir_array[i]->token == RSHIFT)
-			apply_redirect_rshift(redir_array[i]);
+			apply_redirect_rshift(redir_array[i], fdsave_array);
 		else if (redir_array[i]->token == RSHIFT_AMP)
-			apply_redirect_rshift_amp(redir_array[i]);
+			apply_redirect_rshift_amp(redir_array[i], fdsave_array);
 		else if (redir_array[i]->token == RSHIFT2)
-			apply_redirect_rshift2(redir_array[i]);
+			apply_redirect_rshift2(redir_array[i], fdsave_array);
 		++i;
 	}
 }

@@ -6,13 +6,13 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 13:29:17 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/24 13:29:18 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/25 14:11:37 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-void	apply_redirect_lshift(t_redirect *redir)
+void	apply_redirect_lshift(t_redirect *redir, int *fdsave_array)
 {
 	int	left_fd;
 	int	file_fd;
@@ -21,5 +21,6 @@ void	apply_redirect_lshift(t_redirect *redir)
 	file_fd = open_file_fd(redir->right, 0, 0);
 	if (file_fd < 0)
 		return ;
+	save_filedes(fdsave_array, left_fd);
 	dup2(file_fd, left_fd);
 }
