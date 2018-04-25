@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/25 13:51:21 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/25 15:07:19 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,59 @@ static int	try_start_process(t_env **cmd_env, char **args)
 	return (1);
 }
 
+static void	reset_fdsave_array(int *fdsave_array)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < FD_MAX)
+	{
+		fdsave_array[i] = -1;
+		++i;
+	}
+}
+
+static int	command_file_exist(char *name)
+{
+	if (ft_strchr(name, '/') && is_there_a_file(name))
+		return (1);
+	return (0);
+}
+
 int			start_command(t_env **env, t_env **cmd_env,
 		char **args, t_redirect **redir_array)
 {
 	int				ret;
 	t_builtin_fct	builtin;
 	char			*after_path;
-	int				notfound;
 	int				fdsave_array[FD_MAX];
-	size_t			i;
 
 	ret = 0;
 	if (!args[0])
 		return (0);
-	notfound = 1;
-	i = 0;
-	while (i < FD_MAX)
-		fdsave_array[i++] = -1;
+	reset_fdsave_array(fdsave_array);
 	apply_redirects(redir_array, fdsave_array);
 	if ((builtin = search_builtin(args[0])))
 		ret = builtin(cmd_env, args);
+	else if (command_file_exist(args[0]))
+		ret = try_start_process(cmd_env, args);
+	else if (!ft_strchr(args[0], '/') &&
+			(after_path = find_cmd_path(env, cmd_env, args[0])))
+	{
+		replace_exec_name(&args[0], after_path);
+		ret = try_start_process(cmd_env, args);
+	}
 	else
 	{
-		if (ft_strchr(args[0], '/'))
+		ft_fminiprint(2, "%l0s%: Command not found.\n", args[0]);
+		ret = 1;
+	}
+	restore_filedes(fdsave_array);
+	return (ret);
+}
+
+/*
+   		if (ft_strchr(args[0], '/'))
 		{
 			if (is_there_a_file(args[0]))
 				notfound = 0;
@@ -65,7 +95,4 @@ int			start_command(t_env **env, t_env **cmd_env,
 		}
 		else
 			ret = try_start_process(cmd_env, args);
-	}
-	restore_filedes(fdsave_array);
-	return (ret);
-}
+ */
