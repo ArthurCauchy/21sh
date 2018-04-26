@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 13:30:48 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/25 14:13:08 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/26 15:47:20 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	is_numerical(char *str)
 	return (1);
 }
 
-void		apply_redirect_rshift_amp(t_redirect *redir, int *fdsave_array)
+int			apply_redirect_rshift_amp(t_redirect *redir, int *fdsave_array, char **errmsg)
 {
 	int	left_fd;
 	int	right_fd;
@@ -32,13 +32,19 @@ void		apply_redirect_rshift_amp(t_redirect *redir, int *fdsave_array)
 		left_fd = ft_atoi(redir->left);
 	else
 		left_fd = 1;
-	save_filedes(fdsave_array, left_fd);
 	if (!is_numerical(redir->right))
 	{
 		if (strcmp(redir->right, "-") == 0)
+		{
+			save_filedes(fdsave_array, left_fd);
 			close(left_fd);
-		return ;
+			return (0);
+		}
+		*errmsg = ft_strjoin(redir->right, ": Not a file descriptor !");
+		return (-1);
 	}
 	right_fd = ft_atoi(redir->right);
+	save_filedes(fdsave_array, left_fd);
 	dup2(right_fd, left_fd);
+	return (0);
 }

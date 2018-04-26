@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/25 13:54:08 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/26 15:43:32 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -222,14 +223,14 @@ int					analyze_redirects(t_word **arglist,
 ** redirections_apply.c, redirections_apply_[token].c
 */
 
-int					open_file_fd(char *filename, int mode, int append);
-void				apply_redirects(t_redirect **redir_array, int *fdsave_array);
-void				apply_redirect_pipe(t_redirect *redir, int *fdsave_array);
-void				apply_redirect_lshift(t_redirect *redir, int *fdsave_array);
-void				apply_redirect_lshift_amp(t_redirect *redir, int *fdsave_array);
-void				apply_redirect_rshift(t_redirect *redir, int *fdsave_array);
-void				apply_redirect_rshift_amp(t_redirect *redir, int *fdsave_array);
-void				apply_redirect_rshift2(t_redirect *redir, int *fdsave_array);
+int					open_file_fd(char *filename, int mode, int append, char **errmsg);
+int					apply_redirects(t_redirect **redir_array, int *fdsave_array, char **errmsg);
+int					apply_redirect_pipe(t_redirect *redir, int *fdsave_array, char **errmsg);
+int					apply_redirect_lshift(t_redirect *redir, int *fdsave_array, char **errmsg);
+int					apply_redirect_lshift_amp(t_redirect *redir, int *fdsave_array, char **errmsg);
+int					apply_redirect_rshift(t_redirect *redir, int *fdsave_array, char **errmsg);
+int					apply_redirect_rshift_amp(t_redirect *redir, int *fdsave_array, char **errmsg);
+int					apply_redirect_rshift2(t_redirect *redir, int *fdsave_array, char **errmsg);
 
 /*
 ** interpreter.c, interpreter_[token].c

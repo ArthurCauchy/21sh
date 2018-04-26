@@ -1,9 +1,8 @@
 TODO :
-- catch SIGPIPE (cat /dev/random | ls)
+- catch SIGPIPE (cat /dev/random | ls) - tenter de creer un handler au process fils directement
 - heredoc (<<)
 - Command not found + redirection : actuellement comme sh (OK), a modifier pour faire comme csh (mieux).
 - pour le moment si une redir fail, ca l'ignore juste. A fix.
-- WAIT. En fait les redirections vers les fichiers (et fd dup ?) sont jamais close o_O
 
 TODO bonus :
 - job control
