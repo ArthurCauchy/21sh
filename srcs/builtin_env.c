@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/25 13:06:01 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/27 19:36:51 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,18 @@ int			builtin_env(t_env **env, char **args)
 {
 	t_env	*tmp_env;
 	int		i;
+	char	options[4096];
 
-	if (args[1] && ft_strcmp("-i", args[1]) == 0)
+	ft_bzero(options, 4096);
+	i = builtin_parse_options(args, options, 4096);
+	if (builtin_validate_options(options, "i") == -1)
 	{
-		i = 2;
-		tmp_env = NULL;
+		ft_putendl_fd("Usage : env [-i] [NAME=VALUE] [COMMAND]", 2);
+		return (1);
 	}
-	else
-	{
-		i = 1;
+	tmp_env = NULL;
+	if (!ft_strchr(options, 'i'))
 		tmp_env = copy_env(env);
-	}
 	while (args[i] && ft_strchr(args[i], '='))
 	{
 		add_to_tmp_env(&tmp_env, args[i]);
@@ -45,5 +46,5 @@ int			builtin_env(t_env **env, char **args)
 	else
 		print_env(&tmp_env);
 	clear_env(tmp_env);
-	return (0); // renvoie toujours ok ????
+	return (0);
 }

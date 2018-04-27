@@ -15,6 +15,16 @@ Notes :
 - faire attention aux commandes avec uniquement des redirections
 - pour job control , on peut : tcsetpgrp tcgetpgrp
 
+Builtins - traiter les options :
+- exit : non
+- echo : non
+- setenv : non
+- unsetenv : non
+- cd : oui
+- env : oui
+- which : ?
+- pwd : ?
+
 csh :
 - 'exit qweqwejiowqe' : Expression syntax.
 - '""' : : Command not found.

@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/04/24 13:50:38 by acauchy          ###   ########.fr        #
+#    Updated: 2018/04/27 18:38:16 by arthur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC_PATH = srcs
 SRC_NAME = main.c \
 		   starter.c \
 		   builtins_manager.c \
+		   builtins_utils.c \
 		   builtin_exit.c \
 		   builtin_pwd.c \
 		   builtin_cd.c \

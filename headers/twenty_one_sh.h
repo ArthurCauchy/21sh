@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/26 15:43:32 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/27 19:04:33 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,13 @@ void				restore_filedes(int *fdsave_array);
 void				clear_builtins(void);
 void				load_builtin(char *name, int (*func)(t_env**, char**));
 t_builtin_fct		search_builtin(char *name);
+
+/*
+** builtins_utils.c
+*/
+
+int					builtin_parse_options(char **args, char *options, int options_size);
+int					builtin_validate_options(char *options, char *valid_set);
 
 /*
 ** builtin_[builtin_name].c
