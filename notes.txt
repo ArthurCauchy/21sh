@@ -5,6 +5,7 @@ TODO :
 - pour le moment si une redir fail, ca l'ignore juste. A fix.
 
 TODO bonus :
+- refaire cd
 - job control
 - 21shrc
 - builtin which
@@ -12,6 +13,9 @@ TODO bonus :
 
 Notes :
 - pour job control , on peut : tcsetpgrp tcgetpgrp
+- pour voir les file descriptors ouverts : lsof -p <pid>
+- Pipe non fonctionnels (ne demarrent pas en meme temps). A fix, faire le job control en même temps.
+- DEBAT : options des builtins senseibles a la casse ou pas ?
 
 Builtins - traiter les options :
 - exit : non

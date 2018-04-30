@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/25 13:05:22 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/30 15:23:26 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,13 @@ int			builtin_cd(t_env **env, char **args)
 
 	if (args[1])
 		return (builtin_cd_withargs(env, args));
-	else
-	{
-		if (!(home = read_from_env(env, "HOME")))
+	if (!(home = read_from_env(env, "HOME")))
 		{
 			ft_putendl_fd("No directory is given and HOME empty"
 					" or undefined !", 2);
-			return (1);
-		}
-		retcode = try_cd(env, home);
-		free(home);
-		return (retcode);
+		return (1);
 	}
+	retcode = try_cd(env, home);
+	free(home);
+	return (retcode);
 }
