@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 13:29:29 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/30 14:17:33 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/30 14:20:05 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ int	apply_redirect_rshift(t_redirect *redir, int *fdsave_array, char **errmsg)
 		return (-1);
 	save_filedes(fdsave_array, left_fd);
 	dup2(file_fd, left_fd);
+	close(file_fd);
 	return (0);
 }
