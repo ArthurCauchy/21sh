@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/27 19:04:33 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/30 12:34:04 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void				exit_error(char *errmsg);
 int					is_there_a_file(char *filepath);
 int					is_executable(char *filepath);
 void				print_n_free_errmsg(char **errmsg);
+int					is_separator(char c);
 void				save_filedes(int *fdsave_array, int fd);
 void				restore_filedes(int *fdsave_array);
 
@@ -172,7 +173,6 @@ void				delete_ast(t_ast **ast);
 ** lexing.c, lexing_[token].c
 */
 
-int					lex_is_separator(char c);
 void				add_word(t_token token, char *str, t_word **wordlist);
 void				lex_analysis(char *cmdline,
 		t_word **wordlist, char **errmsg);

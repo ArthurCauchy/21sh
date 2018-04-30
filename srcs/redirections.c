@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 10:59:12 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/30 11:10:11 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/30 12:28:45 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@ void		add_redirect(t_redirect **redir_array,
 	redir_array[i] = redirect;
 }
 
+static void	remove_redir(t_word **arglist, t_word *token, t_word *left)
+{
+	remove_word(arglist, token);
+	remove_word(arglist, left);
+}
+
 int			analyze_redirects(t_word **arglist,
 		t_redirect **redir_array, char **errmsg)
 {
@@ -77,8 +83,7 @@ int			analyze_redirects(t_word **arglist,
 			left = extract_left_digits(cur->str);
 			add_redirect(redir_array, left, next->str, cur->token);
 			free(left);
-			remove_word(arglist, cur);
-			remove_word(arglist, next);
+			remove_redir(arglist, cur, next);
 			cur = *arglist;
 		}
 		else

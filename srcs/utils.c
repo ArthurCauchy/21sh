@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/18 15:13:50 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/30 12:34:35 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,9 @@ void	print_n_free_errmsg(char **errmsg)
 	ft_putendl_fd(*errmsg, 2);
 	free(*errmsg);
 	*errmsg = NULL;
+}
+
+int		is_separator(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\0');
 }

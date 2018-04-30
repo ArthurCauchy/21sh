@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 13:29:23 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/26 15:46:55 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/30 12:06:57 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static int	is_numerical(char *str)
 	return (1);
 }
 
-int			apply_redirect_lshift_amp(t_redirect *redir, int *fdsave_array, char **errmsg)
+int			apply_redirect_lshift_amp(t_redirect *redir,
+		int *fdsave_array, char **errmsg)
 {
 	int	left_fd;
 	int	right_fd;
