@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 10:59:12 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/26 16:01:45 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/30 11:10:11 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,7 @@ int			analyze_redirects(t_word **arglist,
 		if (is_redirection(cur->token))
 		{
 			next = cur->next;
-			if (cur == *arglist)
-			{
-				*errmsg = ft_strdup("Invalid null command.");
-				return (-1);
-			}
-			else if (!next || next->token != ARG)
+			if (!next || next->token != ARG)
 			{
 				*errmsg = ft_strdup("Missing name for redirect.");
 				return (-1);
