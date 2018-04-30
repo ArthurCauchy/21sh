@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/30 12:34:04 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/04/30 14:06:42 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct		s_redirect
 	t_token	token;
 }					t_redirect;
 
-typedef int (*t_builtin_fct)(t_env**, char**);
+typedef int	(*t_builtin_fct)(t_env**, char**);
 
 extern int			g_exitnow;
 extern int			g_exitstatus;
@@ -122,7 +122,8 @@ t_builtin_fct		search_builtin(char *name);
 ** builtins_utils.c
 */
 
-int					builtin_parse_options(char **args, char *options, int options_size);
+int					builtin_parse_options(char **args,
+		char *options, int options_size);
 int					builtin_validate_options(char *options, char *valid_set);
 
 /*
@@ -230,14 +231,22 @@ int					analyze_redirects(t_word **arglist,
 ** redirections_apply.c, redirections_apply_[token].c
 */
 
-int					open_file_fd(char *filename, int mode, int append, char **errmsg);
-int					apply_redirects(t_redirect **redir_array, int *fdsave_array, char **errmsg);
-int					apply_redirect_pipe(t_redirect *redir, int *fdsave_array, char **errmsg);
-int					apply_redirect_lshift(t_redirect *redir, int *fdsave_array, char **errmsg);
-int					apply_redirect_lshift_amp(t_redirect *redir, int *fdsave_array, char **errmsg);
-int					apply_redirect_rshift(t_redirect *redir, int *fdsave_array, char **errmsg);
-int					apply_redirect_rshift_amp(t_redirect *redir, int *fdsave_array, char **errmsg);
-int					apply_redirect_rshift2(t_redirect *redir, int *fdsave_array, char **errmsg);
+int					open_file_fd(char *filename, int mode,
+		int append, char **errmsg);
+int					apply_redirects(t_redirect **redir_array,
+		int *fdsave_array, char **errmsg);
+int					apply_redirect_pipe(t_redirect *redir,
+		int *fdsave_array, char **errmsg);
+int					apply_redirect_lshift(t_redirect *redir,
+		int *fdsave_array, char **errmsg);
+int					apply_redirect_lshift_amp(t_redirect *redir,
+		int *fdsave_array, char **errmsg);
+int					apply_redirect_rshift(t_redirect *redir,
+		int *fdsave_array, char **errmsg);
+int					apply_redirect_rshift_amp(t_redirect *redir,
+		int *fdsave_array, char **errmsg);
+int					apply_redirect_rshift2(t_redirect *redir,
+		int *fdsave_array, char **errmsg);
 
 /*
 ** interpreter.c, interpreter_[token].c
