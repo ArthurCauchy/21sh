@@ -3,13 +3,18 @@ TODO :
 - heredoc (<<)
 - Command not found + redirection : actuellement comme sh (OK), a modifier pour faire comme csh (mieux).
 - pour le moment si une redir fail, ca l'ignore juste. A fix.
+- redirection > ds un fichier deja existant et non vide
+- cat > > a : leak
 
 TODO bonus :
 - refaire cd
 - job control
 - 21shrc
 - builtin which
+- builtin help
 - tilde expansion
+- pourquoi est-ce que c'est pas builtin_parse_options qui fait le bzero ? :o
+- tester CDPATH (ex: fichier ou mauvais mode et un un vrai dossier dans un CDPATH plus loin)
 
 Notes :
 - pour job control , on peut : tcsetpgrp tcgetpgrp
@@ -23,6 +28,7 @@ Builtins - traiter les options :
 - setenv : non
 - unsetenv : non
 - cd : oui
+- pwd : oui
 - env : oui
 - which : ?
 - pwd : ?
