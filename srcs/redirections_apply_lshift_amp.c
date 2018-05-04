@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 13:29:23 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/30 12:06:57 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/05/04 12:33:40 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int			apply_redirect_lshift_amp(t_redirect *redir,
 	}
 	right_fd = ft_atoi(redir->right);
 	save_filedes(fdsave_array, left_fd);
-	dup2(right_fd, left_fd);
-	return (0);
+	if (dup2(right_fd, left_fd) == -1)
+		*errmsg = ft_strjoin_free(ft_strjoin("21sh: ", redir->right), ft_strjoin(" : ", strerror(errno)));
+	return (!*errmsg ? 0 : -1);
 }

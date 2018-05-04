@@ -2,9 +2,7 @@ TODO :
 - cat /dev/random | ls - COMPLETELY BROKEN
 - heredoc (<<)
 - Command not found + redirection : actuellement comme sh (OK), a modifier pour faire comme csh (mieux).
-- pour le moment si une redir fail, ca l'ignore juste. A fix.
-- redirection > ds un fichier deja existant et non vide
-- cat > > a : leak
+- FIX : ls >&3 : should be wrong but OK
 
 TODO bonus :
 - refaire cd

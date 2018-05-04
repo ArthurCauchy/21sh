@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 13:29:12 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/30 12:06:28 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/05/04 13:03:55 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	open_file_fd(char *filename, int mode, int append, char **errmsg)
 	if (append)
 		flags = O_CREAT | O_APPEND;
 	else
-		flags = O_CREAT;
+		flags = O_CREAT | O_TRUNC;
 	if (mode == 0)
 		flags = flags | O_RDONLY;
 	else if (mode == 1)
