@@ -3,9 +3,12 @@ TODO :
 - heredoc (<<)
 - Command not found + redirection : actuellement comme sh (OK), a modifier pour faire comme csh (mieux).
 - FIX : ls >&3 : should be wrong but OK
+- FIX : g tou kassé "ls >&- 2>&-" => partir de la fin du tableau pour restaurer
+- DEBAT : "Bash handles several filenames specially when they are used in redirections, as described in the following table."
 
 TODO bonus :
 - refaire cd
+- refaire pwd
 - job control
 - 21shrc
 - builtin which

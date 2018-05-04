@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/26 15:41:35 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/04 15:35:53 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int			start_command(t_env **env, t_env **cmd_env,
 	if (apply_redirects(redir_array, fdsave_array, &errmsg) == -1)
 	{
 		print_n_free_errmsg(&errmsg);
+		restore_filedes(fdsave_array);
 		return (1);
 	}
 	if ((builtin = search_builtin(args[0])))
