@@ -34,7 +34,8 @@ static void add_to_compo_lst(t_list **list, char *buff)
 	if (ft_strlen(buff) < 1)
 		return ;
 	str = ft_strdup(buff);
-	new = ft_lstnew(&str, sizeof(char*));
+	new = ft_lstnew(str, sizeof(char*));
+	ft_putstr(new->content);
 	ft_lstpushback(list, new);
 }
 
@@ -112,6 +113,7 @@ int						try_cd_l(t_env **env, char *path)
 	// simplify components list
 	free(curpath);
 	curpath = compo_to_str(comp_lst);
+	ft_putendl("\nfinal :");
 	ft_putendl(curpath);
 	// check curpath length
 	if (chdir(curpath) == -1)
