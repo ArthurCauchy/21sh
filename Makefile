@@ -38,6 +38,8 @@ SRC_NAME = main.c \
 		   builtin_exit.c \
 		   builtin_pwd.c \
 		   builtin_cd.c \
+		   builtin_cd_l.c \
+		   builtin_cd_p.c \
 		   builtin_env.c \
 		   builtin_setenv.c \
 		   builtin_unsetenv.c \

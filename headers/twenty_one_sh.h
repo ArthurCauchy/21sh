@@ -133,6 +133,8 @@ int					builtin_validate_options(char *options, char *valid_set);
 int					builtin_exit(t_env **env, char **args);
 int					builtin_pwd(t_env **env, char **args);
 int					builtin_cd(t_env **env, char **args);
+int					try_cd_l(t_env **env, char *path);
+int					try_cd_p(t_env **env, char *path);
 int					builtin_env(t_env **env, char **args);
 int					builtin_setenv(t_env **env, char **args);
 int					builtin_unsetenv(t_env **env, char **args);

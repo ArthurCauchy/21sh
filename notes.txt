@@ -7,8 +7,8 @@ TODO :
 - DEBAT : "Bash handles several filenames specially when they are used in redirections, as described in the following table."
 
 TODO bonus :
-- refaire cd
-- refaire pwd
+- refaire cd : finir option l + CDPATH
+- refaire pwd (ou le suppr ?- voir sujet 42sh)
 - job control
 - 21shrc
 - builtin which
