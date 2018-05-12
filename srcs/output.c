@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:35:34 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/18 10:44:58 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/05/12 17:31:40 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ void	print_prompt(t_env **env)
 
 	ft_putstr("\033[1;33;40m");
 	if ((user = read_from_env(env, "USER")))
+	{
 		ft_putstr(user);
+		ft_putchar('@');
+	}
 	if (gethostname(hostname, 1024) != -1)
-		ft_fminiprint(1, "@%l0s%", hostname);
+		ft_putstr(hostname);
 	ft_putstr(" % ");
 	ft_putstr("\033[0m");
 	free(user);
