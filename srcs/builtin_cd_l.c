@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/02 17:31:46 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/05/12 11:03:36 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,18 @@ static char 	*add_final_slash(char **path)
 
 static void add_to_compo_lst(t_list **list, char *buff)
 {
-	char		*str;
+	char	*str;
+	char	**ptr;
 	t_list	*new;
 
 	if (ft_strlen(buff) < 1)
 		return ;
+	if (!(ptr = malloc(sizeof(char*))))
+		exit_error("malloc() error");
 	str = ft_strdup(buff);
-	new = ft_lstnew(str, sizeof(char*));
-	ft_putstr(new->content);
+	*ptr = str;
+	new = ft_lstnew(ptr, sizeof(char*));
+	free(ptr);
 	ft_lstpushback(list, new);
 }
 
@@ -81,9 +85,9 @@ static char	*compo_to_str(t_list *list)
 	while (list)
 	{
 		j = 0;
-		while ((c = ((char*)list->content)[j++]))
+		while ((c = (*((char**)(list->content)))[j++]))
 			buff[i++] = c;
-		//free(*((char*)list->content));
+		free(*((char**)list->content));
 		free(list->content);
 		prev = list;
 		list = list->next;
@@ -113,14 +117,14 @@ int						try_cd_l(t_env **env, char *path)
 	// simplify components list
 	free(curpath);
 	curpath = compo_to_str(comp_lst);
-	ft_putendl("\nfinal :");
-	ft_putendl(curpath);
 	// check curpath length
 	if (chdir(curpath) == -1)
 	{
 		print_chdir_error(path);
 		return (1);
 	}
+	set_env(env, ft_strdup("OLDPWD"), read_from_env(env, "PWD"));
 	set_env(env, ft_strdup("PWD"), ft_strdup(curpath));
+	free(curpath);
 	return (0);
 }
