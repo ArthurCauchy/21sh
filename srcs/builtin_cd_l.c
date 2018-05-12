@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/12 12:45:10 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/12 18:53:06 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ static void add_to_compo_lst(t_list **list, char *buff)
 static t_list	*str_to_compo(char *str)
 {
 	t_list	*list;
-	char		inslash;
+	char	inslash;
 	size_t	i;
 	size_t	j;
-	char		buff[MAX_PATH_SIZE];
+	char	buff[MAX_PATH_SIZE];
 
 	list = NULL;
 	inslash = 0;
@@ -57,7 +57,8 @@ static t_list	*str_to_compo(char *str)
 			inslash = inslash ? 0 : 1;
 			j = 0;
 		}
-		buff[j++] = str[i];
+		if (!inslash || j == 0)
+			buff[j++] = str[i];
 		++i;
 	}
 	buff[j] = '\0';
@@ -130,8 +131,8 @@ static void		simplify_path_slash(t_list **list)
 	cur = *list;
 	while (cur)
 	{
-		if (prev && ft_strchr(*((char**)prev->content), '/')
-				&& ft_strchr(*((char**)cur->content), '/'))
+		if (prev && ((ft_strchr(*((char**)prev->content), '/')) || !cur->next)
+				&& (ft_strchr(*((char**)cur->content), '/')))
 		{
 			prev->next = cur->next;
 			free(*((char**)cur->content));
@@ -153,10 +154,12 @@ int				try_cd_l(t_env **env, char *path)
 	char	*old_env_pwd;
 	t_list	*comp_lst;
 	
-	if (!(path[0] == '/' || ft_strcmp(path, ".") == 0 || ft_strcmp(path, "..") == 0))
-		(void)0; // TODO handle CDPATH - be careful with the size of curpath
 	ft_strncpy(buff, path, MAX_PATH_SIZE);
-	old_env_pwd = read_from_env(env, "PWD");
+	if (!(old_env_pwd = read_from_env(env, "PWD")))
+	{
+		ft_putendl_fd("cd: PWD env variable not found !", 2);
+		return (1);
+	}
 	if (buff[0] != '/')
 		curpath = ft_strjoin(add_final_slash(&old_env_pwd), buff);
 	else
@@ -164,10 +167,10 @@ int				try_cd_l(t_env **env, char *path)
 	free(old_env_pwd);
 	comp_lst = str_to_compo(curpath);
 	simplify_path_dot(&comp_lst);
+	//simplify_path_dotdot(&comp_lst);
 	simplify_path_slash(&comp_lst);
 	free(curpath);
 	curpath = compo_to_str(comp_lst);
-	// check curpath length
 	if (chdir(curpath) == -1)
 	{
 		print_chdir_error(path);

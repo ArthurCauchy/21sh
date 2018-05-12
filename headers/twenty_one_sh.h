@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/02 16:10:01 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/05/12 17:49:03 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ extern t_env		**g_envptr;
 void				exit_error(char *errmsg);
 int					is_there_a_file(char *filepath);
 int					is_executable(char *filepath);
+int					is_directory(char *filepath);
 void				print_n_free_errmsg(char **errmsg);
 int					is_separator(char c);
 void				save_filedes(int *fdsave_array, int fd);

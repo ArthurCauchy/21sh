@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/30 12:34:35 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/05/12 17:48:30 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,15 @@ int		is_executable(char *filepath)
 	return (0);
 }
 
-void	print_n_free_errmsg(char **errmsg)
+int		is_directory(char *filepath)
 {
-	ft_putendl_fd(*errmsg, 2);
-	free(*errmsg);
-	*errmsg = NULL;
+	struct stat	fileinfo;
+
+	if (access(filepath, X_OK) == 0
+			&& stat(filepath, &fileinfo) != -1
+			&& S_ISDIR(fileinfo.st_mode))
+		return (1);
+	return (0);
 }
 
 int		is_separator(char c)

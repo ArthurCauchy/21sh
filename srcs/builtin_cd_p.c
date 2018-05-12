@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/02 17:31:46 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/05/12 17:32:35 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	try_cd_p(t_env **env, char *path)
 	char	old_pwd[MAX_PATH_SIZE];
 	char	*success;
 	
-	if (!(path[0] == '/' || ft_strcmp(path, ".") == 0 || ft_strcmp(path, "..") == 0))
-		(void)0; // TODO handle CDPATH - be careful with the size of curpath
 	ft_strncpy(curpath, path, MAX_PATH_SIZE);
 	success = getcwd(old_pwd, MAX_PATH_SIZE);
 	if (chdir(curpath) == -1)
