@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/12 11:03:36 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/12 12:45:10 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,6 @@ static char 	*add_final_slash(char **path)
 		*path = ft_strjoin_free(*path, ft_strdup("/"));
 	return (*path);
 }
-
-/*static void	simplify_path(t_fakestr *path)
-{
-	// remove /./ sequences
-	// simplify ../ sequences (posix cd step 8.b)
-	// remove multiple /
-}*/
 
 static void add_to_compo_lst(t_list **list, char *buff)
 {
@@ -75,8 +68,8 @@ static t_list	*str_to_compo(char *str)
 static char	*compo_to_str(t_list *list)
 {
 	t_list	*prev;
-	char		buff[MAX_PATH_SIZE * 2];
-	char		c;
+	char	buff[MAX_PATH_SIZE * 2];
+	char	c;
 	size_t	i;
 	size_t	j;
 	
@@ -85,7 +78,9 @@ static char	*compo_to_str(t_list *list)
 	while (list)
 	{
 		j = 0;
-		while ((c = (*((char**)(list->content)))[j++]))
+		ft_putstr(*((char**)list->content)); // DEL
+		ft_putstr(" >> "); // DEL
+		while ((c = (*((char**)list->content))[j++]))
 			buff[i++] = c;
 		free(*((char**)list->content));
 		free(list->content);
@@ -93,15 +88,69 @@ static char	*compo_to_str(t_list *list)
 		list = list->next;
 		free(prev);
 	}
+	ft_putchar('\n'); // DEL
 	buff[i] = '\0';
 	return (ft_strdup(buff));
 }
 
-int						try_cd_l(t_env **env, char *path)
+
+static void		simplify_path_dot(t_list **list)
 {
-	char		*curpath;
-	char		buff[MAX_PATH_SIZE];
-	char		*old_env_pwd;
+	t_list	*prev;
+	t_list	*cur;
+	t_list	*next;
+
+	prev = NULL;
+	cur = *list;
+	while (cur)
+	{
+		next = cur->next;
+		if (ft_strcmp(*((char**)cur->content), ".") == 0)
+		{
+			if (prev)
+				prev->next = cur->next;
+			else
+				*list = cur->next;
+			free(*((char**)cur->content));
+			free(cur->content);
+			free(cur);
+		}
+		else
+			prev = cur;
+		cur = next;
+	}
+}
+
+static void		simplify_path_slash(t_list **list)
+{
+	t_list	*prev;
+	t_list	*cur;
+
+	prev = NULL;
+	cur = *list;
+	while (cur)
+	{
+		if (prev && ft_strchr(*((char**)prev->content), '/')
+				&& ft_strchr(*((char**)cur->content), '/'))
+		{
+			prev->next = cur->next;
+			free(*((char**)cur->content));
+			free(cur->content);
+			free(cur);
+			prev = NULL;
+			cur = *list;
+			continue;
+		}
+		prev = cur;
+		cur = cur->next;
+	}
+}
+
+int				try_cd_l(t_env **env, char *path)
+{
+	char	*curpath;
+	char	buff[MAX_PATH_SIZE];
+	char	*old_env_pwd;
 	t_list	*comp_lst;
 	
 	if (!(path[0] == '/' || ft_strcmp(path, ".") == 0 || ft_strcmp(path, "..") == 0))
@@ -114,7 +163,8 @@ int						try_cd_l(t_env **env, char *path)
 		curpath = ft_strdup(buff);
 	free(old_env_pwd);
 	comp_lst = str_to_compo(curpath);
-	// simplify components list
+	simplify_path_dot(&comp_lst);
+	simplify_path_slash(&comp_lst);
 	free(curpath);
 	curpath = compo_to_str(comp_lst);
 	// check curpath length
