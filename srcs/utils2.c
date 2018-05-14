@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 11:34:35 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/12 18:30:09 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/14 11:32:31 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ void	restore_filedes(int *fdsave_array)
 {
 	int	i;
 
-	i = 0;
-	while (i < FD_MAX)
+	i = FD_MAX - 1;
+	while (i >= 0)
 	{
 		if (fdsave_array[i] > 0)
 		{
 			dup2(fdsave_array[i], i);
 			close(fdsave_array[i]);
 		}
-		++i;
+		--i;
 	}
 }
