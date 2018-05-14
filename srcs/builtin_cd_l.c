@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/12 18:53:06 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/14 11:00:08 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char 	*add_final_slash(char **path)
 	return (*path);
 }
 
-static void add_to_compo_lst(t_list **list, char *buff)
+static void		add_to_compo_lst(t_list **list, char *buff)
 {
 	char	*str;
 	char	**ptr;
@@ -34,6 +34,30 @@ static void add_to_compo_lst(t_list **list, char *buff)
 	new = ft_lstnew(ptr, sizeof(char*));
 	free(ptr);
 	ft_lstpushback(list, new);
+}
+
+static void		remove_from_compo_lst(t_list **list, t_list *to_rm)
+{
+	t_list	*prev;
+	t_list	*cur;
+
+	prev = NULL;
+	cur = *list;
+	while (cur)
+	{
+		if (cur == to_rm)
+		{
+			if (cur == *list)
+				*list = cur->next;
+			prev->next = cur->next;
+			free(*((char**)cur->content));
+			free(cur->content);
+			free(cur);
+			return ;
+		}
+		prev = cur;
+		cur = cur->next;
+	}
 }
 
 static t_list	*str_to_compo(char *str)
@@ -122,6 +146,29 @@ static void		simplify_path_dot(t_list **list)
 	}
 }
 
+static void		simplify_path_dotdot(t_list **list)
+{
+	t_list	*prev_dir;
+	t_list	*cur;
+
+	prev_dir = NULL;
+	cur = *list;
+	while (cur)
+	{
+		if (ft_strcmp(*((char**)cur->content), "..") != 0 && ft_strcmp(*((char**)cur->content), "/") != 0)
+			prev_dir = cur;
+		if (prev_dir && ft_strcmp(*((char**)cur->content), "..") == 0)
+		{
+			remove_from_compo_lst(list, prev_dir);
+			remove_from_compo_lst(list, cur);
+			prev_dir = NULL;
+			cur = *list;
+			continue;
+		}
+		cur = cur->next;
+	}
+}
+
 static void		simplify_path_slash(t_list **list)
 {
 	t_list	*prev;
@@ -167,13 +214,14 @@ int				try_cd_l(t_env **env, char *path)
 	free(old_env_pwd);
 	comp_lst = str_to_compo(curpath);
 	simplify_path_dot(&comp_lst);
-	//simplify_path_dotdot(&comp_lst);
+	simplify_path_dotdot(&comp_lst);
 	simplify_path_slash(&comp_lst);
 	free(curpath);
 	curpath = compo_to_str(comp_lst);
 	if (chdir(curpath) == -1)
 	{
 		print_chdir_error(path);
+		free(curpath);
 		return (1);
 	}
 	set_env(env, ft_strdup("OLDPWD"), read_from_env(env, "PWD"));
