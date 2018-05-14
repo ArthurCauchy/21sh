@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/14 13:25:32 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/14 13:54:02 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,6 +309,7 @@ int					job_is_completed (t_job *j);
 */
 
 void				register_signals(void);
+void				reset_signals_actions(void);
 
 /*
 ** input.c

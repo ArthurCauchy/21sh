@@ -3,47 +3,25 @@ TODO :
 - heredoc (<<)
 - Command not found + redirection : actuellement comme sh (OK), a modifier pour faire comme csh (mieux).
 - FIX : ls >&3 : should be wrong but OK
+- FIX : close opened files that ARE NOT overwritten by restore's dup2
+- UPDATE : "c'est le shell qui save et restore, mais c'est le child process qui applique les redirections"
 - DEBAT : "Bash handles several filenames specially when they are used in redirections, as described in the following table."
+- CDPATH
 
 TODO job control :
 - le shell doit envoyer SIGHUP a tous les process quand il en recoit un (?)
 - shell: ignore interative and job control signals
+- 28.6.3 Launching Jobs
 - globale g_running_proc a delete
-- job = bunch of piped processes
 
 TODO bonus :
-- refaire cd : finir option l + CDPATH
-- refaire pwd (ou le suppr ?- voir sujet 42sh)
 - job control
 - 21shrc
 - builtin which
 - builtin help
 - tilde expansion
 - pourquoi est-ce que c'est pas builtin_parse_options qui fait le bzero ? :o
-- tester CDPATH (ex: fichier ou mauvais mode et un un vrai dossier dans un CDPATH plus loin)
 
 Notes :
-- pour job control , on peut : tcsetpgrp tcgetpgrp
 - pour voir les file descriptors ouverts : lsof -p <pid>
 - Pipe non fonctionnels (ne demarrent pas en meme temps). A fix, faire le job control en même temps.
-- DEBAT : options des builtins senseibles a la casse ou pas ?
-
-Builtins - traiter les options :
-- exit : non
-- echo : non
-- setenv : non
-- unsetenv : non
-- cd : oui
-- pwd : oui
-- env : oui
-- which : ?
-- pwd : ?
-
-csh :
-- 'exit qweqwejiowqe' : Expression syntax.
-- '""' : : Command not found.
-- 'ls >' : Missing name for redirect.
-- 'ls > &&' : Missing name for redirect.
-
-
-http://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html#tag_02_07

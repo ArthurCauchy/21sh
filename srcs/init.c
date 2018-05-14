@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:48:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/14 13:23:37 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/14 14:03:02 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_shell(void)
 		if (setpgid(g_shell.pgid, g_shell.pgid) < 0)
 		{
 			ft_putendl_fd("Couldn't put the shell in its own process group", 2);
-			exit (1); // peut etre un peu moins violent ?
+			exit(1); // peut etre un peu moins violent ?
 		}
 
 		/* Grab control of the terminal.  */
@@ -37,12 +37,12 @@ void	init_shell(void)
 
 void	init_signals(void)
 {
-	//signal (SIGINT, SIG_IGN);
-	signal (SIGQUIT, SIG_IGN);
-	signal (SIGTSTP, SIG_IGN);
-	signal (SIGTTIN, SIG_IGN);
-	signal (SIGTTOU, SIG_IGN);
-	signal (SIGCHLD, SIG_IGN);
+	//signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
+	signal(SIGTTIN, SIG_IGN);
+	signal(SIGTTOU, SIG_IGN);
+	signal(SIGCHLD, SIG_IGN);
 	register_signals();
 }
 
