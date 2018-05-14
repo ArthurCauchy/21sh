@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/14 11:00:08 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/14 11:06:10 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,9 +157,10 @@ static void		simplify_path_dotdot(t_list **list)
 	{
 		if (ft_strcmp(*((char**)cur->content), "..") != 0 && ft_strcmp(*((char**)cur->content), "/") != 0)
 			prev_dir = cur;
-		if (prev_dir && ft_strcmp(*((char**)cur->content), "..") == 0)
+		if (ft_strcmp(*((char**)cur->content), "..") == 0)
 		{
-			remove_from_compo_lst(list, prev_dir);
+			if (prev_dir)
+				remove_from_compo_lst(list, prev_dir);
 			remove_from_compo_lst(list, cur);
 			prev_dir = NULL;
 			cur = *list;
