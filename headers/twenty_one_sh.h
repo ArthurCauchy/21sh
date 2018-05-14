@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/14 12:41:23 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/14 13:25:32 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@
 # define FD_MAX 1024
 # define REDIRECT_MAX 512
 # define MAX_PATH_SIZE 4096
+
+typedef struct		s_shelldata
+{
+	pid_t			pgid;
+	struct termios	tmodes;
+	int				terminal;
+	int				is_interactive;
+}					t_shelldata;
 
 typedef struct		s_env
 {
@@ -117,6 +125,7 @@ typedef struct		s_job
 
 typedef int	(*t_builtin_fct)(t_env**, char**);
 
+extern t_shelldata	g_shell;
 extern int			g_exitnow;
 extern int			g_exitstatus;
 extern int			g_running_proc;
@@ -299,7 +308,7 @@ int					job_is_completed (t_job *j);
 ** signals.c
 */
 
-void				init_signals(void);
+void				register_signals(void);
 
 /*
 ** input.c
@@ -331,6 +340,8 @@ char				*find_cmd_path(t_env **env, t_env **cmd_env, char *cmd);
 ** init.c
 */
 
+void				init_shell(void);
+void				init_signals(void);
 void				init_env(t_env **env, char **envp);
 void				init_builtins(void);
 
