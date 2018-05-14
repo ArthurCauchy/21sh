@@ -4,7 +4,12 @@ TODO :
 - Command not found + redirection : actuellement comme sh (OK), a modifier pour faire comme csh (mieux).
 - FIX : ls >&3 : should be wrong but OK
 - DEBAT : "Bash handles several filenames specially when they are used in redirections, as described in the following table."
-- FIX le shell doit envoyer SIGHUP a tous les process quand il en recoit un (?)
+
+TODO job control :
+- le shell doit envoyer SIGHUP a tous les process quand il en recoit un (?)
+- shell: ignore interative and job control signals
+- globale g_running_proc a delete
+- job = bunch of piped processes
 
 TODO bonus :
 - refaire cd : finir option l + CDPATH

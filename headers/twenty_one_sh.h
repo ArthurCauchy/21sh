@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/12 17:49:03 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/14 12:41:23 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/stat.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <termios.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include "libft.h"
@@ -91,11 +92,35 @@ typedef struct		s_redirect
 	t_token	token;
 }					t_redirect;
 
+typedef struct		s_process
+{
+	struct s_process	*next;
+	char				**args;
+	pid_t				pid;
+	char				completed;
+	char				stopped;
+	int					status;
+}					t_process;
+
+typedef struct		s_job
+{
+	struct s_job		*next;
+	char				*command;
+	t_process			*first_process;
+	pid_t				pgid;
+	char				*notified;
+	struct termios		tmodes;
+	int					stdin;
+	int					stdout;
+	int					stderr;
+}					t_job;
+
 typedef int	(*t_builtin_fct)(t_env**, char**);
 
 extern int			g_exitnow;
 extern int			g_exitstatus;
 extern int			g_running_proc;
+extern t_job		*g_first_job;
 extern t_env		**g_envptr;
 
 /*
@@ -261,6 +286,14 @@ int					exec_ast_or(t_ast *node, int inputfd, int outputfd);
 int					exec_ast_and(t_ast *node, int inputfd, int outputfd);
 int					exec_ast_pipe(t_ast *node, int inputfd, int outputfd);
 int					exec_ast_arg(t_ast *node, int inputfd, int outputfd);
+
+/*
+** jobs.c
+*/
+
+t_job				*find_job (pid_t pgid);
+int					job_is_stopped (t_job *j);
+int					job_is_completed (t_job *j);
 
 /*
 ** signals.c
