@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/14 13:54:02 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/15 15:12:51 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <termios.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <signal.h>
 # include "libft.h"
 
 # define BUILTIN_MAX 42
@@ -113,14 +114,9 @@ typedef struct		s_process
 typedef struct		s_job
 {
 	struct s_job		*next;
-	char				*command;
 	t_process			*first_process;
 	pid_t				pgid;
-	char				*notified;
 	struct termios		tmodes;
-	int					stdin;
-	int					stdout;
-	int					stderr;
 }					t_job;
 
 typedef int	(*t_builtin_fct)(t_env**, char**);
@@ -289,20 +285,29 @@ int					apply_redirect_rshift2(t_redirect *redir,
 ** interpreter.c, interpreter_[token].c
 */
 
-int					exec_ast(t_ast *node, int inputfd, int outputfd);
-int					exec_ast_semicol(t_ast *node, int inputfd, int outputfd);
-int					exec_ast_or(t_ast *node, int inputfd, int outputfd);
-int					exec_ast_and(t_ast *node, int inputfd, int outputfd);
-int					exec_ast_pipe(t_ast *node, int inputfd, int outputfd);
-int					exec_ast_arg(t_ast *node, int inputfd, int outputfd);
+int					exec_ast(t_ast *node);
+int					exec_ast_semicol(t_ast *node);
+int					exec_ast_or(t_ast *node);
+int					exec_ast_and(t_ast *node);
+int					exec_ast_pipe(t_ast *node);
+int					exec_ast_arg(t_ast *node);
 
 /*
 ** jobs.c
 */
 
+t_job				*create_job(void);
+void				delete_job(t_job *job);
 t_job				*find_job (pid_t pgid);
 int					job_is_stopped (t_job *j);
 int					job_is_completed (t_job *j);
+void				put_job_in_foreground (t_job *j, int cont);
+void				put_job_in_background (t_job *j, int cont);
+int					mark_process_status(pid_t pid, int status);
+void				update_status(void);
+void				wait_for_job(t_job *j);
+void				format_job_info(t_job *j, const char *status);
+void				do_job_notification(void);
 
 /*
 ** signals.c
@@ -329,6 +334,8 @@ void				print_chdir_error(char *path);
 ** process.c
 */
 
+t_process			*create_process(char **args);
+t_process			delete_process(t_process *proc);
 int					start_process(t_env **env, char **args);
 
 /*
@@ -347,7 +354,13 @@ void				init_env(t_env **env, char **envp);
 void				init_builtins(void);
 
 /*
-** starter.c
+** starter_job.c
+*/
+
+void				start_job(t_env **env, t_job *j, int foreground);
+
+/*
+** starter_process.c
 */
 
 int					start_command(t_env **env,

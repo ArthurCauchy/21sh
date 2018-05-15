@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:48:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/14 14:03:02 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/15 11:30:59 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,11 @@ void	init_shell(void)
 		while (tcgetpgrp(g_shell.terminal) != (g_shell.pgid = getpgrp()))
 			kill(- g_shell.pgid, SIGTTIN);
 		g_shell.pgid = getpid();
-		if (setpgid(g_shell.pgid, g_shell.pgid) < 0)
+		if (setpgid(g_shell.pgid, g_shell.pgid) == -1)
 		{
 			ft_putendl_fd("Couldn't put the shell in its own process group", 2);
 			exit(1); // peut etre un peu moins violent ?
 		}
-
 		/* Grab control of the terminal.  */
 		tcsetpgrp(g_shell.terminal, g_shell.pgid);
 

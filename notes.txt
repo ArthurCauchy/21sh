@@ -11,8 +11,27 @@ TODO :
 TODO job control :
 - le shell doit envoyer SIGHUP a tous les process quand il en recoit un (?)
 - shell: ignore interative and job control signals
-- 28.6.3 Launching Jobs
 - globale g_running_proc a delete
+- comprendre comment est defini le job courant, pour fg et bg sans arguments
+
+Notes job control :
+- exec_ast_amp est la seule fct qui cree des jobs
+- exec_ast_arg est la seule fct qui cree des processus.
+- main est la seule fct qui lance les jobs (utiliser les fct de la doc de GNU selon si c'est fg ou bg)
+- la struct process doit contenir le token qui le separe du process suivant, determinant si on execute ou pas le process suivant et si on doit wait avant de lancer le suivant
+- la fct main wait uniquement le PGID (si le job est en fg)
+- les redirections sont gerees au lancement du processus (et non du job, ni avant)
+- la structure du process contient une arglist, la conversion en char ** n'est faite qu'au dernier moment
+- faut gerer le & comme separateur (priorite AMP superieure a SEMICOL). Si ; separe les processus, & separe les jobs
+- le job doit retenir le texte des commandes qui le composent pour pouvoir l'afficher dans le builtin jobs
+- tous les process d'un meme job ont le meme PGID
+- au lancement d'un job en foreground, il passe "devant" le shell, qui lui ne recois plus rien
+- a l'inverse, dans le cas d'un process bg, le shell reste devant et il est impossible d'envoyer de signaux au process bg via ctrl+c etc...
+- fg : fait passer un job en premier plan
+- bg : fait passer un job en arriere plan
+- jobs : liste les jobs non termines
+- impossible de recuperer l'exit code d'un process en background, car le lancement renvoie tjr 0
+- jobs, fg et bg ne peuvent pas etre lance en arriere plan
 
 TODO bonus :
 - job control
