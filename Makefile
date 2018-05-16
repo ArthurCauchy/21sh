@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/05/15 11:43:34 by acauchy          ###   ########.fr        #
+#    Updated: 2018/05/16 14:38:23 by arthur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,9 @@ SRC_NAME = main.c \
 		   builtin_setenv.c \
 		   builtin_unsetenv.c \
 		   builtin_echo.c \
+		   builtin_jobs.c \
+		   builtin_bg.c \
+		   builtin_fg.c \
 		   word.c \
 		   ast.c \
 		   lexing.c \
@@ -61,6 +64,7 @@ SRC_NAME = main.c \
 		   parsing_parse_and.c \
 		   parsing_parse_or.c \
 		   parsing_parse_semicol.c \
+		   parsing_parse_amp.c \
 		   parsing_validator.c \
 		   redirect.c \
 		   redirections.c \
@@ -72,6 +76,7 @@ SRC_NAME = main.c \
 		   redirections_apply_rshift_amp.c \
 		   redirections_apply_rshift2.c \
 		   interpreter.c \
+		   interpreter_amp.c \
 		   interpreter_semicol.c \
 		   interpreter_or.c \
 		   interpreter_and.c \

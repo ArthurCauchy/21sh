@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/15 15:12:51 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/05/16 14:18:24 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef struct		s_redirect
 typedef struct		s_process
 {
 	struct s_process	*next;
+	t_token				separator;
 	char				**args;
 	pid_t				pid;
 	char				completed;
@@ -115,6 +116,7 @@ typedef struct		s_job
 {
 	struct s_job		*next;
 	t_process			*first_process;
+	char				*command;
 	pid_t				pgid;
 	struct termios		tmodes;
 }					t_job;
@@ -237,6 +239,7 @@ void				parse_pipe(t_word **symbol, t_ast **current);
 void				parse_and(t_word **symbol, t_ast **current);
 void				parse_or(t_word **symbol, t_ast **current);
 void				parse_semicol(t_word **symbol, t_ast **current);
+void				parse_amp(t_word **symbol, t_ast **current);
 
 /*
 ** parsing_validator.c
@@ -285,12 +288,13 @@ int					apply_redirect_rshift2(t_redirect *redir,
 ** interpreter.c, interpreter_[token].c
 */
 
-int					exec_ast(t_ast *node);
-int					exec_ast_semicol(t_ast *node);
-int					exec_ast_or(t_ast *node);
-int					exec_ast_and(t_ast *node);
-int					exec_ast_pipe(t_ast *node);
-int					exec_ast_arg(t_ast *node);
+void				interpret_ast(t_ast *node);
+void				interpret_amp(t_ast *node);
+void				interpret_semicol(t_ast *node);
+void				interpret_or(t_ast *node);
+void				interpret_and(t_ast *node);
+void				interpret_pipe(t_ast *node);
+void				interpret_arg(t_ast *node);
 
 /*
 ** jobs.c

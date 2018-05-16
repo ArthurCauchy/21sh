@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:42:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/15 14:25:35 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/05/16 15:01:04 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int			g_running_proc = -1;
 
-t_process	*create_process(char **args)
+t_process	*create_process(t_word *arglist)
 {
 	t_process   *new;
 	
 	new = (t_process*)malloc(sizeof(t_process));
 	new->next = NULL;
-	new->args = args; // copy or not, this is the question
+	new->arglist = arglist; // copy or not, this is the question
 	new->pid = -1;
 	completed = 0;
 	stopped = 0;
@@ -28,7 +28,7 @@ t_process	*create_process(char **args)
 	return (new);
 }
 
-static void delete_args(char **args)
+/*static void delete_args(char **args)
 {
 	size_t  i;
 	
@@ -39,11 +39,23 @@ static void delete_args(char **args)
 		++i;
 	}
 	free(args);
-}
+}*/
 
 t_process	delete_process(t_process *proc)
 {
-	delete_args(proc->args);
+	t_word	*prev
+	t_word	*cur;
+
+	prev = NULL;
+	cur = proc->arglist;
+	while (cur)
+	{
+		prev = cur;
+		cur = cur->next;
+		if (prev->str)
+			free(prev);
+		free(prev);
+	}
 	free(proc);
 }
 

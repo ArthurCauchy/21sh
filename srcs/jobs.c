@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 11:37:20 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/15 15:12:54 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/05/16 13:26:27 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_job	*create_job(void)
 
 void	delete_job(t_job *job)
 {
+	free(job->command);
 	free(job);
 	// delete processes
 }
