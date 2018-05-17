@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/16 14:18:24 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/17 13:41:00 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ typedef struct		s_job
 	t_process			*first_process;
 	char				*command;
 	pid_t				pgid;
+	int					is_background;
 	struct termios		tmodes;
 }					t_job;
 
@@ -288,13 +289,13 @@ int					apply_redirect_rshift2(t_redirect *redir,
 ** interpreter.c, interpreter_[token].c
 */
 
-void				interpret_ast(t_ast *node);
-void				interpret_amp(t_ast *node);
-void				interpret_semicol(t_ast *node);
-void				interpret_or(t_ast *node);
-void				interpret_and(t_ast *node);
-void				interpret_pipe(t_ast *node);
-void				interpret_arg(t_ast *node);
+void				interpret(t_ast *node, t_job **job);
+void				interpret_amp(t_ast *node, t_job **job);
+void				interpret_semicol(t_ast *node, t_job **job);
+void				interpret_or(t_ast *node, t_job **job);
+void				interpret_and(t_ast *node, t_job **job);
+void				interpret_pipe(t_ast *node, t_job **job);
+void				interpret_arg(t_ast *node, t_job **job);
 
 /*
 ** jobs.c

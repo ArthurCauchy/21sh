@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   interpreter_semicol.c                              :+:      :+:    :+:   */
+/*   interpreter_amp.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 11:37:43 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/15 13:36:06 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/05/17 13:41:02 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-int	exec_ast_semicol(t_ast *node)
+void	interpreter_amp(t_ast *node, t_job **job)
 {
-	int	ret;
+	t_job *new_job;
 
-	exec_ast(node->left);
-	ret = exec_ast(node->right);
-	return (ret);
+	job->is_background = 1;
+	job->next = create_job();
+	interpret(node->left, job);
+	interpret(node->right, job);
 }

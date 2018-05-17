@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/15 15:12:56 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/05/17 13:41:05 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,13 @@ int			main(int argc, char **argv, char **envp)
 	{
 		if (input_and_parse(&ast) == 0)
 		{
-			exec_ast(ast);
+			t_job	*job = create_job();
+			g_first_job = job;
+			interpret(ast, &job);
 			t_job *j = g_first_job;
 			while (j)
 			{
-				start_job(j);
+				//start_job(j);
 				j = j->next;
 			}
 			delete_ast(&ast);
