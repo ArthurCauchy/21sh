@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 11:37:02 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/17 13:39:23 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/05/17 16:04:27 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,13 @@ void	interpret_arg(t_ast *node, t_job **job)
 	t_process	*cur;
 
 	proc = create_process(node->arglist);
-	cur = job->first_process;
-	while (cur)
-		cur = cur->next;
-	if (cur)
-		cur->next = proc;
+	cur = (*job)->first_process;
+	if (!cur)
+		(*job)->first_process = proc;
 	else
-		job->first_process = proc;
+	{
+		while (cur->next)
+			cur = cur->next;
+		cur->next = proc;
+	}
 }

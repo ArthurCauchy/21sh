@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/17 13:41:05 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/05/17 15:37:58 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_shelldata	g_shell;
 int			g_exitnow = 0;
 int			g_exitstatus = 0;
+t_job		*g_first_job = NULL;
 t_env		**g_envptr = NULL;
 
 static void	init(t_env **env, char **envp)
@@ -77,12 +78,7 @@ int			main(int argc, char **argv, char **envp)
 			t_job	*job = create_job();
 			g_first_job = job;
 			interpret(ast, &job);
-			t_job *j = g_first_job;
-			while (j)
-			{
-				//start_job(j);
-				j = j->next;
-			}
+			start_jobs(g_envptr, g_first_job); // via shell struct ?
 			delete_ast(&ast);
 		}
 	}

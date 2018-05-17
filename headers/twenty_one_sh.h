@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/17 13:41:00 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/05/17 15:40:58 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ typedef struct		s_process
 {
 	struct s_process	*next;
 	t_token				separator;
-	char				**args;
+	t_word				*arglist;
 	pid_t				pid;
 	char				completed;
 	char				stopped;
@@ -298,12 +298,17 @@ void				interpret_pipe(t_ast *node, t_job **job);
 void				interpret_arg(t_ast *node, t_job **job);
 
 /*
-** jobs.c
+** job.c
 */
 
 t_job				*create_job(void);
 void				delete_job(t_job *job);
-t_job				*find_job (pid_t pgid);
+
+/*
+** job_control.c
+*/
+
+/*t_job				*find_job (pid_t pgid);
 int					job_is_stopped (t_job *j);
 int					job_is_completed (t_job *j);
 void				put_job_in_foreground (t_job *j, int cont);
@@ -312,7 +317,7 @@ int					mark_process_status(pid_t pid, int status);
 void				update_status(void);
 void				wait_for_job(t_job *j);
 void				format_job_info(t_job *j, const char *status);
-void				do_job_notification(void);
+void				do_job_notification(void);*/
 
 /*
 ** signals.c
@@ -339,8 +344,8 @@ void				print_chdir_error(char *path);
 ** process.c
 */
 
-t_process			*create_process(char **args);
-t_process			delete_process(t_process *proc);
+t_process			*create_process(t_word *arglist);
+void				delete_process(t_process *proc);
 int					start_process(t_env **env, char **args);
 
 /*
@@ -362,7 +367,7 @@ void				init_builtins(void);
 ** starter_job.c
 */
 
-void				start_job(t_env **env, t_job *j, int foreground);
+void				start_jobs(t_env **env, t_job *first_job);
 
 /*
 ** starter_process.c

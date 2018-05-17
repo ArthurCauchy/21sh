@@ -1,25 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   interpreter_amp.c                                  :+:      :+:    :+:   */
+/*   job.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/11 11:37:43 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/17 16:48:15 by arthur           ###   ########.fr       */
+/*   Created: 2018/05/15 11:37:20 by acauchy           #+#    #+#             */
+/*   Updated: 2018/05/17 15:29:50 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-void	interpret_amp(t_ast *node, t_job **job)
+t_job	*create_job(void)
 {
-	t_job *new_job;
+	t_job	*new;
 
-	interpret(node->left, job);
-	new_job = create_job();
-	(*job)->is_background = 1;
-	(*job)->next = new_job;
-	*job = new_job;
-	interpret(node->right, job);
+	new = (t_job*)malloc(sizeof(t_job));
+	new->next = NULL;
+	new->first_process = NULL;
+	new->pgid = -1;
+	new->is_background = 0;
+	return (new);
+}
+
+void	delete_job(t_job *job)
+{
+	t_process	*prev;
+	t_process	*cur;
+
+	prev = NULL;
+	cur = job->first_process;
+	while (cur)
+	{
+		prev = cur;
+		cur = cur->next;
+		delete_process(prev);
+	}
+	free(job->command);
+	free(job);
 }

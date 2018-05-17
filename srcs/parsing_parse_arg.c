@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 13:53:02 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/18 12:33:19 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/05/17 16:34:34 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static int	is_tree_token(t_word *word)
 {
-	if (word->token == SEMICOL
+	if (word->token == AMP
+			|| word->token == SEMICOL
 			|| word->token == OR
 			|| word->token == AND
 			|| word->token == PIPE)

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:42:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/16 15:01:04 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/17 15:27:43 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,15 @@ t_process	*create_process(t_word *arglist)
 	new->next = NULL;
 	new->arglist = arglist; // copy or not, this is the question
 	new->pid = -1;
-	completed = 0;
-	stopped = 0;
-	status = 0;
+	new->completed = 0;
+	new->stopped = 0;
+	new->status = 0;
 	return (new);
 }
 
-/*static void delete_args(char **args)
+void	delete_process(t_process *proc)
 {
-	size_t  i;
-	
-	i = 0;
-	while (args[i])
-	{
-		free(args[i]);
-		++i;
-	}
-	free(args);
-}*/
-
-t_process	delete_process(t_process *proc)
-{
-	t_word	*prev
+	t_word	*prev;
 	t_word	*cur;
 
 	prev = NULL;

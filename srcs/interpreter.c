@@ -6,24 +6,24 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 11:16:48 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/16 14:30:05 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/17 16:15:13 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-void	interpret(t_ast *node)
+void	interpret(t_ast *node, t_job **job)
 {
 	if (node->token == AMP)
-		return (interpret_amp(node));
-	if (node->token == SEMICOL)
-		return (interpret_semicol(node));
+		interpret_amp(node, job);
+	else if (node->token == SEMICOL)
+		interpret_semicol(node, job);
 	else if (node->token == OR)
-		return (interpret_or(node));
+		interpret_or(node, job);
 	else if (node->token == AND)
-		return (interpret_and(node));
+		interpret_and(node, job);
 	else if (node->token == PIPE)
-		return (interpret_pipe(node));
+		interpret_pipe(node, job);
 	else
-		return (interpret_arg(node));
+		interpret_arg(node, job);
 }
