@@ -71,3 +71,32 @@ void	delete_wordlist(t_word **head)
 	}
 	*head = NULL;
 }
+
+t_word	*copy_wordlist(t_word *head_src)
+{
+	t_word	*head_dst;
+	t_word	*cur_src;
+	t_word	*prev_dst;
+	t_word	*cur_dst;
+
+	head_dst = NULL;
+	cur_src = head_src;
+	prev_dst = NULL;
+	while (cur_src)
+	{
+		cur_dst = (t_word*)malloc(sizeof(t_word));
+		cur_dst->token = cur_src->token;
+		if (cur_src->str)
+			cur_dst->str = ft_strdup(cur_src->str);
+		else
+			cur_dst->str = NULL;
+		cur_dst->next = NULL;
+		if (!head_dst)
+			head_dst = cur_dst;
+		if (prev_dst)
+			prev_dst->next = cur_dst;
+		prev_dst = cur_dst;
+		cur_src = cur_src->next;
+	}
+	return (head_dst);
+}

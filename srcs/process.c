@@ -20,7 +20,7 @@ t_process	*create_process(t_word *arglist)
 	
 	new = (t_process*)malloc(sizeof(t_process));
 	new->next = NULL;
-	new->arglist = arglist; // copy or not, this is the question
+	new->arglist = copy_wordlist(arglist);
 	new->pid = -1;
 	new->completed = 0;
 	new->stopped = 0;

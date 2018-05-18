@@ -18,7 +18,7 @@ t_job	*create_job(void)
 
 	new = (t_job*)malloc(sizeof(t_job));
 	new->next = NULL;
-	new->first_process = NULL;
+	new->arg_tree = NULL;
 	new->pgid = -1;
 	new->is_background = 0;
 	return (new);

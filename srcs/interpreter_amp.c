@@ -12,14 +12,15 @@
 
 #include "twenty_one_sh.h"
 
-void	interpret_amp(t_ast *node, t_job **job)
+void	interpret_amp(t_ast *node, t_job **job, int bg)
 {
 	t_job *new_job;
 
-	interpret(node->left, job);
+	(*job)->arg_tree = copy_ast(node->left);
+	interpret(node->left, job, 1);
 	new_job = create_job();
-	(*job)->is_background = 1;
+	new_job->is_background = bg;
 	(*job)->next = new_job;
 	*job = new_job;
-	interpret(node->right, job);
+	interpret(node->right, job, bg);
 }

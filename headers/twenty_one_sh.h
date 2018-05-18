@@ -72,11 +72,11 @@ typedef enum		e_token
 	RSHIFT,
 	RSHIFT_AMP,
 	RSHIFT2,
-	AMP,
 	PIPE,
 	AND,
 	OR,
 	SEMICOL,
+	AMP,
 }					t_token;
 
 typedef struct		s_word
@@ -104,7 +104,6 @@ typedef struct		s_redirect
 typedef struct		s_process
 {
 	struct s_process	*next;
-	t_token				separator;
 	t_word				*arglist;
 	pid_t				pid;
 	char				completed;
@@ -115,7 +114,8 @@ typedef struct		s_process
 typedef struct		s_job
 {
 	struct s_job		*next;
-	t_process			*first_process;
+	t_ast				*arg_tree;
+	// process list
 	char				*command;
 	pid_t				pgid;
 	int					is_background;
@@ -157,7 +157,7 @@ t_builtin_fct		search_builtin(char *name);
 */
 
 int					builtin_parse_options(char **args,
-		char *options, int options_size);
+char				*options, int options_size);
 int					builtin_validate_options(char *options, char *valid_set);
 
 /*
@@ -198,6 +198,7 @@ char				**env_to_array(t_env **env);
 t_word				*new_word(t_token token, char *str);
 void				remove_word(t_word **wordlist, t_word *word);
 void				delete_wordlist(t_word **head);
+t_word			*copy_wordlist(t_word *head_src);
 
 /*
 ** ast.c
@@ -205,6 +206,8 @@ void				delete_wordlist(t_word **head);
 
 t_ast				*new_ast_node(t_token token, t_word *arglist);
 void				delete_ast(t_ast **ast);
+t_ast				*copy_node(t_ast *src);
+t_ast				*copy_ast(t_ast *src);
 
 /*
 ** lexing.c, lexing_[token].c
