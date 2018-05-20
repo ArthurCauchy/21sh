@@ -173,6 +173,9 @@ int					builtin_env(t_env **env, char **args);
 int					builtin_setenv(t_env **env, char **args);
 int					builtin_unsetenv(t_env **env, char **args);
 int					builtin_echo(t_env **env, char **args);
+int					builtin_jobs(t_env **env, char **args);
+int					builtin_fg(t_env **env, char **args);
+int					builtin_bg(t_env **env, char **args);
 
 /*
 ** s_env.c

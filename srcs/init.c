@@ -77,4 +77,7 @@ void	init_builtins(void)
 	load_builtin("setenv", &builtin_setenv);
 	load_builtin("unsetenv", &builtin_unsetenv);
 	load_builtin("echo", &builtin_echo);
+	load_builtin("jobs", &builtin_jobs);
+	load_builtin("fg", &builtin_fg);
+	load_builtin("bg", &builtin_bg);
 }
