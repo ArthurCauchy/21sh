@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/17 15:37:58 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/22 10:15:05 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ int			main(int argc, char **argv, char **envp)
 	{
 		if (input_and_parse(&ast) == 0)
 		{
-			t_job	*job = create_job();
-			g_first_job = job;
-			interpret(ast, &job);
-			start_jobs(g_envptr, g_first_job); // via shell struct ?
+			t_job	*first_job = NULL;
+			split_jobs(ast, &first_job);
+			g_first_job = first_job;
+			start_jobs(g_envptr, first_job);
 			delete_ast(&ast);
 		}
 	}

@@ -6,13 +6,13 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 11:37:43 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/17 16:48:15 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/22 09:24:00 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-void	interpret_amp(t_ast *node, t_job **job, int bg)
+/*void	interpret_amp(t_ast *node, t_job **job, int bg)
 {
 	t_job *new_job;
 
@@ -23,4 +23,4 @@ void	interpret_amp(t_ast *node, t_job **job, int bg)
 	(*job)->next = new_job;
 	*job = new_job;
 	interpret(node->right, job, bg);
-}
+}*/

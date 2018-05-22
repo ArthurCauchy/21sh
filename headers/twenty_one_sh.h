@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/17 15:40:58 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/22 10:10:39 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,6 @@ typedef struct		s_job
 {
 	struct s_job		*next;
 	t_ast				*arg_tree;
-	// process list
-	char				*command;
 	pid_t				pgid;
 	int					is_background;
 	struct termios		tmodes;
@@ -295,13 +293,13 @@ int					apply_redirect_rshift2(t_redirect *redir,
 ** interpreter.c, interpreter_[token].c
 */
 
-void				interpret(t_ast *node, t_job **job);
+/*void				interpret(t_ast *node, t_job **job);
 void				interpret_amp(t_ast *node, t_job **job);
 void				interpret_semicol(t_ast *node, t_job **job);
 void				interpret_or(t_ast *node, t_job **job);
 void				interpret_and(t_ast *node, t_job **job);
 void				interpret_pipe(t_ast *node, t_job **job);
-void				interpret_arg(t_ast *node, t_job **job);
+void				interpret_arg(t_ast *node, t_job **job);*/
 
 /*
 ** job.c
@@ -309,6 +307,12 @@ void				interpret_arg(t_ast *node, t_job **job);
 
 t_job				*create_job(void);
 void				delete_job(t_job *job);
+
+/*
+** job_split.c
+*/
+
+void				split_jobs(t_ast *node, t_job **jobs);
 
 /*
 ** job_control.c

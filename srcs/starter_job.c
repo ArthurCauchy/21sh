@@ -6,40 +6,54 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 11:37:12 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/17 16:56:38 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/22 10:46:10 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-void	start_jobs(t_env **env, t_job *first_job)
+static void	print_ast(t_ast *node)
 {
-	t_job		*j;
-	t_process	*p;
-	t_word		*w;
-	int			j_c;
-	int			p_c;
+	t_word	*word;
+
+	if (!node)
+		return ;
+	print_ast(node->left);
+	if (node->token == SEMICOL)
+		ft_putstr(" ; ");
+	else if (node->token == OR)
+		ft_putstr(" || ");
+	else if (node->token == AND)
+		ft_putstr(" && ");
+	else if (node->token == PIPE)
+		ft_putstr(" | ");
+	else
+	{
+		word = node->arglist;
+		while (word)
+		{
+			if (word != node->arglist)
+				ft_putchar(' ');
+			ft_putstr(word->str);
+			word = word->next;
+		}
+	}
+	print_ast(node->right);
+}
+
+void		start_jobs(t_env **env, t_job *first_job)
+{
+	t_job	*j;
+	int		j_c;
 
 	(void)env;
 	j = first_job;
 	j_c = 0;
 	while (j)
 	{
-		p = j->first_process;
-		p_c = 0;
-		printf("Job %d (bg:%d).\n", ++j_c, j->is_background);
-		while (p)
-		{
-			w = p->arglist;
-			printf("   Process %d :", ++p_c);
-			while (w)
-			{
-				printf(" %s", w->str);
-				w = w->next;
-			}
-			printf(". -> %d\n", p->separator);
-			p = p->next;
-		}
+		printf("Job %d (%s) :\n", ++j_c, j->is_background ? "BG" : "FG");
+		print_ast(j->arg_tree);
+		ft_putchar('\n');
 		j = j->next;
 	}
 }

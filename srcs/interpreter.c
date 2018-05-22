@@ -6,13 +6,13 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 11:16:48 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/17 16:15:13 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/22 10:11:28 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-void	interpret(t_ast *node, t_job **job)
+/*void	interpret(t_ast *node, t_job **job)
 {
 	if (node->token == AMP)
 		interpret_amp(node, job);
@@ -26,4 +26,4 @@ void	interpret(t_ast *node, t_job **job)
 		interpret_pipe(node, job);
 	else
 		interpret_arg(node, job);
-}
+}*/

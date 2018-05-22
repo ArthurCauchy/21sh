@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 11:37:02 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/17 16:04:27 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/22 09:24:53 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 	args[i] = NULL;
 }*/
 
-void	interpret_arg(t_ast *node, t_job **job)
+/*void	interpret_arg(t_ast *node, t_job **job)
 {
 	t_process	*proc;
 	t_process	*cur;
@@ -43,4 +43,4 @@ void	interpret_arg(t_ast *node, t_job **job)
 			cur = cur->next;
 		cur->next = proc;
 	}
-}
+}*/

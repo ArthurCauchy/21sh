@@ -13,6 +13,10 @@ TODO job control :
 - shell: ignore interative and job control signals
 - globale g_running_proc a delete
 - comprendre comment est defini le job courant, pour fg et bg sans arguments
+- Pour split les jobs :
+	- faire une PETITE fonction recursive qui parcours l'arbre et split en sous-arbres NON VIDES et SANS AMP
+	- return: est-ce que le sous-arbre a un amp, et si non, le parent add a la liste /array de jobs
+- stocker les jobs en 2 listes / array : une FG et une BG
 
 Notes job control :
 - les notifs des jobs termines n'est affiche qu'au moment d'afficher le prompt

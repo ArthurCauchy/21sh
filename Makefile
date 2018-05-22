@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/05/17 15:32:27 by arthur           ###   ########.fr        #
+#    Updated: 2018/05/22 10:11:00 by arthur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,6 +83,7 @@ SRC_NAME = main.c \
 		   interpreter_pipe.c \
 		   interpreter_arg.c \
 		   job.c \
+		   job_split.c \
 		   job_control.c \
 		   input.c \
 		   output.c \
