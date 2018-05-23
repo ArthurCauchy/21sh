@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/22 10:15:05 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/23 11:23:36 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int			main(int argc, char **argv, char **envp)
 			t_job	*first_job = NULL;
 			split_jobs(ast, &first_job);
 			g_first_job = first_job;
-			start_jobs(g_envptr, first_job);
+			start_jobs(first_job);
 			delete_ast(&ast);
 		}
 	}

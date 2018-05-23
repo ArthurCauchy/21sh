@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 11:37:20 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/22 09:28:16 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/23 12:43:21 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_job	*create_job(void)
 	new = (t_job*)malloc(sizeof(t_job));
 	new->next = NULL;
 	new->arg_tree = NULL;
+	new->proc_list = NULL;
 	new->pgid = -1;
 	new->is_background = 0;
 	return (new);

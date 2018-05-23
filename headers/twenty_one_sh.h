@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/22 10:10:39 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/23 13:45:24 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ typedef struct		s_redirect
 typedef struct		s_process
 {
 	struct s_process	*next;
-	t_word				*arglist;
+	char				**args;
 	pid_t				pid;
 	char				completed;
 	char				stopped;
@@ -115,6 +115,7 @@ typedef struct		s_job
 {
 	struct s_job		*next;
 	t_ast				*arg_tree;
+	t_process			*proc_list;
 	pid_t				pgid;
 	int					is_background;
 	struct termios		tmodes;
@@ -293,13 +294,12 @@ int					apply_redirect_rshift2(t_redirect *redir,
 ** interpreter.c, interpreter_[token].c
 */
 
-/*void				interpret(t_ast *node, t_job **job);
-void				interpret_amp(t_ast *node, t_job **job);
-void				interpret_semicol(t_ast *node, t_job **job);
-void				interpret_or(t_ast *node, t_job **job);
-void				interpret_and(t_ast *node, t_job **job);
-void				interpret_pipe(t_ast *node, t_job **job);
-void				interpret_arg(t_ast *node, t_job **job);*/
+void				interpret(t_ast *node, t_job *job);
+void				interpret_semicol(t_ast *node, t_job *job);
+void				interpret_or(t_ast *node, t_job *job);
+void				interpret_and(t_ast *node, t_job *job);
+void				interpret_pipe(t_ast *node, t_job *job);
+void				interpret_arg(t_ast *node, t_job *job);
 
 /*
 ** job.c
@@ -318,16 +318,16 @@ void				split_jobs(t_ast *node, t_job **jobs);
 ** job_control.c
 */
 
-/*t_job				*find_job (pid_t pgid);
+//t_job				*find_job (pid_t pgid);
 int					job_is_stopped (t_job *j);
 int					job_is_completed (t_job *j);
 void				put_job_in_foreground (t_job *j, int cont);
 void				put_job_in_background (t_job *j, int cont);
 int					mark_process_status(pid_t pid, int status);
-void				update_status(void);
+//void				update_status(void);
 void				wait_for_job(t_job *j);
-void				format_job_info(t_job *j, const char *status);
-void				do_job_notification(void);*/
+//void				format_job_info(t_job *j, const char *status);
+//void				do_job_notification(void);
 
 /*
 ** signals.c
@@ -354,9 +354,9 @@ void				print_chdir_error(char *path);
 ** process.c
 */
 
-t_process			*create_process(t_word *arglist);
+t_process			*create_process(char ***args);
 void				delete_process(t_process *proc);
-int					start_process(t_env **env, char **args);
+void				start_process(t_env **env, t_job *job, t_process *proc);
 
 /*
 ** path.c
@@ -377,7 +377,7 @@ void				init_builtins(void);
 ** starter_job.c
 */
 
-void				start_jobs(t_env **env, t_job *first_job);
+void				start_jobs(t_job *first_job);
 
 /*
 ** starter_process.c

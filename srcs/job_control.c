@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 11:37:20 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/17 15:42:22 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/23 14:35:50 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,14 @@ t_job 	*find_job (pid_t pgid)
 	}
 	return (NULL);
 }
+*/
 
 // Return true if all processes in the job have stopped or completed.
 int		job_is_stopped (t_job *j)
 {
 	t_process *p;
 
-	p = j->first_process;
+	p = j->proc_list;
 	while (p)
 	{
 		if (!p->completed && !p->stopped)
@@ -48,7 +49,7 @@ int		job_is_completed (t_job *j)
 {
 	t_process *p;
 
-	p = j->first_process;
+	p = j->proc_list;
 	while (p)
 	{
 		if (!p->completed)
@@ -97,6 +98,7 @@ void	put_job_in_background(t_job *j, int cont)
 			exit_error("kill() error");
 }
 
+/*
 // Store the status of the process pid that was returned by waitpid.
 //    Return 0 if all went well, nonzero otherwise.
 
@@ -109,7 +111,7 @@ int		mark_process_status(pid_t pid, int status)
 	{
 		// Update the record for the process.
 		for (j = g_first_job; j; j = j->next)
-			for (p = j->first_process; p; p = p->next)
+			for (p = j->proc_list; p; p = p->next)
 				if (p->pid == pid)
 				{
 					p->status = status;
@@ -134,8 +136,43 @@ int		mark_process_status(pid_t pid, int status)
 		perror ("waitpid");
 		return -1;
 	}
+}*/
+
+int		mark_process_status(pid_t pid, int status)
+{
+	t_job *j;
+	t_process *p;
+
+	if (pid > 0)
+	{
+		// Update the record for the process.
+		for (j = g_first_job; j; j = j->next)
+			for (p = j->proc_list; p; p = p->next)
+				if (p->pid == pid)
+				{
+					p->status = status;
+					if (WIFSTOPPED (status))
+						p->stopped = 1;
+					else
+					{
+						p->completed = 1;
+						if (WIFSIGNALED (status))
+						{
+							ft_putnbr_fd(pid, 2);
+							ft_putstr_fd(": Terminated by signal ", 2);
+							ft_putnbr_fd(WTERMSIG (p->status), 2);
+							ft_putchar_fd('\n', 2);
+						}
+					}
+					return 0;
+				}
+		return (-1);
+	}
+	else
+		return (-1);
 }
 
+/*
 // Check for processes that have status information available, without blocking.
 void	update_status(void)
 {
@@ -145,14 +182,15 @@ void	update_status(void)
 	do
 		pid = waitpid(WAIT_ANY, &status, WUNTRACED|WNOHANG);
 	while (!mark_process_status (pid, status));
-}
+}*/
+
 
 // Check for processes that have status information available,
 //    blocking until all processes in the given job have reported.
 
 void	wait_for_job(t_job *j)
 {
-	int status;
+	int	status;
 	pid_t pid;
 
 	do
@@ -160,8 +198,10 @@ void	wait_for_job(t_job *j)
 	while (!mark_process_status (pid, status)
 			&& !job_is_stopped (j)
 			&& !job_is_completed (j));
+	waitpid(j->pgid, &status, WUNTRACED);
 }
 
+/*
 // Format information about job status for the user to look at.
 
 void	format_job_info(t_job *j, const char *status)

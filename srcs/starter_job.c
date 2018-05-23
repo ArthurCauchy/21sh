@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 11:37:12 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/22 10:46:10 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/23 13:09:16 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,31 @@ static void	print_ast(t_ast *node)
 	print_ast(node->right);
 }
 
-void		start_jobs(t_env **env, t_job *first_job)
+static void	start_job(t_job *job)
+{
+	interpret(job->arg_tree, job);
+	if (!job->is_background)
+		put_job_in_foreground(job, 0);
+}
+
+void		start_jobs(t_job *first_job)
 {
 	t_job	*j;
 	int		j_c;
 
-	(void)env;
 	j = first_job;
 	j_c = 0;
 	while (j)
 	{
 		printf("Job %d (%s) :\n", ++j_c, j->is_background ? "BG" : "FG");
 		print_ast(j->arg_tree);
+		start_job(j);
 		ft_putchar('\n');
 		j = j->next;
 	}
 }
 
-/*void	start_job(t_env **env, t_job *j, int foreground)
+/*void	start_job(t_env **env, t_job *j)
 {
 	t_process	*p;
 	pid_t		pid;

@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/05/22 10:11:00 by arthur           ###   ########.fr        #
+#    Updated: 2018/05/23 13:06:22 by arthur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,6 @@ SRC_NAME = main.c \
 		   redirections_apply_rshift_amp.c \
 		   redirections_apply_rshift2.c \
 		   interpreter.c \
-		   interpreter_amp.c \
 		   interpreter_semicol.c \
 		   interpreter_or.c \
 		   interpreter_and.c \
