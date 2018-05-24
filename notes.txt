@@ -14,17 +14,20 @@ TODO job control :
 - shell: ignore interative and job control signals
 - globale g_running_proc a delete
 - comprendre comment est defini le job courant, pour fg et bg sans arguments
-- Pour split les jobs :
-	- faire une PETITE fonction recursive qui parcours l'arbre et split en sous-arbres NON VIDES et SANS AMP
-	- return: est-ce que le sous-arbre a un amp, et si non, le parent add a la liste /array de jobs
+- faire en sorte que l'arbre de process soit parcourable plusieurs fois ?
+	- lancer l'arbre depuis la racine
+	- poser une marque sur le premier process (exec = -1 : pas fait, 0 : termine OK, 1 : termine KO)
+	- lancer le premier process (ou plusieurs si pipe)
+	- sortir de l'arbre, attendre la fin du process
+	- relancer l'arbre depuis la racine, mais on connais le resultat des process
 - stocker les jobs en 2 listes / array : une FG et une BG
 
 Notes job control :
 - les notifs des jobs termines n'est affiche qu'au moment d'afficher le prompt
+- impossible de recuperer l'exit code d'un process en background, car le lancement renvoie tjr 0
 - fg : fait passer un job en premier plan
 - bg : fait passer un job en arriere plan
 - jobs : liste les jobs non termines
-- impossible de recuperer l'exit code d'un process en background, car le lancement renvoie tjr 0
 - jobs, fg et bg ne peuvent pas etre lance en arriere plan
 
 TODO bonus :
