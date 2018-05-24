@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/12 17:49:03 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/24 17:41:49 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ int					builtin_env(t_env **env, char **args);
 int					builtin_setenv(t_env **env, char **args);
 int					builtin_unsetenv(t_env **env, char **args);
 int					builtin_echo(t_env **env, char **args);
+int					builtin_which(t_env **env, char **args);
 
 /*
 ** s_env.c
@@ -266,7 +267,9 @@ int					exec_ast_arg(t_ast *node, int inputfd, int outputfd);
 ** signals.c
 */
 
-void				init_signals(void);
+void				sighandler(int signo);
+void				reset_sighandlers(void);
+void				ignore_signals(void);
 
 /*
 ** input.c
@@ -286,6 +289,7 @@ void				print_chdir_error(char *path);
 ** process.c
 */
 
+int					post_process(int status);
 int					start_process(t_env **env, char **args);
 
 /*
@@ -298,6 +302,7 @@ char				*find_cmd_path(t_env **env, t_env **cmd_env, char *cmd);
 ** init.c
 */
 
+void                init_signals(void);
 void				init_env(t_env **env, char **envp);
 void				init_builtins(void);
 

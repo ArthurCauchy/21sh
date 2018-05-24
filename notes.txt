@@ -3,22 +3,24 @@ TODO :
 - heredoc (<<)
 - Command not found + redirection : actuellement comme sh (OK), a modifier pour faire comme csh (mieux).
 - FIX : ls >&3 : should be wrong but OK
-- DEBAT : "Bash handles several filenames specially when they are used in redirections, as described in the following table."
-- FIX le shell doit envoyer SIGHUP a tous les process quand il en recoit un (?)
+- FIX fichiers ouverts jamais fermes
+- gerer le ctrl+z, le builtin fg et l'envoi d'un SIGCONT
+	- uniquement 1 process en pause (ou alors on relance que le dernier ?)
+- tilde and var expansion
+- ctrl+D
+- faire les redirections bien
+- enlever les globales pour les pipes ou les faire mieux
 
 TODO bonus :
-- refaire cd : finir option l + CDPATH
+- refaire cd : CDPATH
 - refaire pwd (ou le suppr ?- voir sujet 42sh)
-- job control
 - 21shrc
-- builtin which
 - builtin help
 - tilde expansion
 - pourquoi est-ce que c'est pas builtin_parse_options qui fait le bzero ? :o
 - tester CDPATH (ex: fichier ou mauvais mode et un un vrai dossier dans un CDPATH plus loin)
 
 Notes :
-- pour job control , on peut : tcsetpgrp tcgetpgrp
 - pour voir les file descriptors ouverts : lsof -p <pid>
 - Pipe non fonctionnels (ne demarrent pas en meme temps). A fix, faire le job control en même temps.
 - DEBAT : options des builtins senseibles a la casse ou pas ?

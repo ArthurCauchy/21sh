@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/04/27 18:38:16 by arthur           ###   ########.fr        #
+#    Updated: 2018/05/24 17:41:30 by arthur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC_NAME = main.c \
 		   builtin_setenv.c \
 		   builtin_unsetenv.c \
 		   builtin_echo.c \
+		   builtin_which.c \
 		   word.c \
 		   ast.c \
 		   lexing.c \

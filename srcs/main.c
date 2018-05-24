@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/18 15:14:26 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/05/24 15:22:27 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int			g_exitnow = 0;
 int			g_exitstatus = 0;
 t_env		**g_envptr = NULL;
 
-static void	init_shell(t_env **env, char **envp)
+static void	init(t_env **env, char **envp)
 {
 	init_signals();
 	init_builtins();
@@ -67,7 +67,7 @@ int			main(int argc, char **argv, char **envp)
 	(void)argv;
 	env = NULL;
 	ast = NULL;
-	init_shell(&env, envp);
+	init(&env, envp);
 	while (g_exitnow != 1)
 	{
 		if (input_and_parse(&ast) == 0)

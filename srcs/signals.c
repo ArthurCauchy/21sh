@@ -6,15 +6,15 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:37:44 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/30 12:10:33 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/05/24 17:07:25 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-static void	sigint_handler(int signo)
+void	sighandler(int signo)
 {
-	if (signo == SIGINT)
+	if (signo == SIGINT || signo == SIGTSTP)
 	{
 		ft_putchar('\n');
 		if (g_running_proc == -1)
@@ -22,10 +22,22 @@ static void	sigint_handler(int signo)
 			print_prompt(g_envptr);
 		}
 	}
+	else if (signo == SIGCHLD)
+	{
+		wait(NULL);
+	}
 }
 
-void		init_signals(void)
+void	reset_sighandlers(void)
 {
-	if (signal(SIGINT, sigint_handler) == SIG_ERR)
-		exit_error("Can't catch SIGINT.");
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGTSTP, SIG_DFL);
+}
+
+void	ignore_signals(void)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
 }
