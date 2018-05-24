@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/05/23 13:06:22 by arthur           ###   ########.fr        #
+#    Updated: 2018/04/27 18:38:16 by arthur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,7 @@ HEADER = $(addprefix $(HEADER_PATH)/,$(HEADER_NAME))
 
 SRC_PATH = srcs
 SRC_NAME = main.c \
-		   starter_job.c \
-		   starter_process.c \
+		   starter.c \
 		   builtins_manager.c \
 		   builtins_utils.c \
 		   builtin_exit.c \
@@ -45,9 +44,6 @@ SRC_NAME = main.c \
 		   builtin_setenv.c \
 		   builtin_unsetenv.c \
 		   builtin_echo.c \
-		   builtin_jobs.c \
-		   builtin_bg.c \
-		   builtin_fg.c \
 		   word.c \
 		   ast.c \
 		   lexing.c \
@@ -64,7 +60,6 @@ SRC_NAME = main.c \
 		   parsing_parse_and.c \
 		   parsing_parse_or.c \
 		   parsing_parse_semicol.c \
-		   parsing_parse_amp.c \
 		   parsing_validator.c \
 		   redirect.c \
 		   redirections.c \
@@ -81,9 +76,6 @@ SRC_NAME = main.c \
 		   interpreter_and.c \
 		   interpreter_pipe.c \
 		   interpreter_arg.c \
-		   job.c \
-		   job_split.c \
-		   job_control.c \
 		   input.c \
 		   output.c \
 		   process.c \

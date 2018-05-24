@@ -6,22 +6,22 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 11:16:48 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/23 13:11:59 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/13 11:30:03 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-void	interpret(t_ast *node, t_job *job)
+int	exec_ast(t_ast *node, int inputfd, int outputfd)
 {
 	if (node->token == SEMICOL)
-		interpret_semicol(node, job);
+		return (exec_ast_semicol(node, inputfd, outputfd));
 	else if (node->token == OR)
-		interpret_or(node, job);
+		return (exec_ast_or(node, inputfd, outputfd));
 	else if (node->token == AND)
-		interpret_and(node, job);
+		return (exec_ast_and(node, inputfd, outputfd));
 	else if (node->token == PIPE)
-		interpret_pipe(node, job);
+		return (exec_ast_pipe(node, inputfd, outputfd));
 	else
-		interpret_arg(node, job);
+		return (exec_ast_arg(node, inputfd, outputfd));
 }

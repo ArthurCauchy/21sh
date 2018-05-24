@@ -6,14 +6,17 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 11:37:43 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/23 13:06:49 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/13 11:26:01 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-void	interpret_semicol(t_ast *node, t_job *job)
+int	exec_ast_semicol(t_ast *node, int inputfd, int outputfd)
 {
-	interpret(node->left, job);
-	interpret(node->right, job);
+	int	ret;
+
+	exec_ast(node->left, inputfd, outputfd);
+	ret = exec_ast(node->right, inputfd, outputfd);
+	return (ret);
 }

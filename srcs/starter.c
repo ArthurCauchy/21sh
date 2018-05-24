@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   starter_process.c                                  :+:      :+:    :+:   */
+/*   starter.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/23 13:11:24 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/04 15:35:53 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-/*static void	replace_exec_name(char **arg, char *newname)
+static void	replace_exec_name(char **arg, char *newname)
 {
 	free(*arg);
 	*arg = newname;
@@ -82,4 +82,4 @@ int			start_command(t_env **env, t_env **cmd_env,
 	}
 	restore_filedes(fdsave_array);
 	return (ret);
-}*/
+}

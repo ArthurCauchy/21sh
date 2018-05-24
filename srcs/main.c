@@ -6,21 +6,18 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/23 11:23:36 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/18 15:14:26 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-t_shelldata	g_shell;
 int			g_exitnow = 0;
 int			g_exitstatus = 0;
-t_job		*g_first_job = NULL;
 t_env		**g_envptr = NULL;
 
-static void	init(t_env **env, char **envp)
+static void	init_shell(t_env **env, char **envp)
 {
-	init_shell();
 	init_signals();
 	init_builtins();
 	init_env(env, envp);
@@ -70,15 +67,12 @@ int			main(int argc, char **argv, char **envp)
 	(void)argv;
 	env = NULL;
 	ast = NULL;
-	init(&env, envp);
+	init_shell(&env, envp);
 	while (g_exitnow != 1)
 	{
 		if (input_and_parse(&ast) == 0)
 		{
-			t_job	*first_job = NULL;
-			split_jobs(ast, &first_job);
-			g_first_job = first_job;
-			start_jobs(first_job);
+			exec_ast(ast, 0, 1);
 			delete_ast(&ast);
 		}
 	}

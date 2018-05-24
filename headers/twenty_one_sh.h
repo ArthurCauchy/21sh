@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/23 13:45:24 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/12 17:49:03 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@
 # include <sys/stat.h>
 # include <errno.h>
 # include <fcntl.h>
-# include <termios.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <signal.h>
 # include "libft.h"
 
 # define BUILTIN_MAX 42
@@ -33,14 +31,6 @@
 # define FD_MAX 1024
 # define REDIRECT_MAX 512
 # define MAX_PATH_SIZE 4096
-
-typedef struct		s_shelldata
-{
-	pid_t			pgid;
-	struct termios	tmodes;
-	int				terminal;
-	int				is_interactive;
-}					t_shelldata;
 
 typedef struct		s_env
 {
@@ -72,11 +62,11 @@ typedef enum		e_token
 	RSHIFT,
 	RSHIFT_AMP,
 	RSHIFT2,
+	AMP,
 	PIPE,
 	AND,
 	OR,
 	SEMICOL,
-	AMP,
 }					t_token;
 
 typedef struct		s_word
@@ -101,33 +91,11 @@ typedef struct		s_redirect
 	t_token	token;
 }					t_redirect;
 
-typedef struct		s_process
-{
-	struct s_process	*next;
-	char				**args;
-	pid_t				pid;
-	char				completed;
-	char				stopped;
-	int					status;
-}					t_process;
-
-typedef struct		s_job
-{
-	struct s_job		*next;
-	t_ast				*arg_tree;
-	t_process			*proc_list;
-	pid_t				pgid;
-	int					is_background;
-	struct termios		tmodes;
-}					t_job;
-
 typedef int	(*t_builtin_fct)(t_env**, char**);
 
-extern t_shelldata	g_shell;
 extern int			g_exitnow;
 extern int			g_exitstatus;
 extern int			g_running_proc;
-extern t_job		*g_first_job;
 extern t_env		**g_envptr;
 
 /*
@@ -156,7 +124,7 @@ t_builtin_fct		search_builtin(char *name);
 */
 
 int					builtin_parse_options(char **args,
-char				*options, int options_size);
+		char *options, int options_size);
 int					builtin_validate_options(char *options, char *valid_set);
 
 /*
@@ -172,9 +140,6 @@ int					builtin_env(t_env **env, char **args);
 int					builtin_setenv(t_env **env, char **args);
 int					builtin_unsetenv(t_env **env, char **args);
 int					builtin_echo(t_env **env, char **args);
-int					builtin_jobs(t_env **env, char **args);
-int					builtin_fg(t_env **env, char **args);
-int					builtin_bg(t_env **env, char **args);
 
 /*
 ** s_env.c
@@ -200,7 +165,6 @@ char				**env_to_array(t_env **env);
 t_word				*new_word(t_token token, char *str);
 void				remove_word(t_word **wordlist, t_word *word);
 void				delete_wordlist(t_word **head);
-t_word			*copy_wordlist(t_word *head_src);
 
 /*
 ** ast.c
@@ -208,8 +172,6 @@ t_word			*copy_wordlist(t_word *head_src);
 
 t_ast				*new_ast_node(t_token token, t_word *arglist);
 void				delete_ast(t_ast **ast);
-t_ast				*copy_node(t_ast *src);
-t_ast				*copy_ast(t_ast *src);
 
 /*
 ** lexing.c, lexing_[token].c
@@ -245,7 +207,6 @@ void				parse_pipe(t_word **symbol, t_ast **current);
 void				parse_and(t_word **symbol, t_ast **current);
 void				parse_or(t_word **symbol, t_ast **current);
 void				parse_semicol(t_word **symbol, t_ast **current);
-void				parse_amp(t_word **symbol, t_ast **current);
 
 /*
 ** parsing_validator.c
@@ -294,47 +255,18 @@ int					apply_redirect_rshift2(t_redirect *redir,
 ** interpreter.c, interpreter_[token].c
 */
 
-void				interpret(t_ast *node, t_job *job);
-void				interpret_semicol(t_ast *node, t_job *job);
-void				interpret_or(t_ast *node, t_job *job);
-void				interpret_and(t_ast *node, t_job *job);
-void				interpret_pipe(t_ast *node, t_job *job);
-void				interpret_arg(t_ast *node, t_job *job);
-
-/*
-** job.c
-*/
-
-t_job				*create_job(void);
-void				delete_job(t_job *job);
-
-/*
-** job_split.c
-*/
-
-void				split_jobs(t_ast *node, t_job **jobs);
-
-/*
-** job_control.c
-*/
-
-//t_job				*find_job (pid_t pgid);
-int					job_is_stopped (t_job *j);
-int					job_is_completed (t_job *j);
-void				put_job_in_foreground (t_job *j, int cont);
-void				put_job_in_background (t_job *j, int cont);
-int					mark_process_status(pid_t pid, int status);
-//void				update_status(void);
-void				wait_for_job(t_job *j);
-//void				format_job_info(t_job *j, const char *status);
-//void				do_job_notification(void);
+int					exec_ast(t_ast *node, int inputfd, int outputfd);
+int					exec_ast_semicol(t_ast *node, int inputfd, int outputfd);
+int					exec_ast_or(t_ast *node, int inputfd, int outputfd);
+int					exec_ast_and(t_ast *node, int inputfd, int outputfd);
+int					exec_ast_pipe(t_ast *node, int inputfd, int outputfd);
+int					exec_ast_arg(t_ast *node, int inputfd, int outputfd);
 
 /*
 ** signals.c
 */
 
-void				register_signals(void);
-void				reset_signals_actions(void);
+void				init_signals(void);
 
 /*
 ** input.c
@@ -354,9 +286,7 @@ void				print_chdir_error(char *path);
 ** process.c
 */
 
-t_process			*create_process(char ***args);
-void				delete_process(t_process *proc);
-void				start_process(t_env **env, t_job *job, t_process *proc);
+int					start_process(t_env **env, char **args);
 
 /*
 ** path.c
@@ -368,19 +298,11 @@ char				*find_cmd_path(t_env **env, t_env **cmd_env, char *cmd);
 ** init.c
 */
 
-void				init_shell(void);
-void				init_signals(void);
 void				init_env(t_env **env, char **envp);
 void				init_builtins(void);
 
 /*
-** starter_job.c
-*/
-
-void				start_jobs(t_job *first_job);
-
-/*
-** starter_process.c
+** starter.c
 */
 
 int					start_command(t_env **env,

@@ -6,14 +6,25 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 11:37:10 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/23 13:06:59 by arthur           ###   ########.fr       */
+/*   Updated: 2018/04/30 14:45:27 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-void	interpret_pipe(t_ast *node, t_job *job)
+int	exec_ast_pipe(t_ast *node, int inputfd, int outputfd)
 {
-	interpret(node->left, job);
-	interpret(node->right, job);
+	int	ret1;
+	int	ret2;
+	int	pipefd[2];
+
+	if (pipe(pipefd) == -1)
+		exit_error("pipe() error");
+	ret1 = exec_ast(node->left, inputfd, pipefd[1]);
+	close(pipefd[1]);
+	ret2 = exec_ast(node->right, pipefd[0], outputfd);
+	close(pipefd[0]);
+	if (ret2 != 0)
+		return (ret2);
+	return (ret1);
 }

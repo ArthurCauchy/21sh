@@ -43,29 +43,3 @@ void			delete_ast(t_ast **ast)
 	delete_ast_node(*ast);
 	*ast = NULL;
 }
-
-t_ast			*copy_node(t_ast *src)
-{
-	t_ast	*dest;
-
-	if (!src)
-		return (NULL);
-	dest = (t_ast*)malloc(sizeof(t_ast));
-	dest->token = src->token;
-	dest->arglist = copy_wordlist(src->arglist);
-	dest->left = NULL;
-	dest->right = NULL;
-	return (dest);
-}
-
-t_ast			*copy_ast(t_ast *src)
-{
-	t_ast	*dest;
-
-	if (!src)
-		return (NULL);
-	dest = copy_node(src);
-	dest->left = copy_ast(src->left);
-	dest->right = copy_ast(src->right);
-	return (dest);
-}
