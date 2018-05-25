@@ -9,7 +9,10 @@ TODO :
 - tilde and var expansion
 - ctrl+D
 - faire les redirections bien
-- enlever les globales pour les pipes ou les faire mieux
+- GLOBALES A REFAIRE EN PLUS PROPRE
+- FIX : stopper toute la chaine de commande a la reception d'un ctrl C ou ctrl Z
+- Whenever the child process wants to read from the pipe, it must first close the pipe's side from writing.
+- BUG : ctrl+C quand un proc est suspended lui envoie quand meme, ce qui le fait quitter des qu'il recommence.
 
 TODO bonus :
 - refaire cd : CDPATH

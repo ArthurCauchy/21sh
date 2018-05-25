@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:37:44 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/24 17:07:25 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/25 11:39:03 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ void	sighandler(int signo)
 			print_prompt(g_envptr);
 		}
 	}
-	else if (signo == SIGCHLD)
+	/*else if (signo == SIGCHLD)
 	{
+		printf("yo.\n");
 		wait(NULL);
-	}
+	}*/
 }
 
 void	reset_sighandlers(void)
@@ -33,6 +34,7 @@ void	reset_sighandlers(void)
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGTSTP, SIG_DFL);
+	signal(SIGCHLD, SIG_DFL);
 }
 
 void	ignore_signals(void)

@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/05/24 17:41:30 by arthur           ###   ########.fr        #
+#    Updated: 2018/05/25 11:57:13 by arthur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,8 @@ SRC_NAME = main.c \
 		   builtin_unsetenv.c \
 		   builtin_echo.c \
 		   builtin_which.c \
+		   builtin_procs.c \
+		   builtin_fg.c \
 		   word.c \
 		   ast.c \
 		   lexing.c \
@@ -80,6 +82,7 @@ SRC_NAME = main.c \
 		   input.c \
 		   output.c \
 		   process.c \
+		   process_control.c \
 		   signals.c \
 		   utils.c \
 		   utils2.c \

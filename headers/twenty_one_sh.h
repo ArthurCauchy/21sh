@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/24 17:41:49 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/25 12:02:11 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ int					builtin_setenv(t_env **env, char **args);
 int					builtin_unsetenv(t_env **env, char **args);
 int					builtin_echo(t_env **env, char **args);
 int					builtin_which(t_env **env, char **args);
+int					builtin_procs(t_env **env, char **args);
+int					builtin_fg(t_env **env, char **args);
 
 /*
 ** s_env.c
@@ -289,8 +291,14 @@ void				print_chdir_error(char *path);
 ** process.c
 */
 
-int					post_process(int status);
 int					start_process(t_env **env, char **args);
+
+/*
+** process_control.c
+*/
+
+pid_t				restore_process(void);
+int					post_process(pid_t pid, int status);
 
 /*
 ** path.c

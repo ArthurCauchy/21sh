@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:48:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/24 17:47:55 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/25 12:24:18 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,6 @@ void	init_builtins(void)
 	load_builtin("unsetenv", &builtin_unsetenv);
 	load_builtin("echo", &builtin_echo);
 	load_builtin("which", &builtin_which);
+	load_builtin("procs", &builtin_procs);
+	load_builtin("fg", &builtin_fg);
 }

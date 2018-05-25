@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:42:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/24 16:53:34 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/25 12:03:19 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,13 @@
 int			g_running_proc = -1;
 
 extern int pipelvl;
-extern int pipe_last_pid;
-
-int			post_process(int status)
-{
-	if (WIFSIGNALED(status))
-	{
-		print_sig_error(WTERMSIG(status));
-		return (1);
-	}
-	return (WEXITSTATUS(status));
-}
+extern pid_t pipe_last_pid;
 
 int			start_process(t_env **env, char **args)
 {
 	pid_t	pid;
 	int		status;
+	int		ret;
 
 	pid = fork();
 	if (pid == -1)
@@ -47,11 +38,11 @@ int			start_process(t_env **env, char **args)
 		{
 			pipe_last_pid = pid;
 			g_running_proc = pid;
-			waitpid(pid, &status, WUNTRACED);
-			if (status == -1)
-				exit_error("wait() error");
+			if (waitpid(pid, &status, WUNTRACED) == -1)
+				exit_error("waitpid() error");
 			g_running_proc = -1;
-			return (post_process(status));
+			ret = post_process(pid, status);
+			return (ret);
 		}
 		else
 			--pipelvl;

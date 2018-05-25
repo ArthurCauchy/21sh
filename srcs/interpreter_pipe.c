@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 11:37:10 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/24 16:48:59 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/25 11:03:03 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,5 @@ int	exec_ast_pipe(t_ast *node, int inputfd, int outputfd)
 	exec_ast(node->right, pipefd[0], outputfd);
 	close(pipefd[0]);
 	waitpid(pipe_last_pid, &status, WUNTRACED);
-	return (post_process(status));
+	return (post_process(-1, status));
 }

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:35:34 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/12 17:31:40 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/25 12:27:28 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,17 @@ void	print_prompt(t_env **env)
 void	print_sig_error(int sig)
 {
 	if (sig == SIGABRT)
-		ft_putendl_fd("Abort.", 2);
+		ft_putendl_fd("Abort", 2);
 	else if (sig == SIGBUS)
-		ft_putendl_fd("Bus error.", 2);
+		ft_putendl_fd("Bus error", 2);
 	else if (sig == SIGFPE)
-		ft_putendl_fd("Floating Point Exception.", 2);
+		ft_putendl_fd("Floating Point Exception", 2);
 	else if (sig == SIGILL)
-		ft_putendl_fd("Illegal instruction.", 2);
+		ft_putendl_fd("Illegal instruction", 2);
 	else if (sig == SIGSEGV)
-		ft_putendl_fd("Segmentation Fault.", 2);
+		ft_putendl_fd("Segmentation Fault", 2);
 	else if (sig == SIGTERM)
-		ft_putendl_fd("Terminated.", 2);
+		ft_putendl_fd("Terminated", 2);
 	else if (sig != SIGINT)
 		ft_putendl_fd("Unknown fatal signal recieved.", 2);
 }
