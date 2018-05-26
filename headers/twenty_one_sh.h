@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/25 12:02:11 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/26 15:22:05 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,20 @@ typedef struct		s_redirect
 	t_token	token;
 }					t_redirect;
 
+typedef struct		s_shell
+{
+	int		exit_now;
+	int		exit_status;
+	t_env	**env;
+	pid_t	shell_pgid;
+	int		pipe_lvl;
+	pid_t	pipe_pgid;
+	pid_t	saved_pgid;
+}					t_shell;
+
 typedef int	(*t_builtin_fct)(t_env**, char**);
 
-extern int			g_exitnow;
-extern int			g_exitstatus;
-extern int			g_running_proc;
-extern t_env		**g_envptr;
+extern t_shell		g_shell;
 
 /*
 ** utils.c, utils2.c
@@ -310,6 +318,7 @@ char				*find_cmd_path(t_env **env, t_env **cmd_env, char *cmd);
 ** init.c
 */
 
+void                init_shell(void);
 void                init_signals(void);
 void				init_env(t_env **env, char **envp);
 void				init_builtins(void);

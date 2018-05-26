@@ -4,15 +4,13 @@ TODO :
 - Command not found + redirection : actuellement comme sh (OK), a modifier pour faire comme csh (mieux).
 - FIX : ls >&3 : should be wrong but OK
 - FIX fichiers ouverts jamais fermes
-- gerer le ctrl+z, le builtin fg et l'envoi d'un SIGCONT
-	- uniquement 1 process en pause (ou alors on relance que le dernier ?)
 - tilde and var expansion
 - ctrl+D
 - faire les redirections bien
-- GLOBALES A REFAIRE EN PLUS PROPRE
 - FIX : stopper toute la chaine de commande a la reception d'un ctrl C ou ctrl Z
 - Whenever the child process wants to read from the pipe, it must first close the pipe's side from writing.
-- BUG : ctrl+C quand un proc est suspended lui envoie quand meme, ce qui le fait quitter des qu'il recommence.
+- FIX : return of pipe
+- FIX REDIRECTIONS FIRST
 
 TODO bonus :
 - refaire cd : CDPATH
@@ -26,7 +24,6 @@ TODO bonus :
 Notes :
 - pour voir les file descriptors ouverts : lsof -p <pid>
 - Pipe non fonctionnels (ne demarrent pas en meme temps). A fix, faire le job control en même temps.
-- DEBAT : options des builtins senseibles a la casse ou pas ?
 
 Builtins - traiter les options :
 - exit : non

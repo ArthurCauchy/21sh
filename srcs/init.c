@@ -6,21 +6,31 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:48:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/25 12:24:18 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/26 15:33:34 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
+
+void	init_shell(void)
+{
+	g_shell.exit_now = 0;
+	g_shell.exit_status = 0;
+	g_shell.env = NULL;
+	g_shell.shell_pgid = getpid();
+	g_shell.pipe_lvl = 0;
+	g_shell.pipe_pgid = -1;
+	g_shell.saved_pgid = -1;
+	if (setpgid(g_shell.shell_pgid, g_shell.shell_pgid) == -1)
+		exit_error("Could not set the shell in it's own process group.");
+	tcsetpgrp(0, g_shell.shell_pgid);
+}
 
 void	init_signals(void)
 {
 	ignore_signals();
 	if (signal(SIGINT, sighandler) == SIG_ERR)
 		exit_error("Can't catch SIGINT.");
-	if (signal(SIGTSTP, sighandler) == SIG_ERR)
-		exit_error("Can't catch SIGTSTP.");
-	if (signal(SIGCHLD, sighandler) == SIG_ERR)
-		exit_error("Can't catch SIGCHLD.");
 }
 
 void	init_env(t_env **env, char **envp)

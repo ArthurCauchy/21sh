@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:35:34 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/25 12:27:28 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/26 16:50:39 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	print_sig_error(int sig)
 		ft_putendl_fd("Segmentation Fault", 2);
 	else if (sig == SIGTERM)
 		ft_putendl_fd("Terminated", 2);
-	else if (sig != SIGINT)
+	else if (sig != SIGINT && sig != SIGPIPE)
 		ft_putendl_fd("Unknown fatal signal recieved.", 2);
 }
 

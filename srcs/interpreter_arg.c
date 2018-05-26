@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 11:37:02 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/04 15:08:18 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/05/26 13:39:55 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int			exec_ast_arg(t_ast *node, int inputfd, int outputfd)
 		return (1);
 	}
 	analyze_arglist(node->arglist, args);
-	ret = start_command(g_envptr, g_envptr, args, redir_array);
+	ret = start_command(g_shell.env, g_shell.env, args, redir_array);
 	delete_args(args);
 	delete_redir_array(redir_array);
 	return (ret);

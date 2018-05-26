@@ -6,22 +6,21 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/24 15:22:27 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/26 13:38:16 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-int			g_exitnow = 0;
-int			g_exitstatus = 0;
-t_env		**g_envptr = NULL;
+t_shell		g_shell;
 
 static void	init(t_env **env, char **envp)
 {
+	init_shell();
 	init_signals();
 	init_builtins();
 	init_env(env, envp);
-	g_envptr = env;
+	g_shell.env = env;
 }
 
 static int	input_and_parse(t_ast **ast)
@@ -32,7 +31,7 @@ static int	input_and_parse(t_ast **ast)
 
 	errmsg = NULL;
 	wordlist = NULL;
-	rep = ask_for_input(0, g_envptr, &errmsg);
+	rep = ask_for_input(0, g_shell.env, &errmsg);
 	if (errmsg)
 	{
 		print_n_free_errmsg(&errmsg);
@@ -68,7 +67,7 @@ int			main(int argc, char **argv, char **envp)
 	env = NULL;
 	ast = NULL;
 	init(&env, envp);
-	while (g_exitnow != 1)
+	while (g_shell.exit_now != 1)
 	{
 		if (input_and_parse(&ast) == 0)
 		{
@@ -78,5 +77,5 @@ int			main(int argc, char **argv, char **envp)
 	}
 	clear_env(env);
 	clear_builtins();
-	return (g_exitstatus);
+	return (g_shell.exit_status);
 }

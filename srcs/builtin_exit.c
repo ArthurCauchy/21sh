@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/25 13:06:13 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/26 13:38:43 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	builtin_exit(t_env **env, char **args)
 			return (1);
 		}
 	}
-	g_exitnow = 1;
-	g_exitstatus = exit_status;
+	g_shell.exit_now = 1;
+	g_shell.exit_status = exit_status;
 	return (0);
 }
