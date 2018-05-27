@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 10:59:12 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/30 12:28:45 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/05/27 12:45:03 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,22 @@ static char	*extract_left_digits(char *str)
 	return (ft_strdup(buff));
 }
 
-void		add_redirect(t_redirect **redir_array,
+void		add_redirect(t_redirect **redirs,
 		char *left, char *right, t_token token)
 {
 	t_redirect	*redirect;
-	size_t		i;
+	t_redirect	*cur;
 
 	redirect = new_redirect(left, right, token);
-	i = 0;
-	while (i < REDIRECT_MAX && redir_array[i] != NULL)
-		++i;
-	redir_array[i] = redirect;
+	cur = *redirs;
+	if (!cur)
+		*redirs = redirect;
+	else
+	{
+		while (cur->next)
+			cur = cur->next;
+		cur->next = redirect;
+	}
 }
 
 static void	remove_redir(t_word **arglist, t_word *token, t_word *left)
@@ -63,7 +68,7 @@ static void	remove_redir(t_word **arglist, t_word *token, t_word *left)
 }
 
 int			analyze_redirects(t_word **arglist,
-		t_redirect **redir_array, char **errmsg)
+		t_redirect **redirs, char **errmsg)
 {
 	t_word	*cur;
 	t_word	*next;
@@ -81,7 +86,7 @@ int			analyze_redirects(t_word **arglist,
 				return (-1);
 			}
 			left = extract_left_digits(cur->str);
-			add_redirect(redir_array, left, next->str, cur->token);
+			add_redirect(redirs, left, next->str, cur->token);
 			free(left);
 			remove_redir(arglist, cur, next);
 			cur = *arglist;

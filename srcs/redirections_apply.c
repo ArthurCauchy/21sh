@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 13:29:12 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/04 14:47:56 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/05/27 11:58:11 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,31 +43,29 @@ int	open_file_fd(char *filename, int mode, int append, char **errmsg)
 	return (fd);
 }
 
-int	apply_redirects(t_redirect **redir_array, int *fdsave_array, char **errmsg)
+int	apply_redirects(t_redirect *redirs, int *fdsave_array, char **errmsg)
 {
-	size_t	i;
-	int		ret;
+	t_redirect	*cur;
+	int			ret;
 
-	i = 0;
-	if (!redir_array)
-		return (0);
-	while (i < REDIRECT_MAX && redir_array[i] != NULL)
+	cur = redirs;
+	while (cur)
 	{
-		if (redir_array[i]->token == PIPE)
-			ret = apply_redirect_pipe(redir_array[i], fdsave_array, errmsg);
-		else if (redir_array[i]->token == LSHIFT)
-			ret = apply_redirect_lshift(redir_array[i], fdsave_array, errmsg);
-		else if (redir_array[i]->token == LSHIFT_AMP)
-			ret = apply_redirect_lshift_amp(redir_array[i], fdsave_array, errmsg);
-		else if (redir_array[i]->token == RSHIFT)
-			ret = apply_redirect_rshift(redir_array[i], fdsave_array, errmsg);
-		else if (redir_array[i]->token == RSHIFT_AMP)
-			ret = apply_redirect_rshift_amp(redir_array[i], fdsave_array, errmsg);
-		else if (redir_array[i]->token == RSHIFT2)
-			ret = apply_redirect_rshift2(redir_array[i], fdsave_array, errmsg);
+		if (cur->token == PIPE)
+			ret = apply_redirect_pipe(cur, fdsave_array, errmsg);
+		else if (cur->token == LSHIFT)
+			ret = apply_redirect_lshift(cur, fdsave_array, errmsg);
+		else if (cur->token == LSHIFT_AMP)
+			ret = apply_redirect_lshift_amp(cur, fdsave_array, errmsg);
+		else if (cur->token == RSHIFT)
+			ret = apply_redirect_rshift(cur, fdsave_array, errmsg);
+		else if (cur->token == RSHIFT_AMP)
+			ret = apply_redirect_rshift_amp(cur, fdsave_array, errmsg);
+		else if (cur->token == RSHIFT2)
+			ret = apply_redirect_rshift2(cur, fdsave_array, errmsg);
 		if (ret == -1)
 			return (-1);
-		++i;
+		cur = cur->next;
 	}
 	return (0);
 }

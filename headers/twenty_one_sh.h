@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/26 15:22:05 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/27 14:58:40 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define REDIRECT_MAX 512
 # define MAX_PATH_SIZE 4096
 
-typedef struct		s_env
+typedef struct	s_env
 {
 	char			*key;
 	char			*value;
@@ -86,10 +86,19 @@ typedef struct		s_ast
 
 typedef struct		s_redirect
 {
-	char	*left;
-	char	*right;
-	t_token	token;
+	struct s_redirect	*next;
+	char				*left;
+	char				*right;
+	t_token				token;
 }					t_redirect;
+
+typedef struct		s_process
+{
+	struct s_process	*next;
+	char				*path;
+	char				**args;
+	t_redirect			*redirs;
+}					t_process;
 
 typedef struct		s_shell
 {
@@ -230,16 +239,16 @@ int					validate_ast(t_ast *root, char **errmsg);
 */
 
 t_redirect			*new_redirect(char *left, char *right, t_token token);
-void				delete_redir_array(t_redirect **redir_array);
+void				delete_redirects(t_redirect *redirs);
 
 /*
 ** redirections.c
 */
 
-void				add_redirect(t_redirect **redir_array,
+void				add_redirect(t_redirect **redirs,
 		char *left, char *right, t_token token);
 int					analyze_redirects(t_word **arglist,
-		t_redirect **redir_array, char **errmsg);
+		t_redirect **redirs, char **errmsg);
 
 /*
 ** redirections_apply.c, redirections_apply_[token].c
@@ -247,7 +256,7 @@ int					analyze_redirects(t_word **arglist,
 
 int					open_file_fd(char *filename, int mode,
 		int append, char **errmsg);
-int					apply_redirects(t_redirect **redir_array,
+int					apply_redirects(t_redirect *redirs,
 		int *fdsave_array, char **errmsg);
 int					apply_redirect_pipe(t_redirect *redir,
 		int *fdsave_array, char **errmsg);
@@ -299,7 +308,8 @@ void				print_chdir_error(char *path);
 ** process.c
 */
 
-int					start_process(t_env **env, char **args);
+t_process			*new_process(void);
+void                delete_processes(t_process *procs);
 
 /*
 ** process_control.c
@@ -328,6 +338,12 @@ void				init_builtins(void);
 */
 
 int					start_command(t_env **env,
-		t_env **cmd_env, char **args, t_redirect **redir_array);
+		t_env **cmd_env, t_process *proc);
+
+/*
+** starter_process.c
+*/
+
+int					start_process(t_env **env, t_process *proc);
 
 #endif

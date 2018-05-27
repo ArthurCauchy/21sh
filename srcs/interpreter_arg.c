@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 11:37:02 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/26 13:39:55 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/27 14:10:38 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,7 @@ static void	analyze_arglist(t_word *arglist, char **args)
 	args[i] = NULL;
 }
 
-static void	exec_ast_arg_init(char ***args, t_redirect **redir_array)
-{
-	size_t	size;
-
-	size = REDIRECT_MAX * sizeof(t_redirect*);
-	ft_bzero(redir_array, size);
-	if (!(*args = (char**)malloc((PARAMS_MAX + 1) * sizeof(char*))))
-		exit_error("malloc() error");
-}
-
-static void	handle_pipe(t_redirect **redir_array, int inputfd, int outputfd)
+static void	handle_pipe(t_redirect **redirs, int inputfd, int outputfd)
 {
 	char	*inputfd_str;
 	char	*outputfd_str;
@@ -59,32 +49,31 @@ static void	handle_pipe(t_redirect **redir_array, int inputfd, int outputfd)
 	inputfd_str = ft_itoa(inputfd);
 	outputfd_str = ft_itoa(outputfd);
 	if (inputfd != 0)
-		add_redirect(redir_array, "0", inputfd_str, PIPE);
+		add_redirect(redirs, "0", inputfd_str, PIPE);
 	if (outputfd != 1)
-		add_redirect(redir_array, "1", outputfd_str, PIPE);
+		add_redirect(redirs, "1", outputfd_str, PIPE);
 	ft_multifree(2, inputfd_str, outputfd_str);
 }
 
 int			exec_ast_arg(t_ast *node, int inputfd, int outputfd)
 {
+	t_process	*proc;
 	char		*errmsg;
-	char		**args;
 	int			ret;
-	t_redirect	*redir_array[REDIRECT_MAX];
 
-	args = NULL;
-	exec_ast_arg_init(&args, redir_array);
-	handle_pipe(redir_array, inputfd, outputfd);
-	if (analyze_redirects(&node->arglist, redir_array, &errmsg) == -1)
+	proc = new_process();
+	handle_pipe(&proc->redirs, inputfd, outputfd);
+	if (analyze_redirects(&node->arglist, &proc->redirs, &errmsg) == -1)
 	{
 		print_n_free_errmsg(&errmsg);
-		free(args);
-		delete_redir_array(redir_array);
+		free(proc->args);
+		delete_redirects(proc->redirs);
 		return (1);
 	}
-	analyze_arglist(node->arglist, args);
-	ret = start_command(g_shell.env, g_shell.env, args, redir_array);
-	delete_args(args);
-	delete_redir_array(redir_array);
+	proc->args = ft_memalloc(sizeof(char*) * PARAMS_MAX);
+	analyze_arglist(node->arglist, proc->args);
+	ret = start_command(g_shell.env, g_shell.env, proc);
+	delete_args(proc->args);
+	delete_redirects(proc->redirs);
 	return (ret);
 }

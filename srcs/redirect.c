@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 13:54:17 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/04 15:00:01 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/05/27 13:25:21 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,26 @@ t_redirect	*new_redirect(char *left, char *right, t_token token)
 
 	if (!(redirect = (t_redirect*)malloc(sizeof(t_redirect))))
 		exit_error("malloc() error");
+	redirect->next = NULL;
 	redirect->left = ft_strdup(left);
 	redirect->right = ft_strdup(right);
 	redirect->token = token;
 	return (redirect);
 }
 
-void		delete_redir_array(t_redirect **redir_array)
+void		delete_redirects(t_redirect *redirs)
 {
-	size_t	i;
+	t_redirect	*prev;
+	t_redirect	*cur;
 
-	i = 0;
-	while (i < REDIRECT_MAX && redir_array[i] != NULL)
+	prev = NULL;
+	cur = redirs;
+	while (cur)
 	{
-		free(redir_array[i]->left);
-		free(redir_array[i]->right);
-		free(redir_array[i]);
-		redir_array[i] = NULL;
-		++i;
+		prev = cur;
+		cur = cur->next;
+		free(prev->left);
+		free(prev->right);
+		free(prev);
 	}
 }

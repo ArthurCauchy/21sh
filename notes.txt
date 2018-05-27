@@ -24,17 +24,7 @@ TODO bonus :
 Notes :
 - pour voir les file descriptors ouverts : lsof -p <pid>
 - Pipe non fonctionnels (ne demarrent pas en meme temps). A fix, faire le job control en même temps.
-
-Builtins - traiter les options :
-- exit : non
-- echo : non
-- setenv : non
-- unsetenv : non
-- cd : oui
-- pwd : oui
-- env : oui
-- which : ?
-- pwd : ?
+- Un builtin dans un pipe est fork !
 
 csh :
 - 'exit qweqwejiowqe' : Expression syntax.
