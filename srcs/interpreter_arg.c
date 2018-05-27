@@ -6,24 +6,11 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 11:37:02 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/27 14:10:38 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/27 23:20:08 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
-
-static void	delete_args(char **args)
-{
-	size_t	i;
-
-	i = 0;
-	while (args[i])
-	{
-		free(args[i]);
-		++i;
-	}
-	free(args);
-}
 
 static void	analyze_arglist(t_word *arglist, char **args)
 {
@@ -73,7 +60,8 @@ int			exec_ast_arg(t_ast *node, int inputfd, int outputfd)
 	proc->args = ft_memalloc(sizeof(char*) * PARAMS_MAX);
 	analyze_arglist(node->arglist, proc->args);
 	ret = start_command(g_shell.env, g_shell.env, proc);
-	delete_args(proc->args);
-	delete_redirects(proc->redirs);
+	if (g_shell.pipe_lvl > 0)
+		--g_shell.pipe_lvl;
+	delete_processes(proc);
 	return (ret);
 }

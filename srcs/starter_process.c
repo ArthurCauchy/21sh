@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:42:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/27 15:06:04 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/27 23:20:54 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@ int			start_process(t_env **env, t_process *proc)
 {
 	pid_t	pid;
 	int		status;
-	int		ret;
 
 	if ((pid = fork()) < 0)
 		exit_error("fork() error");
 	else if (pid == 0)
 	{
 		pid = getpid();
-		if (g_shell.pipe_lvl == 0 || g_shell.pipe_pgid == -1)	
+		if (g_shell.pipe_lvl == 0 || g_shell.pipe_processes == NULL)	
 		{
 			setpgid(pid, pid);
 			tcsetpgrp(0, pid);
@@ -31,27 +30,27 @@ int			start_process(t_env **env, t_process *proc)
 		else
 			setpgid(pid, g_shell.pipe_pgid);
 		reset_sighandlers();
-		if (execve(proc->path, proc->args, env_to_array(env)))
-			exit_error("execve() error");
+		execve(proc->path, proc->args, env_to_array(env));
+		exit_error("execve() error");
 	}
 	else
 	{
+		proc->pid = pid;
 		if (g_shell.pipe_lvl == 0)
 		{
 			tcsetpgrp(0, pid);
 			if (waitpid(pid, &status, WUNTRACED) == -1)
 				exit_error("waitpid() error");
-			ret = post_process(pid, status);
-			return (ret);
+			return (post_process(proc, status));
 		}
 		else
 		{
-			if (g_shell.pipe_pgid == -1)
+			if (!g_shell.pipe_processes)
 			{
-				g_shell.pipe_pgid = pid;
 				tcsetpgrp(0, pid);
+				g_shell.pipe_pgid = pid;
 			}
-			--g_shell.pipe_lvl;
+			add_proc_to_pipe(proc);
 		}
 	}
 	return (0);

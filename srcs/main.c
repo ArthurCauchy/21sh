@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/26 13:38:16 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/28 00:20:20 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,7 @@ int			main(int argc, char **argv, char **envp)
 	}
 	clear_env(env);
 	clear_builtins();
+	if (g_shell.saved_processes)
+		delete_processes(g_shell.saved_processes);
 	return (g_shell.exit_status);
 }

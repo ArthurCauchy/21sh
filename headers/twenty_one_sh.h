@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/27 14:58:40 by arthur           ###   ########.fr       */
+/*   Updated: 2018/05/27 22:24:57 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,17 +98,19 @@ typedef struct		s_process
 	char				*path;
 	char				**args;
 	t_redirect			*redirs;
+	pid_t				pid;
 }					t_process;
 
 typedef struct		s_shell
 {
-	int		exit_now;
-	int		exit_status;
-	t_env	**env;
-	pid_t	shell_pgid;
-	int		pipe_lvl;
-	pid_t	pipe_pgid;
-	pid_t	saved_pgid;
+	int			exit_now;
+	int			exit_status;
+	t_env		**env;
+	pid_t		shell_pgid;
+	int			pipe_lvl;
+	pid_t		pipe_pgid;
+	t_process	*pipe_processes;
+	t_process	*saved_processes;
 }					t_shell;
 
 typedef int	(*t_builtin_fct)(t_env**, char**);
@@ -127,6 +129,12 @@ void				print_n_free_errmsg(char **errmsg);
 int					is_separator(char c);
 void				save_filedes(int *fdsave_array, int fd);
 void				restore_filedes(int *fdsave_array);
+
+/*
+** utils_args.c
+*/
+
+void				delete_args(char **args);
 
 /*
 ** builtin_manager.c
@@ -305,10 +313,18 @@ void				print_sig_error(int sig);
 void				print_chdir_error(char *path);
 
 /*
+** pipe.c
+*/
+
+void				add_proc_to_pipe(t_process *proc);
+int					wait_pipe(void);
+
+/*
 ** process.c
 */
 
 t_process			*new_process(void);
+t_process			*copy_processes(t_process *src);
 void                delete_processes(t_process *procs);
 
 /*
@@ -316,7 +332,7 @@ void                delete_processes(t_process *procs);
 */
 
 pid_t				restore_process(void);
-int					post_process(pid_t pid, int status);
+int					post_process(t_process *proc, int status);
 
 /*
 ** path.c

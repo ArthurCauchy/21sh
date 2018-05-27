@@ -2,8 +2,10 @@
 
 int	builtin_fg(t_env **env, char **args)
 {
-	pid_t	pgid;
+	t_process	*tmp_proc;
+	pid_t	pid;
 	int		status;
+	int		ret;
 
 	(void)env;
 	if (args[1])
@@ -11,13 +13,27 @@ int	builtin_fg(t_env **env, char **args)
 		ft_putendl_fd("fg: Too many arguments.", 2);
 		return (1);
 	}
-	if ((pgid = restore_process()) == -1)
+	if ((pid = restore_process()) == -1)
 	{
 		ft_putendl_fd("No stopped process.", 2);
 		return (1);
 	}
-	g_shell.saved_pgid = -1;
-	if (waitpid(-pgid, &status, WUNTRACED) == -1)
+	tmp_proc = copy_processes(g_shell.saved_processes);
+	delete_processes(g_shell.saved_processes);
+	g_shell.saved_processes = NULL;
+	if (tmp_proc->next)
+	{
+		g_shell.pipe_pgid = tmp_proc->pid;
+		g_shell.pipe_processes = tmp_proc;
+		ret = wait_pipe();
+		g_shell.pipe_pgid = -1;
+		delete_processes(g_shell.pipe_processes);
+		g_shell.pipe_processes = NULL;
+		return (ret);
+	}
+	if (waitpid(pid, &status, WUNTRACED) == -1)
 		exit_error("waitpid() error");
-	return (post_process(pgid, status));
+	ret = post_process(tmp_proc, status);
+	delete_processes(tmp_proc);
+	return (ret);
 }

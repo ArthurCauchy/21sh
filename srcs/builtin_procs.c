@@ -2,6 +2,9 @@
 
 int	builtin_procs(t_env **env, char **args)
 {
+	t_process	*cur;
+	int			pid;
+
 	(void)env;
 	if (args[1])
 	{
@@ -9,13 +12,17 @@ int	builtin_procs(t_env **env, char **args)
 		return (1);
 	}
 	// save le nom du process (entre autres) ca serait cool
-	if (g_shell.saved_pgid == -1)
+	if (!g_shell.saved_processes)
 	{
 		ft_putendl_fd("No stopped process.", 2);
 		return (1);
 	}
-	ft_putendl("Saved process groups :\nPGID");
-	ft_putnbr(g_shell.saved_pgid);
-	ft_putchar('\n');
+	cur = g_shell.saved_processes;
+	while (cur)
+	{
+		pid = cur->pid;
+		ft_fminiprint(1, "%l6d% %l0s%\n", &pid, cur->args[0]); // print args too ?
+		cur = cur->next;
+	}
 	return (0);
 }
