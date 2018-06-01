@@ -5,8 +5,9 @@ TODO :
 - FIX fichiers ouverts jamais fermes
 - tilde and var expansion
 - ctrl+D
-- FIX : stopper toute la chaine de commande a la reception d'un ctrl C ou ctrl Z
 - Whenever the child process wants to read from the pipe, it must first close the pipe's side from writing.
+- FIX waitpid dans le cas des pipes pas forcement clean (waitpid() error may happen)
+- FIX env builtin
 
 TODO bonus :
 - refaire cd : CDPATH

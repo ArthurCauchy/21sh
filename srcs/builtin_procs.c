@@ -4,6 +4,7 @@ int	builtin_procs(t_env **env, char **args)
 {
 	t_process	*cur;
 	int			pid;
+	int			pgid;
 
 	(void)env;
 	if (args[1])
@@ -11,17 +12,20 @@ int	builtin_procs(t_env **env, char **args)
 		ft_putendl_fd("procs: Too many arguments.", 2);
 		return (1);
 	}
-	// save le nom du process (entre autres) ca serait cool
 	if (!g_shell.saved_processes)
 	{
 		ft_putendl_fd("No stopped process.", 2);
 		return (1);
 	}
+	ft_fminiprint(1, "%l6s% %l6s% %l0s%\n", "PID", "PGID", "NAME");
 	cur = g_shell.saved_processes;
 	while (cur)
 	{
 		pid = cur->pid;
-		ft_fminiprint(1, "%l6d% %l0s%\n", &pid, cur->args[0]); // print args too ?
+		if ((pgid = getpgid(pid)) == -1)
+			ft_fminiprint(1, "%l12s% %l0s%\n", "TERMINATED", cur->args[0]);
+		else
+			ft_fminiprint(1, "%l6d% %l6d% %l0s%\n", &pid, &pgid, cur->args[0]);
 		cur = cur->next;
 	}
 	return (0);
