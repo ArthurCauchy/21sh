@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/27 22:24:57 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/01 17:38:38 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ typedef struct		s_shell
 	int			exit_now;
 	int			exit_status;
 	t_env		**env;
+	int			abort_command;
 	pid_t		shell_pgid;
 	int			pipe_lvl;
 	pid_t		pipe_pgid;

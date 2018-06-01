@@ -26,14 +26,16 @@ int		wait_pipe(void)
 	cur = g_shell.pipe_processes;
 	while (cur)
 	{
-		if (waitpid(cur->pid, &status, WUNTRACED) == -1)
-			exit_error("waitpid() error");
+		waitpid(cur->pid, &status, WUNTRACED);
 		if (cur == g_shell.pipe_processes && WIFSTOPPED(status) && !g_shell.saved_processes)
 			g_shell.saved_processes = copy_processes(cur);
 		cur = cur->next;
 	}
 	if (WIFSTOPPED(status) || WIFSIGNALED(status))
+	{
 		ret = 1;
+		g_shell.abort_command = 1;
+	}
 	else
 		ret = WEXITSTATUS(status);
 	return (ret);

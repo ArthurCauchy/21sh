@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 11:16:48 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/13 11:30:03 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/01 17:48:21 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	exec_ast(t_ast *node, int inputfd, int outputfd)
 {
+	if (g_shell.abort_command == 1)
+		return (1);
 	if (node->token == SEMICOL)
 		return (exec_ast_semicol(node, inputfd, outputfd));
 	else if (node->token == OR)

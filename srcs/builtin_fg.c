@@ -29,11 +29,13 @@ int	builtin_fg(t_env **env, char **args)
 		g_shell.pipe_pgid = -1;
 		delete_processes(g_shell.pipe_processes);
 		g_shell.pipe_processes = NULL;
+		tcsetpgrp(0, g_shell.shell_pgid);
 		return (ret);
 	}
 	if (waitpid(pid, &status, WUNTRACED) == -1)
 		exit_error("waitpid() error");
 	ret = post_process(tmp_proc, status);
 	delete_processes(tmp_proc);
+	tcsetpgrp(0, g_shell.shell_pgid);
 	return (ret);
 }

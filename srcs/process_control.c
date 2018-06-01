@@ -20,13 +20,13 @@ int		post_process(t_process *proc, int status)
 		ft_putendl_fd("Suspended", 2);
 		if (!g_shell.saved_processes)
 			g_shell.saved_processes = copy_processes(proc);
-		// set a global to prevent further exec
+		g_shell.abort_command = 1;
 		return (1);
 	}
 	else if (WIFSIGNALED(status))
 	{
 		print_sig_error(WTERMSIG(status));
-		// set a global to prevent further exec
+		g_shell.abort_command = 1;
 		return (1);
 	}
 	return (WEXITSTATUS(status));

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/28 00:20:20 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/01 17:45:35 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int			main(int argc, char **argv, char **envp)
 	{
 		if (input_and_parse(&ast) == 0)
 		{
+			g_shell.abort_command = 0;
 			exec_ast(ast, 0, 1);
 			delete_ast(&ast);
 		}
