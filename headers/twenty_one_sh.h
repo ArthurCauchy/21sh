@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/01 17:38:38 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/01 18:32:20 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,11 @@ int					is_executable(char *filepath);
 int					is_directory(char *filepath);
 void				print_n_free_errmsg(char **errmsg);
 int					is_separator(char c);
+
+/*
+** utils_redirects.c
+*/
+
 void				save_filedes(int *fdsave_array, int fd);
 void				restore_filedes(int *fdsave_array);
 
