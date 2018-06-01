@@ -1,16 +1,12 @@
 TODO :
-- cat /dev/random | ls - COMPLETELY BROKEN
+- cat /dev/random | ls - LITTLE LESS BROKEN
 - heredoc (<<)
 - Command not found + redirection : actuellement comme sh (OK), a modifier pour faire comme csh (mieux).
-- FIX : ls >&3 : should be wrong but OK
 - FIX fichiers ouverts jamais fermes
 - tilde and var expansion
 - ctrl+D
-- faire les redirections bien
 - FIX : stopper toute la chaine de commande a la reception d'un ctrl C ou ctrl Z
 - Whenever the child process wants to read from the pipe, it must first close the pipe's side from writing.
-- FIX : return of pipe
-- FIX REDIRECTIONS FIRST
 
 TODO bonus :
 - refaire cd : CDPATH
@@ -31,6 +27,6 @@ csh :
 - '""' : : Command not found.
 - 'ls >' : Missing name for redirect.
 - 'ls > &&' : Missing name for redirect.
-
+- 'env ls > test' : print in test
 
 http://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html#tag_02_07

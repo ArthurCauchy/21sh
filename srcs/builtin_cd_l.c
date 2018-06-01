@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/14 11:06:10 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/01 16:07:35 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,6 @@ static char	*compo_to_str(t_list *list)
 	while (list)
 	{
 		j = 0;
-		ft_putstr(*((char**)list->content)); // DEL
-		ft_putstr(" >> "); // DEL
 		while ((c = (*((char**)list->content))[j++]))
 			buff[i++] = c;
 		free(*((char**)list->content));
@@ -113,7 +111,6 @@ static char	*compo_to_str(t_list *list)
 		list = list->next;
 		free(prev);
 	}
-	ft_putchar('\n'); // DEL
 	buff[i] = '\0';
 	return (ft_strdup(buff));
 }

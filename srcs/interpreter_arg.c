@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 11:37:02 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/01 13:55:49 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/01 15:44:10 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ int			exec_ast_arg(t_ast *node, int inputfd, int outputfd)
 	if (analyze_redirects(&node->arglist, &proc->redirs, &errmsg) == -1)
 	{
 		print_n_free_errmsg(&errmsg);
-		free(proc->args);
-		delete_redirects(proc->redirs);
 		return (1);
 	}
 	proc->args = ft_memalloc(sizeof(char*) * PARAMS_MAX);
