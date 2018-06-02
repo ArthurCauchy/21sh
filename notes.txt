@@ -2,19 +2,19 @@ TODO :
 - heredoc (<<)
 - cat /dev/random | ls - LITTLE LESS BROKEN
 - Command not found + redirection : actuellement comme sh (OK), a modifier pour faire comme csh (mieux).
-- tilde and var expansion
+- var expansion
 - ctrl+D
 - Whenever the child process wants to read from the pipe, it must first close the pipe's side from writing.
 - FIX waitpid dans le cas des pipes pas forcement clean (waitpid() error may happen)
 - FIX ctrl-z on env builtin (env ls -lR /)
 - interdire certains builtins dans un pipe / builtin env
 - FIX "ls >&- <&-"
+- FIX tilde expansion when HOME is null
 
 TODO bonus :
 - refaire cd : CDPATH
 - 21shrc
 - builtin help
-- tilde expansion
 - tester CDPATH (ex: fichier ou mauvais mode et un un vrai dossier dans un CDPATH plus loin)
 
 Notes :
@@ -26,5 +26,6 @@ csh :
 - 'ls >' : Missing name for redirect.
 - 'ls > &&' : Missing name for redirect.
 - 'env ls > test' : print in test
+- 'echo ~' avec env vide : 'No $HOME variable set'.
 
 http://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html#tag_02_07

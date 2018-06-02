@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/02 14:18:06 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/02 17:29:32 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,8 @@ void				lex_shift_dest_redirect(char *cmdline,
 void				lex_rshift_word(char *cmdline,
 		t_word **wordlist, t_lexdata *lexdata);
 void				lex_lshift_word(char *cmdline,
+		t_word **wordlist, t_lexdata *lexdata);
+void    lex_tilde_exp(char *cmdline,
 		t_word **wordlist, t_lexdata *lexdata);
 
 /*
