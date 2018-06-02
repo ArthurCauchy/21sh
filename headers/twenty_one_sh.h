@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/02 13:17:40 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/02 13:36:29 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,6 @@ int					builtin_validate_options(char *options, char *valid_set);
 */
 
 int					builtin_exit(t_env **env, char **args);
-int					builtin_pwd(t_env **env, char **args);
 int					builtin_cd(t_env **env, char **args);
 int					try_cd_l(t_env **env, char *path);
 int					try_cd_p(t_env **env, char *path);
