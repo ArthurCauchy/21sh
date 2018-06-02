@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/06/02 17:29:50 by arthur           ###   ########.fr        #
+#    Updated: 2018/06/02 19:58:34 by arthur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ SRC_NAME = main.c \
 		   lexing_rshift.c \
 		   lexing_lshift.c \
 		   lexing_tilde.c \
+		   lexing_dollar.c \
 		   parsing.c \
 		   parsing_parse_arg.c \
 		   parsing_parse_pipe.c \

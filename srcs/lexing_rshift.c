@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 14:15:05 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/24 13:56:39 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/02 20:52:42 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,17 @@ static void	lex_rshift_classic(char *cmdline,
 	}
 }
 
-void		lex_rshift_word(char *cmdline,
-		t_word **wordlist, t_lexdata *lexdata)
+void		lex_rshift_word(char *cmdline, t_word **wordlist,
+		t_lexdata *lexdata, char **errmsg)
 {
 	t_token token;
 
-	lex_shift_src_redirect(cmdline, wordlist, lexdata);
+	lex_shift_src_redirect(cmdline, wordlist, lexdata, errmsg);
 	if (cmdline[lexdata->i + 1] == '>')
 		lex_rshift_append(cmdline, lexdata, &token);
 	else
 		lex_rshift_classic(cmdline, lexdata, &token);
-	lex_shift_dest_redirect(cmdline, wordlist, lexdata);
+	lex_shift_dest_redirect(cmdline, wordlist, lexdata, errmsg);
 	lexdata->buff[lexdata->j] = '\0';
 	lexdata->j = 0;
 	add_word(token, lexdata->buff, wordlist);
