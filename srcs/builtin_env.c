@@ -6,27 +6,27 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/27 13:24:06 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/02 13:18:05 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-/*static void	add_to_tmp_env(t_env **env, char *str)
+static void	add_to_tmp_env(t_env **env, char *str)
 {
 	char		*eq_char;
 
 	eq_char = ft_strchr(str, '=');
 	set_env(env, ft_strsub(str, 0, eq_char - str), ft_strdup(eq_char + 1));
-}*/
+}
 
 int			builtin_env(t_env **env, char **args)
 {
-	(void)env;
-	(void)args;
-	/*t_env	*tmp_env;
-	int		i;
-	char	options[4096];
+	int			ret;
+	t_env		*tmp_env;
+	int			i;
+	char		options[4096];
+	t_process	*proc;
 
 	ft_bzero(options, 4096);
 	i = builtin_parse_options(args, options, 4096);
@@ -43,10 +43,16 @@ int			builtin_env(t_env **env, char **args)
 		add_to_tmp_env(&tmp_env, args[i]);
 		++i;
 	}
-	if (args[i])
-		start_command(env, &tmp_env, args + i, NULL);
-	else
+	if (!args[i])
+	{
 		print_env(&tmp_env);
-	clear_env(tmp_env);*/
-	return (0);
+		clear_env(tmp_env);
+		return (0);
+	}
+	proc = new_process();
+	proc->args = copy_args(args + i);
+	ret = start_command(env, &tmp_env, proc);
+	delete_processes(proc);
+	clear_env(tmp_env);
+	return (ret);
 }

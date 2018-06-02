@@ -7,7 +7,7 @@ TODO :
 - ctrl+D
 - Whenever the child process wants to read from the pipe, it must first close the pipe's side from writing.
 - FIX waitpid dans le cas des pipes pas forcement clean (waitpid() error may happen)
-- FIX env builtin
+- FIX ctrl-z on env builtin (env ls -lR /)
 
 TODO bonus :
 - refaire cd : CDPATH
@@ -20,8 +20,6 @@ TODO bonus :
 
 Notes :
 - pour voir les file descriptors ouverts : lsof -p <pid>
-- Pipe non fonctionnels (ne demarrent pas en meme temps). A fix, faire le job control en même temps.
-- Un builtin dans un pipe est fork !
 
 csh :
 - 'exit qweqwejiowqe' : Expression syntax.

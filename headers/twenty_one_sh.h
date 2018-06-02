@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/01 18:32:20 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/02 13:17:40 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,8 @@ void				restore_filedes(int *fdsave_array);
 ** utils_args.c
 */
 
+void				analyze_arglist(t_word *arglist, char **args);
+char				**copy_args(char **args);
 void				delete_args(char **args);
 
 /*
