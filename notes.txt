@@ -15,7 +15,6 @@ TODO bonus :
 - 21shrc
 - builtin help
 - tilde expansion
-- pourquoi est-ce que c'est pas builtin_parse_options qui fait le bzero ? :o
 - tester CDPATH (ex: fichier ou mauvais mode et un un vrai dossier dans un CDPATH plus loin)
 
 Notes :
