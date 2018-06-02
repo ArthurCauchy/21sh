@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 13:29:12 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/27 11:58:11 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/02 14:27:04 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	open_file_fd(char *filename, int mode, int append, char **errmsg)
 	return (fd);
 }
 
-int	apply_redirects(t_redirect *redirs, int *fdsave_array, char **errmsg)
+int	apply_redirects(t_redirect *redirs, int *fdtmp_array, int *fdsave_array, char **errmsg)
 {
 	t_redirect	*cur;
 	int			ret;
@@ -52,17 +52,17 @@ int	apply_redirects(t_redirect *redirs, int *fdsave_array, char **errmsg)
 	while (cur)
 	{
 		if (cur->token == PIPE)
-			ret = apply_redirect_pipe(cur, fdsave_array, errmsg);
+			ret = apply_redirect_pipe(cur, fdtmp_array, fdsave_array, errmsg);
 		else if (cur->token == LSHIFT)
-			ret = apply_redirect_lshift(cur, fdsave_array, errmsg);
+			ret = apply_redirect_lshift(cur, fdtmp_array, fdsave_array, errmsg);
 		else if (cur->token == LSHIFT_AMP)
-			ret = apply_redirect_lshift_amp(cur, fdsave_array, errmsg);
+			ret = apply_redirect_lshift_amp(cur, fdtmp_array, fdsave_array, errmsg);
 		else if (cur->token == RSHIFT)
-			ret = apply_redirect_rshift(cur, fdsave_array, errmsg);
+			ret = apply_redirect_rshift(cur, fdtmp_array, fdsave_array, errmsg);
 		else if (cur->token == RSHIFT_AMP)
-			ret = apply_redirect_rshift_amp(cur, fdsave_array, errmsg);
+			ret = apply_redirect_rshift_amp(cur, fdtmp_array, fdsave_array, errmsg);
 		else if (cur->token == RSHIFT2)
-			ret = apply_redirect_rshift2(cur, fdsave_array, errmsg);
+			ret = apply_redirect_rshift2(cur, fdtmp_array, fdsave_array, errmsg);
 		if (ret == -1)
 			return (-1);
 		cur = cur->next;

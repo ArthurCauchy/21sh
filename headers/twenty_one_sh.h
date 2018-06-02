@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/02 13:36:29 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/02 14:18:06 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,8 @@ int					is_separator(char c);
 ** utils_redirects.c
 */
 
-void				save_filedes(int *fdsave_array, int fd);
-void				restore_filedes(int *fdsave_array);
+void				save_filedes(int *fdtmp_array, int *fdsave_array, int fd);
+void				restore_filedes(int *fdtmp_array, int *fdsave_array);
 
 /*
 ** utils_args.c
@@ -272,19 +272,19 @@ int					analyze_redirects(t_word **arglist,
 int					open_file_fd(char *filename, int mode,
 		int append, char **errmsg);
 int					apply_redirects(t_redirect *redirs,
-		int *fdsave_array, char **errmsg);
+		int *fdtmp_array, int *fdsave_array, char **errmsg);
 int					apply_redirect_pipe(t_redirect *redir,
-		int *fdsave_array, char **errmsg);
+		int *fdtmp_array, int *fdsave_array, char **errmsg);
 int					apply_redirect_lshift(t_redirect *redir,
-		int *fdsave_array, char **errmsg);
+		int *fdtmp_array, int *fdsave_array, char **errmsg);
 int					apply_redirect_lshift_amp(t_redirect *redir,
-		int *fdsave_array, char **errmsg);
+		int *fdtmp_array, int *fdsave_array, char **errmsg);
 int					apply_redirect_rshift(t_redirect *redir,
-		int *fdsave_array, char **errmsg);
+		int *fdtmp_array, int *fdsave_array, char **errmsg);
 int					apply_redirect_rshift_amp(t_redirect *redir,
-		int *fdsave_array, char **errmsg);
+		int *fdtmp_array, int *fdsave_array, char **errmsg);
 int					apply_redirect_rshift2(t_redirect *redir,
-		int *fdsave_array, char **errmsg);
+		int *fdtmp_array, int *fdsave_array, char **errmsg);
 
 /*
 ** interpreter.c, interpreter_[token].c

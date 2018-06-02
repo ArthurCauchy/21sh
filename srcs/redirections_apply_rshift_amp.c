@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 13:30:48 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/04 12:56:54 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/02 14:15:38 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	is_numerical(char *str)
 }
 
 int			apply_redirect_rshift_amp(t_redirect *redir,
-		int *fdsave_array, char **errmsg)
+		int *fdtmp_array, int *fdsave_array, char **errmsg)
 {
 	int	left_fd;
 	int	right_fd;
@@ -37,7 +37,7 @@ int			apply_redirect_rshift_amp(t_redirect *redir,
 	{
 		if (strcmp(redir->right, "-") == 0)
 		{
-			save_filedes(fdsave_array, left_fd);
+			save_filedes(fdtmp_array, fdsave_array, left_fd);
 			close(left_fd);
 			return (0);
 		}
@@ -45,7 +45,7 @@ int			apply_redirect_rshift_amp(t_redirect *redir,
 		return (-1);
 	}
 	right_fd = ft_atoi(redir->right);
-	save_filedes(fdsave_array, left_fd); // causes file descriptors to exist when they shouldnt
+	save_filedes(fdtmp_array, fdsave_array, left_fd);
 	if (dup2(right_fd, left_fd) == -1)
 		*errmsg = ft_strjoin_free(ft_strjoin("21sh: ", redir->right), ft_strjoin(" : ", strerror(errno)));
 	return (!*errmsg ? 0 : -1);

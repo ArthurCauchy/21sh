@@ -1,13 +1,13 @@
 TODO :
-- cat /dev/random | ls - LITTLE LESS BROKEN
 - heredoc (<<)
+- cat /dev/random | ls - LITTLE LESS BROKEN
 - Command not found + redirection : actuellement comme sh (OK), a modifier pour faire comme csh (mieux).
-- FIX fichiers ouverts jamais fermes
 - tilde and var expansion
 - ctrl+D
 - Whenever the child process wants to read from the pipe, it must first close the pipe's side from writing.
 - FIX waitpid dans le cas des pipes pas forcement clean (waitpid() error may happen)
 - FIX ctrl-z on env builtin (env ls -lR /)
+- interdire certains builtins dans un pipe / builtin env
 
 TODO bonus :
 - refaire cd : CDPATH

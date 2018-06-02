@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/01 16:02:37 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/02 14:25:12 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,14 @@ static int	try_start_process(t_env **cmd_env, t_process *proc)
 	return (1);
 }
 
-static void	reset_fdsave_array(int *fdsave_array)
+static void	clear_arrays(int *fdtmp_array, int *fdsave_array)
 {
 	size_t	i;
 
 	i = 0;
 	while (i < FD_MAX)
 	{
+		fdtmp_array[i] = 0;
 		fdsave_array[i] = -1;
 		++i;
 	}
@@ -89,17 +90,18 @@ int			start_command(t_env **env, t_env **cmd_env, t_process *proc)
 	char			*errmsg;
 	t_builtin_fct	builtin;
 	char			*after_path;
+	int				fdtmp_array[FD_MAX];
 	int				fdsave_array[FD_MAX];
 
 	ret = 0;
 	errmsg = NULL;
 	if (!proc->args[0])
 		return (0);
-	reset_fdsave_array(fdsave_array);
-	if (apply_redirects(proc->redirs, fdsave_array, &errmsg) == -1)
+	clear_arrays(fdtmp_array, fdsave_array);
+	if (apply_redirects(proc->redirs, fdtmp_array, fdsave_array, &errmsg) == -1)
 	{
 		print_n_free_errmsg(&errmsg);
-		restore_filedes(fdsave_array);
+		restore_filedes(fdtmp_array, fdsave_array);
 		return (1);
 	}
 	if ((builtin = search_builtin(proc->args[0])) && g_shell.pipe_lvl == 0)
@@ -119,6 +121,6 @@ int			start_command(t_env **env, t_env **cmd_env, t_process *proc)
 		ft_fminiprint(2, "%l0s%: Command not found.\n", proc->args[0]);
 		ret = 1;
 	}
-	restore_filedes(fdsave_array);
+	restore_filedes(fdtmp_array, fdsave_array);
 	return (ret);
 }
