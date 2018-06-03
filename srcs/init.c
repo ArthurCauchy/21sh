@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:48:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/02 13:36:39 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/03 13:09:24 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	init_shell(void)
 	g_shell.exit_now = 0;
 	g_shell.exit_status = 0;
 	g_shell.env = NULL;
+	g_shell.last_command_status = 0;
 	g_shell.abort_command = 0;
 	g_shell.shell_pgid = getpid();
 	g_shell.pipe_lvl = 0;

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 14:15:05 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/02 22:43:15 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/03 12:57:35 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void		lex_dollar_exp(char *cmdline, t_lexdata *lexdata, char **errmsg)
 	}
 	else if (cmdline[lexdata->i] == '?')
 	{
-		var_value = ft_strdup("LAST EXIT CODE");// FIX
+		var_value = ft_itoa(g_shell.last_command_status);
 		++lexdata->i;
 	}
 	else
