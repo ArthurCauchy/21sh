@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/02 14:25:12 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/03 12:26:45 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,10 @@ int			start_command(t_env **env, t_env **cmd_env, t_process *proc)
 	else if (builtin)
 		ret = fork_start_builtin(cmd_env, proc, builtin);
 	else if (command_file_exist(proc->args[0]))
+	{
+		proc->path = ft_strdup(proc->args[0]);
 		ret = try_start_process(cmd_env, proc);
+	}
 	else if (!ft_strchr(proc->args[0], '/') &&
 			(after_path = find_cmd_path(env, cmd_env, proc->args[0])))
 	{

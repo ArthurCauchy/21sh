@@ -7,7 +7,6 @@ TODO :
 - FIX ctrl-z on env builtin (env ls -lR /)
 - interdire certains builtins dans un pipe / builtin env
 - FIX "ls >&- <&-"
-- FIX '/bin/bash' (or any absolute path) -> 'Permission denied'
 - FIX pipe exit code (ls qweeqwe | cat || echo def)
 - CDPATH
 - FIX last exit code in lexing_dollar.c
