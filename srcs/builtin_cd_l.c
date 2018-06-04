@@ -6,13 +6,13 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/01 16:07:35 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/04 16:16:28 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-static char 	*add_final_slash(char **path)
+static char		*add_final_slash(char **path)
 {
 	if ((*path)[ft_strlen(*path) - 1] != '/')
 		*path = ft_strjoin_free(*path, ft_strdup("/"));
@@ -97,7 +97,7 @@ static char	*compo_to_str(t_list *list)
 	char	c;
 	size_t	i;
 	size_t	j;
-	
+
 	prev = NULL;
 	i = 0;
 	while (list)
@@ -114,7 +114,6 @@ static char	*compo_to_str(t_list *list)
 	buff[i] = '\0';
 	return (ft_strdup(buff));
 }
-
 
 static void		simplify_path_dot(t_list **list)
 {
@@ -152,7 +151,8 @@ static void		simplify_path_dotdot(t_list **list)
 	cur = *list;
 	while (cur)
 	{
-		if (ft_strcmp(*((char**)cur->content), "..") != 0 && ft_strcmp(*((char**)cur->content), "/") != 0)
+		if (ft_strcmp(*((char**)cur->content), "..") != 0
+				&& ft_strcmp(*((char**)cur->content), "/") != 0)
 			prev_dir = cur;
 		if (ft_strcmp(*((char**)cur->content), "..") == 0)
 		{
@@ -198,7 +198,7 @@ int				try_cd_l(t_env **env, char *path)
 	char	buff[MAX_PATH_SIZE];
 	char	*old_env_pwd;
 	t_list	*comp_lst;
-	
+
 	ft_strncpy(buff, path, MAX_PATH_SIZE);
 	if (!(old_env_pwd = read_from_env(env, "PWD")))
 	{

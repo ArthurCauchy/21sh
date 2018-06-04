@@ -6,31 +6,21 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 14:19:50 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/04 14:23:29 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/04 16:37:37 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "twenty_one_sh.h"
 
 void tty_raw(void)
 {
 	struct termios raw;
 
-	raw = orig_termios;
-	/* input modes - clear indicated ones giving: no break, no CR to NL, 
-	 *        no parity check, no strip char, no start/stop output (sic) control */
-	raw.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
-	/* output modes - clear giving: no post processing such as NL to CR+NL */
-	raw.c_oflag &= ~(OPOST);
-	/* control modes - set 8 bit chars */
-	raw.c_cflag |= (CS8);
-	/* local modes - clear giving: echoing off, canonical off (no erase with 
-	 *        backspace, ^U,...),  no extended functions, no signal chars (^Z,^C) */
-	raw.c_lflag &= ~(ECHO | ICANON | IEXTEN | ISIG);
-	/* control chars - set return condition: min number of bytes and timer */
-	raw.c_cc[VMIN] = 5; raw.c_cc[VTIME] = 8; /* after 5 bytes or .8 seconds
-												after first byte seen      */
-	raw.c_cc[VMIN] = 0; raw.c_cc[VTIME] = 0; /* immediate - anything       */
-	raw.c_cc[VMIN] = 2; raw.c_cc[VTIME] = 0; /* after two bytes, no timer  */
-	raw.c_cc[VMIN] = 0; raw.c_cc[VTIME] = 8; /* after a byte or .8 seconds */
-	if (tcsetattr(ttyfd, TCSAFLUSH, &raw) < 0)
+	raw = g_shell.orig_termios;
+	raw.c_lflag &= ~(ECHO | ICANON);
+	//raw.c_oflag &= ~(OPOST);
+	raw.c_cc[VMIN] = 1; // what is this ?
+	raw.c_cc[VTIME] = 0; // and that ?
+	if (tcsetattr(0, TCSAFLUSH, &raw) < 0)
 		exit_error("Can't set terminal to raw mode.");
 }

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/02 16:52:09 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/04 14:34:53 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static int	try_cd(char *options, t_env **env, char *path)
 {
-	if (ft_strchr(options, 'p') && (!ft_strchr(options, 'l') || ft_strchr(options, 'p') > ft_strchr(options, 'l')))
+	if (ft_strchr(options, 'p') && (!ft_strchr(options, 'l')
+				|| ft_strchr(options, 'p') > ft_strchr(options, 'l')))
 		return (try_cd_p(env, path));
 	else
 		return (try_cd_l(env, path));
@@ -61,9 +62,9 @@ int			builtin_cd(t_env **env, char **args)
 	if (args[start])
 		return (builtin_cd_withargs(options, env, args + start));
 	if (!(home = read_from_env(env, "HOME")))
-		{
-			ft_putendl_fd("cd: No directory is given and HOME empty"
-					" or undefined !", 2);
+	{
+		ft_putendl_fd("cd: No directory is given and HOME empty"
+				" or undefined !", 2);
 		return (1);
 	}
 	retcode = try_cd(options, env, home);

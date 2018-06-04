@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 13:53:13 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/02 21:36:49 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/04 16:17:27 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void			lex_analysis(char *cmdline, t_word **wordlist, char **errmsg)
 		else
 			lexdata->buff[lexdata->j++] = cmdline[lexdata->i];
 		if (*errmsg)
-			break;
+			break ;
 		++lexdata->i;
 	}
 	if (!*errmsg && lexdata->quoted == 1)

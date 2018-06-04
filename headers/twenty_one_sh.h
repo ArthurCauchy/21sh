@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/04 14:25:22 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/04 16:37:39 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/types.h>
+# include <sys/ioctl.h>
 # include <sys/stat.h>
 # include <signal.h>
 # include <errno.h>
 # include <termios.h>
+# include <termcap.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>

@@ -14,6 +14,9 @@ TODO bonus :
 - 21shrc
 - builtin help
 
+TODO norme :
+- separer fonctions builtin_cd_l en plusieurs fichiers
+
 Notes :
 - pour voir les file descriptors ouverts : lsof -p <pid>
 

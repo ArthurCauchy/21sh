@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/06/04 14:24:06 by acauchy          ###   ########.fr        #
+#    Updated: 2018/06/04 16:30:57 by acauchy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,6 +107,8 @@ LIBFT_PATH = libft
 LIBFT_INCLUDE = -I$(LIBFT_PATH)
 LIBFT = -L$(LIBFT_PATH) -lft
 
+LIBTERMCAP = -ltermcap
+
 all: compile
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEADER)
@@ -114,7 +116,7 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEADER)
 
 $(NAME): $(OBJ)
 	@echo -e $(COLOR_YELLOW)"Linking "$@"..."$(COLOR_RESET)
-	$(CC) $^ $(LIBFT) -o $@
+	$(CC) $^ $(LIBTERMCAP) $(LIBFT) -o $@
 	@echo -e $(COLOR_GREEN)$(NAME)" successfully created."$(COLOR_RESET)
 
 $(OBJ_PATH):
