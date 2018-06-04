@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/04 09:27:36 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/04 13:33:12 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <signal.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <unistd.h>
