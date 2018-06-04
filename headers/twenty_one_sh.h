@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/04 13:33:12 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/04 14:25:22 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/stat.h>
 # include <signal.h>
 # include <errno.h>
+# include <termios.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -105,16 +106,17 @@ typedef struct		s_process
 
 typedef struct		s_shell
 {
-	int			exit_now;
-	int			exit_status;
-	t_env		**env;
-	int			last_command_status;
-	int			abort_command;
-	pid_t		shell_pgid;
-	int			pipe_lvl;
-	pid_t		pipe_pgid;
-	t_process	*pipe_processes;
-	t_process	*saved_processes;
+	int				exit_now;
+	int				exit_status;
+	t_env			**env;
+	int				last_command_status;
+	int				abort_command;
+	pid_t			shell_pgid;
+	int				pipe_lvl;
+	pid_t			pipe_pgid;
+	t_process		*pipe_processes;
+	t_process		*saved_processes;
+	struct termios	orig_termios;
 }					t_shell;
 
 typedef int	(*t_builtin_fct)(t_env**, char**);
@@ -146,6 +148,12 @@ void				restore_filedes(int *fdtmp_array, int *fdsave_array);
 void				analyze_arglist(t_word *arglist, char **args);
 char				**copy_args(char **args);
 void				delete_args(char **args);
+
+/*
+** utils_termios.c
+*/
+
+void				tty_raw(void);
 
 /*
 ** builtin_manager.c
@@ -356,6 +364,7 @@ char				*find_cmd_path(t_env **env, t_env **cmd_env, char *cmd);
 ** init.c
 */
 
+void				init_checktty(void);
 void                init_shell(void);
 void                init_signals(void);
 void				init_env(t_env **env, char **envp);

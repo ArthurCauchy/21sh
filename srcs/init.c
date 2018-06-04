@@ -6,11 +6,25 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:48:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/03 13:09:24 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/04 14:16:55 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
+
+void	init_checktty(void)
+{
+	//char	*term_type;
+	//int		success;
+
+	if (!isatty(0))
+		exit_error("Not a tty !");
+	/*term_type = getenv("TERM");
+	if ((success = tgetent(NULL, term_type)) < 0)
+		exit_error("Can't access termcap database.");
+	else if (success == 0)
+		exit_error("This terminal type is not defined.");*/
+}
 
 void	init_shell(void)
 {
@@ -26,6 +40,8 @@ void	init_shell(void)
 	g_shell.saved_processes = NULL;
 	if (setpgid(g_shell.shell_pgid, g_shell.shell_pgid) == -1)
 		exit_error("Could not set the shell in it's own process group.");
+	if (tcgetattr(ttyfd, &g_shell.orig_termios) < 0)
+		exit_error("Can't save tty settings.");
 	tcsetpgrp(0, g_shell.shell_pgid);
 }
 

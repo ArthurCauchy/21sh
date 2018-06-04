@@ -8,6 +8,7 @@ TODO :
 - FIX "ls >&- <&-"
 - CDPATH
 - faire les redirections dans les process fork directement
+- implement exit handler (man atexit) that restores the tty settings
 
 TODO bonus :
 - 21shrc

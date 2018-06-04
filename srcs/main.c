@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/04 09:19:40 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/04 13:55:57 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_shell		g_shell;
 
 static void	init(t_env **env, char **envp)
 {
+	init_checktty();
 	init_shell();
 	init_signals();
 	init_builtins();
