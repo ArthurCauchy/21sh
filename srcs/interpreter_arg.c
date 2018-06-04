@@ -6,34 +6,42 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 11:37:02 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/02 13:07:21 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/04 09:31:40 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-static void	handle_pipe(t_redirect **redirs, int inputfd, int outputfd)
+static void	handle_pipe(t_redirect **redirs, int *pipein, int *pipeout)
 {
-	char	*inputfd_str;
-	char	*outputfd_str;
+	char	*tmp_str;
 
-	inputfd_str = ft_itoa(inputfd);
-	outputfd_str = ft_itoa(outputfd);
-	if (inputfd != 0)
-		add_redirect(redirs, "0", inputfd_str, PIPE);
-	if (outputfd != 1)
-		add_redirect(redirs, "1", outputfd_str, PIPE);
-	ft_multifree(2, inputfd_str, outputfd_str);
+	if (pipein != NULL)
+	{
+		tmp_str = ft_itoa(pipein[0]);
+		add_redirect(redirs, "0", tmp_str, PIPE);
+		//close
+		free(tmp_str);
+	}
+	if (pipeout != NULL)
+	{
+		tmp_str = ft_itoa(pipeout[1]);
+		add_redirect(redirs, "1", tmp_str, PIPE);
+		free(tmp_str);
+		tmp_str = ft_itoa(pipeout[0]);
+		add_redirect(redirs, "", tmp_str, PIPECLOSE);
+		free(tmp_str);
+	}
 }
 
-int			exec_ast_arg(t_ast *node, int inputfd, int outputfd)
+int			exec_ast_arg(t_ast *node, int *pipein, int *pipeout)
 {
 	t_process	*proc;
 	char		*errmsg;
 	int			ret;
 
 	proc = new_process();
-	handle_pipe(&proc->redirs, inputfd, outputfd);
+	handle_pipe(&proc->redirs, pipein, pipeout);
 	if (analyze_redirects(&node->arglist, &proc->redirs, &errmsg) == -1)
 	{
 		print_n_free_errmsg(&errmsg);

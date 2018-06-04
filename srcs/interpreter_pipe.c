@@ -6,13 +6,13 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 11:37:10 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/01 15:39:26 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/04 09:08:37 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-int	exec_ast_pipe(t_ast *node, int inputfd, int outputfd)
+int	exec_ast_pipe(t_ast *node, int *pipein, int *pipeout)
 {
 	int	pipefd[2];
 	int	ret;
@@ -25,9 +25,9 @@ int	exec_ast_pipe(t_ast *node, int inputfd, int outputfd)
 		g_shell.pipe_lvl = 1;
 	}
 	g_shell.pipe_lvl += 1;
-	exec_ast(node->left, inputfd, pipefd[1]);
+	exec_ast(node->left, pipein, pipefd);
 	close(pipefd[1]);
-	exec_ast(node->right, pipefd[0], outputfd);
+	exec_ast(node->right, pipefd, pipeout);
 	close(pipefd[0]);
 	if (g_shell.pipe_lvl != 0)
 		return (0);

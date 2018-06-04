@@ -2,13 +2,12 @@ TODO :
 - heredoc (<<)
 - cat /dev/random | ls - LITTLE LESS BROKEN
 - ctrl+D
-- Whenever the child process wants to read from the pipe, it must first close the pipe's side from writing.
-	- inputfd et outputfd => pipein & pipeout. NULL = std
 - FIX waitpid dans le cas des pipes pas forcement clean (waitpid() error may happen)
 - FIX ctrl-z on env builtin (env ls -lR /)
 - interdire certains builtins dans un pipe / builtin env
 - FIX "ls >&- <&-"
 - CDPATH
+- faire les redirections dans les process fork directement
 
 TODO bonus :
 - 21shrc
