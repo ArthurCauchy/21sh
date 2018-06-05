@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/03 12:26:45 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/05 10:04:24 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,14 +98,16 @@ int			start_command(t_env **env, t_env **cmd_env, t_process *proc)
 	if (!proc->args[0])
 		return (0);
 	clear_arrays(fdtmp_array, fdsave_array);
-	if (apply_redirects(proc->redirs, fdtmp_array, fdsave_array, &errmsg) == -1)
-	{
-		print_n_free_errmsg(&errmsg);
-		restore_filedes(fdtmp_array, fdsave_array);
-		return (1);
-	}
 	if ((builtin = search_builtin(proc->args[0])) && g_shell.pipe_lvl == 0)
+	{
+		if (apply_redirects(proc->redirs, fdtmp_array, fdsave_array, &errmsg) == -1)
+		{
+			print_n_free_errmsg(&errmsg);
+			restore_filedes(fdtmp_array, fdsave_array);
+			return (1);
+		}
 		ret = builtin(cmd_env, proc->args);
+	}
 	else if (builtin)
 		ret = fork_start_builtin(cmd_env, proc, builtin);
 	else if (command_file_exist(proc->args[0]))

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:42:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/04 13:47:27 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/05 10:00:59 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int			start_process(t_env **env, t_process *proc)
 {
 	pid_t	pid;
 	int		status;
+	char	*errmsg;
 
+	errmsg = NULL;
 	if ((pid = fork()) < 0)
 		exit_error("fork() error");
 	else if (pid == 0)
@@ -30,6 +32,8 @@ int			start_process(t_env **env, t_process *proc)
 		else
 			setpgid(pid, g_shell.pipe_pgid);
 		reset_sighandlers();
+		if (apply_redirects(proc->redirs, NULL, NULL, &errmsg) == -1)
+			exit_error(errmsg);
 		execve(proc->path, proc->args, env_to_array(env));
 		exit_error("execve() error");
 	}

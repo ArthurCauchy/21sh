@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 11:37:02 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/04 09:31:40 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/05 10:08:16 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	handle_pipe(t_redirect **redirs, int *pipein, int *pipeout)
 	{
 		tmp_str = ft_itoa(pipein[0]);
 		add_redirect(redirs, "0", tmp_str, PIPE);
-		//close
 		free(tmp_str);
 	}
 	if (pipeout != NULL)

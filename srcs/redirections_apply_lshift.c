@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 13:29:17 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/02 14:13:07 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/05 09:57:37 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	apply_redirect_lshift(t_redirect *redir, int *fdtmp_array, int *fdsave_array
 	file_fd = open_file_fd(redir->right, 0, 0, errmsg);
 	if (file_fd < 0)
 		return (-1);
-	save_filedes(fdtmp_array, fdsave_array, left_fd);
+	if (fdtmp_array && fdsave_array)
+		save_filedes(fdtmp_array, fdsave_array, left_fd);
 	if (dup2(file_fd, left_fd) == -1)
 		*errmsg = ft_strjoin("21sh: ", strerror(errno));
 	close(file_fd);
