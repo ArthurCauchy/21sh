@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/08 12:19:28 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/08 12:49:05 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -368,6 +368,10 @@ int					post_process(t_process *proc, int status);
 */
 
 char				*find_cmd_path(t_env **env, t_env **cmd_env, char *cmd);
+
+/*
+** history.c
+*/
 
 /*
 ** init.c

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/04 13:55:57 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/08 12:47:25 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static int	input_and_parse(t_ast **ast)
 		free(rep);
 		return (-1);
 	}
+	// save to history
 	lex_analysis(rep, &wordlist, &errmsg);
 	free(rep);
 	if (errmsg)
@@ -76,6 +77,8 @@ int			main(int argc, char **argv, char **envp)
 			g_shell.last_command_status = exec_ast(ast, NULL, NULL);
 			delete_ast(&ast);
 		}
+		else
+			g_shell.last_command_status = 1;
 	}
 	clear_env(env);
 	clear_builtins();

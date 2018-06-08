@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/06/08 12:19:53 by arthur           ###   ########.fr        #
+#    Updated: 2018/06/08 12:48:31 by arthur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,6 +96,7 @@ SRC_NAME = main.c \
 		   s_env.c \
 		   env.c \
 		   path.c \
+		   history.c \
 		   init.c
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
