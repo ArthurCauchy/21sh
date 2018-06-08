@@ -5,7 +5,6 @@ TODO :
 - FIX ctrl-z on env builtin (env ls -lR /)
 - interdire certains builtins dans un pipe / builtin env
 - CDPATH
-- implement exit handler (man atexit) that restores the tty settings
 - full check redirections
 
 TODO bonus :
@@ -14,6 +13,9 @@ TODO bonus :
 
 TODO norme :
 - separer fonctions builtin_cd_l en plusieurs fichiers
+
+Notes line edit:
+- changer le mode de tty juste avant de lire et juste apres avoir lu
 
 Notes :
 - pour voir les file descriptors ouverts : lsof -p <pid>

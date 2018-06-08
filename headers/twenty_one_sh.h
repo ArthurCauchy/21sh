@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/04 16:37:39 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/08 12:19:28 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,14 @@ void				delete_args(char **args);
 ** utils_termios.c
 */
 
-void				tty_raw(void);
+void	enable_raw_mode(void);
+void	disable_raw_mode(void);
+
+/*
+** utils_termcaps.c
+*/
+
+
 
 /*
 ** builtin_manager.c

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:48:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/04 16:36:42 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/08 11:51:42 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	init_checktty(void)
 
 	if (!isatty(0))
 		exit_error("Not a tty !");
-	/*term_type = getenv("TERM");
-	if ((success = tgetent(NULL, term_type)) < 0)
-		exit_error("Can't access termcap database.");
-	else if (success == 0)
-		exit_error("This terminal type is not defined.");*/
+	//term_type = getenv("TERM");
+	//if ((success = tgetent(NULL, term_type)) < 0)
+	//	exit_error("Can't access termcap database.");
+	//else if (success == 0)
+	//	exit_error("This terminal type is not defined.");
 }
 
 void	init_shell(void)

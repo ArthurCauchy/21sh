@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/06/04 16:30:57 by acauchy          ###   ########.fr        #
+#    Updated: 2018/06/08 12:19:53 by arthur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,6 +92,7 @@ SRC_NAME = main.c \
 		   utils_redirects.c \
 		   utils_args.c \
 		   utils_termios.c \
+		   utils_termcaps.c \
 		   s_env.c \
 		   env.c \
 		   path.c \
