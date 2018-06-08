@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/08 14:35:42 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/08 15:39:26 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,6 +338,12 @@ void				ignore_signals(void);
 */
 
 char				*ask_for_input(int fd, t_env **env, char **errmsg);
+
+/*
+** input_actions.c
+*/
+
+void				perform_actions(char *keybuff);
 
 /*
 ** output.c
