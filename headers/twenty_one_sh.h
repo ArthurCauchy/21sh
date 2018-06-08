@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/08 12:49:05 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/08 14:35:42 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,12 @@ typedef struct		s_process
 	t_redirect			*redirs;
 	pid_t				pid;
 }					t_process;
+
+typedef struct		s_history
+{
+	struct s_history	*next;
+	char				*cmd;
+}					t_history;
 
 typedef struct		s_shell
 {
@@ -372,6 +378,9 @@ char				*find_cmd_path(t_env **env, t_env **cmd_env, char *cmd);
 /*
 ** history.c
 */
+
+void				add_history_elem(t_history **history, char *cmd);
+void				delete_history(t_history *history);
 
 /*
 ** init.c
