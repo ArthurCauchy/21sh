@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 15:29:42 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/08 17:29:34 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/09 12:08:02 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	perform_actions(char *keybuff)
 		ft_putendl("home");
 	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 70)
 		ft_putendl("end");
+	else if (keybuff[0] == 127)
+		ft_putendl("delete");
 	else if (keybuff[0] == 9)
 		ft_putendl("tab");
 	else if (keybuff[0] == 4)
@@ -30,6 +32,8 @@ void	perform_actions(char *keybuff)
 		ft_putendl("arrowright");
 	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 68)
 		ft_putendl("arrowleft");
+	else if (keybuff[0] == 27) //TMP
+		exit(42);
 	else
-		printf("%02d %02d %02d %02d %02d %02d %02d\n", keybuff[0], keybuff[1], keybuff[2], keybuff[3], keybuff[4], keybuff[5], keybuff[6]);
+		printf("%02d %02d %02d %02d %02d %02d %02d %02d\n", keybuff[0], keybuff[1], keybuff[2], keybuff[3], keybuff[4], keybuff[5], keybuff[6], keybuff[7]);
 }

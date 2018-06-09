@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/08 15:39:26 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/09 12:12:22 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define FD_MAX 1024
 # define REDIRECT_MAX 512
 # define MAX_PATH_SIZE 4096
+# define KEYBUFF_SIZE 8
 
 typedef struct	s_env
 {

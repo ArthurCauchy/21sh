@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:37:26 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/08 17:29:25 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/09 12:15:07 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ char		*ask_for_input(int fd, t_env **env, char **errmsg)
 char	*ask_for_input(int fd, t_env **env, char **errmsg) // fd useless
 {
 	int			read_size;
-	static char	keybuff[32]; // set macro keybuff size
+	static char	keybuff[KEYBUFF_SIZE];
 
 	(void)fd;
 	(void)env;
 	(void)errmsg;
-	ft_bzero(keybuff, 32 * sizeof(char)); // KEYBUFF_SIZE
+	ft_bzero(keybuff, KEYBUFF_SIZE);
 	enable_raw_mode();
-	while ((read_size = read(0, &keybuff, 31)) != 0) // KEYBUFF_SIZE - 1
+	while ((read_size = read(0, &keybuff, KEYBUFF_SIZE)) != 0)
 	{
 		if (read_size == -1)
 			exit_error("read() error");
