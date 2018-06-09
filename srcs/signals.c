@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:37:44 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/04 13:37:12 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/09 17:36:16 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	sighandler(int signo)
 	if (signo == SIGINT)
 	{
 		ft_putchar('\n');
+		ft_putstr(tgoto(g_shell.termcaps->go_startline, 0, 0));
 		print_prompt(g_shell.env);
 	}
 }

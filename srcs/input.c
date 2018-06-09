@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:37:26 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/09 12:15:07 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/09 17:22:35 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,24 +56,36 @@ char		*ask_for_input(int fd, t_env **env, char **errmsg)
 	return (ret);
 }*/
 
-char	*ask_for_input(int fd, t_env **env, char **errmsg) // fd useless
+void	add_to_input(char *line, size_t *cur, char *keybuff)
+{
+	line[*cur] = keybuff[0];
+	++*cur;
+	ft_putchar(keybuff[0]);
+}
+
+char	*ask_for_input(t_env **env, char **errmsg) // fd useless
 {
 	int			read_size;
+	size_t		cur;
 	static char	keybuff[KEYBUFF_SIZE];
+	static char	line[INPUT_MAX_LEN];
 
-	(void)fd;
-	(void)env;
-	(void)errmsg;
+	(void)errmsg; // still here at the end ? then it's usless
+	cur = 0;
 	ft_bzero(keybuff, KEYBUFF_SIZE);
+	ft_bzero(line, KEYBUFF_SIZE);
+	print_prompt(env);
 	enable_raw_mode();
 	while ((read_size = read(0, &keybuff, KEYBUFF_SIZE)) != 0)
 	{
 		if (read_size == -1)
 			exit_error("read() error");
-		if (keybuff[0] == '\0')
-			break;
-		perform_actions(keybuff);
+		if (keybuff[0] == '\n')
+			break ;
+		perform_actions(line, &cur, keybuff);
+		ft_bzero(keybuff, KEYBUFF_SIZE);
 	}
 	disable_raw_mode();
-	return (ft_strdup("echo not yet"));
+	ft_putchar('\n');
+	return (ft_strdup(line));
 }

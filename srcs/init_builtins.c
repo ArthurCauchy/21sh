@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:48:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/09 16:51:47 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/09 16:27:32 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-static void	init_tty(void)
+void	init_builtins(void)
 {
-	char	*term_type;
-	int		success;
-
-	if (!isatty(0))
-		exit_error("Not a tty !");
-	term_type = getenv("TERM");
-	if ((success = tgetent(NULL, term_type)) < 0)
-		exit_error("Can't access termcap database.");
-	else if (success == 0)
-		exit_error("This terminal type is not defined.");
-}
-
-void		init(t_env **env, char **envp)
-{
-	init_tty();
-	init_shell();
-	init_signals();
-	init_builtins();
-	init_env(env, envp);
-	g_shell.env = env;
+	load_builtin("exit", &builtin_exit);
+	load_builtin("cd", &builtin_cd);
+	load_builtin("env", &builtin_env);
+	load_builtin("setenv", &builtin_setenv);
+	load_builtin("unsetenv", &builtin_unsetenv);
+	load_builtin("echo", &builtin_echo);
+	load_builtin("which", &builtin_which);
+	load_builtin("procs", &builtin_procs);
+	load_builtin("fg", &builtin_fg);
 }

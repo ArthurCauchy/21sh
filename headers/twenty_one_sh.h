@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/09 12:12:22 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/09 17:31:51 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,14 @@ typedef struct		s_history
 	char				*cmd;
 }					t_history;
 
+typedef struct		s_termcaps
+{
+	char	*go_startline;
+	char	*go_right;
+	char	*go_left;
+	char	*del_one_char;
+}					t_termcaps;
+
 typedef struct		s_shell
 {
 	int				exit_now;
@@ -126,6 +134,7 @@ typedef struct		s_shell
 	t_process		*pipe_processes;
 	t_process		*saved_processes;
 	struct termios	orig_termios;
+	t_termcaps		*termcaps;
 }					t_shell;
 
 typedef int	(*t_builtin_fct)(t_env**, char**);
@@ -338,13 +347,28 @@ void				ignore_signals(void);
 ** input.c
 */
 
-char				*ask_for_input(int fd, t_env **env, char **errmsg);
+void				add_to_input(char *line, size_t	*cur, char *keybuff);
+char				*ask_for_input(t_env **env, char **errmsg);
 
 /*
 ** input_actions.c
 */
 
-void				perform_actions(char *keybuff);
+void				perform_actions(char *line, size_t *cur, char *keybuff);
+
+/*
+** input_actions_[action].c
+*/
+
+void				input_action_delete(char *line, size_t *cur);
+void				input_action_arrowright(char *line, size_t *cur);
+void				input_action_arrowleft(char *line, size_t *cur);
+
+/*
+** input_actions_[key].c
+*/
+
+void				input_action_delete(char *line, size_t *cur);
 
 /*
 ** output.c
@@ -390,10 +414,10 @@ void				add_history_elem(t_history **history, char *cmd);
 void				delete_history(t_history *history);
 
 /*
-** init.c
+** init.c, init_[feature].c
 */
 
-void				init_checktty(void);
+void				init(t_env **env, char **envp);
 void                init_shell(void);
 void                init_signals(void);
 void				init_env(t_env **env, char **envp);

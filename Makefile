@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/06/08 15:37:45 by acauchy          ###   ########.fr        #
+#    Updated: 2018/06/09 17:28:22 by acauchy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,6 +83,9 @@ SRC_NAME = main.c \
 		   interpreter_arg.c \
 		   input.c \
 		   input_actions.c \
+		   input_actions_delete.c \
+		   input_actions_arrowright.c \
+		   input_actions_arrowleft.c \
 		   output.c \
 		   pipe.c \
 		   process.c \
@@ -98,7 +101,11 @@ SRC_NAME = main.c \
 		   env.c \
 		   path.c \
 		   history.c \
-		   init.c
+		   init.c \
+		   init_shell.c \
+		   init_signals.c \
+		   init_builtins.c \
+		   init_env.c
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 

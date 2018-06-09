@@ -6,6 +6,7 @@ TODO :
 - interdire certains builtins dans un pipe / builtin env
 - CDPATH
 - full check redirections
+- fix mem leak in init_shell's termcaps
 
 TODO bonus :
 - 21shrc
@@ -16,12 +17,9 @@ TODO norme :
 
 TODO line edit :
 - atexit pour reset les termcap (meme en cas de exit_error du coup)
-
-Notes line edit:
-- changer le mode de tty juste avant de lire et juste apres avoir lu
-
-Notes :
-- pour voir les file descriptors ouverts : lsof -p <pid>
+- gerer les fleches gauche et droite + insert
+		- decaler le texte dans le buffer
+		- clear la line et reprint
 
 csh :
 - 'exit qweqwejiowqe' : Expression syntax.
