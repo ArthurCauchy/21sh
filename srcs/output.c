@@ -6,28 +6,38 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:35:34 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/26 16:50:39 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/11 14:54:26 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-void	print_prompt(t_env **env)
+/*
+** returns the printed prompt size (column used)
+*/
+
+size_t	print_prompt(t_env **env)
 {
 	char	*user;
 	char	hostname[1024];
+	size_t	ret;
 
+	ret = 0;
 	ft_putstr("\033[1;33;40m");
 	if ((user = read_from_env(env, "USER")))
 	{
 		ft_putstr(user);
 		ft_putchar('@');
+		ret += ft_strlen(user) + 1;
 	}
-	if (gethostname(hostname, 1024) != -1)
-		ft_putstr(hostname);
+	if (gethostname(hostname, 1024) == -1)
+		exit_error("Can't get hostname.");
+	ft_putstr(hostname);
 	ft_putstr(" % ");
 	ft_putstr("\033[0m");
+	ret += ft_strlen(hostname) + 3;
 	free(user);
+	return (ret);
 }
 
 void	print_sig_error(int sig)

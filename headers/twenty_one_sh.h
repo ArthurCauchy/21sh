@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/09 17:31:51 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/11 15:50:11 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,11 @@ typedef struct		s_history
 
 typedef struct		s_termcaps
 {
-	char	*go_startline;
+	char	*go_col;
 	char	*go_right;
 	char	*go_left;
+	char	*go_up;
+	char	*go_down;
 	char	*del_one_char;
 }					t_termcaps;
 
@@ -133,6 +135,8 @@ typedef struct		s_shell
 	pid_t			pipe_pgid;
 	t_process		*pipe_processes;
 	t_process		*saved_processes;
+	size_t			nb_cols;
+	int				cmd_cancel;
 	struct termios	orig_termios;
 	t_termcaps		*termcaps;
 }					t_shell;
@@ -171,8 +175,9 @@ void				delete_args(char **args);
 ** utils_termios.c
 */
 
-void	enable_raw_mode(void);
-void	disable_raw_mode(void);
+void				enable_raw_mode(void);
+void				disable_raw_mode(void);
+size_t				get_term_cols(void);
 
 /*
 ** utils_termcaps.c
@@ -347,34 +352,28 @@ void				ignore_signals(void);
 ** input.c
 */
 
-void				add_to_input(char *line, size_t	*cur, char *keybuff);
-char				*ask_for_input(t_env **env, char **errmsg);
+void				add_to_input(char *line, size_t	*cur, size_t *cur_term, char *keybuff);
+char				*ask_for_input(t_env **env);
 
 /*
 ** input_actions.c
 */
 
-void				perform_actions(char *line, size_t *cur, char *keybuff);
+void				perform_actions(char *line, size_t *cur, size_t *cur_term, char *keybuff);
 
 /*
 ** input_actions_[action].c
 */
 
-void				input_action_delete(char *line, size_t *cur);
-void				input_action_arrowright(char *line, size_t *cur);
-void				input_action_arrowleft(char *line, size_t *cur);
-
-/*
-** input_actions_[key].c
-*/
-
-void				input_action_delete(char *line, size_t *cur);
+void				input_action_delete(char *line, size_t *cur, size_t *cur_term);
+void				input_action_arrowright(char *line, size_t *cur, size_t *cur_term);
+void				input_action_arrowleft(char *line, size_t *cur, size_t *cur_term);
 
 /*
 ** output.c
 */
 
-void				print_prompt(t_env **env);
+size_t				print_prompt(t_env **env);
 void				print_sig_error(int sig);
 void				print_chdir_error(char *path);
 

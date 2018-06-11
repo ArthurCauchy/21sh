@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:37:26 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/09 17:22:35 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/11 17:41:13 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,33 +56,53 @@ char		*ask_for_input(int fd, t_env **env, char **errmsg)
 	return (ret);
 }*/
 
-void	add_to_input(char *line, size_t *cur, char *keybuff)
+void	add_to_input(char *line, size_t *cur, size_t *cur_term, char *keybuff)
 {
+	size_t	i;
+	char	tmp;
+	char	tmp2;
+
+	(void)cur_term;
+	i = *cur;
+	tmp = '\0';
+	while (line[i]) // if i == INPUT_MAX_LEN => faire gaffe. possible de check avant aussi, genre plus detecter de touches sauf enter quand c'est plein
+	{
+		tmp2 = line[i];
+		line[i] = tmp;
+		tmp = tmp2;
+		++i;
+	}
 	line[*cur] = keybuff[0];
 	++*cur;
-	ft_putchar(keybuff[0]);
 }
 
-char	*ask_for_input(t_env **env, char **errmsg) // fd useless
+char	*ask_for_input(t_env **env)
 {
 	int			read_size;
 	size_t		cur;
+	size_t		cur_term;
 	static char	keybuff[KEYBUFF_SIZE];
 	static char	line[INPUT_MAX_LEN];
 
-	(void)errmsg; // still here at the end ? then it's usless
 	cur = 0;
 	ft_bzero(keybuff, KEYBUFF_SIZE);
-	ft_bzero(line, KEYBUFF_SIZE);
-	print_prompt(env);
+	ft_bzero(line, INPUT_MAX_LEN);
+	cur_term = print_prompt(env);
 	enable_raw_mode();
 	while ((read_size = read(0, &keybuff, KEYBUFF_SIZE)) != 0)
 	{
+		if (g_shell.cmd_cancel == 1)
+		{
+			cur = 0;
+			g_shell.cmd_cancel = 0;
+			ft_bzero(line, INPUT_MAX_LEN);
+			cur_term = print_prompt(env);
+		}
 		if (read_size == -1)
 			exit_error("read() error");
 		if (keybuff[0] == '\n')
 			break ;
-		perform_actions(line, &cur, keybuff);
+		perform_actions(line, &cur, &cur_term, keybuff);
 		ft_bzero(keybuff, KEYBUFF_SIZE);
 	}
 	disable_raw_mode();

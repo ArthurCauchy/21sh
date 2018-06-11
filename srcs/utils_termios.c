@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 14:19:50 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/09 15:51:06 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/11 14:53:46 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,12 @@ void	disable_raw_mode(void)
 {
 	if (tcsetattr(0, TCSAFLUSH, &g_shell.orig_termios) < 0)
 		exit_error("Can't set terminal back to default mode.");
+}
+
+size_t	get_term_cols(void)
+{
+	struct ttysize	ts;
+
+	ioctl(0, TIOCGSIZE, &ts);
+	return (ts.ts_cols);
 }
