@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/11 15:50:11 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/11 19:33:14 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,13 @@ typedef struct		s_process
 	pid_t				pid;
 }					t_process;
 
+typedef struct		s_termdata
+{
+	int	cur_col;
+	int	cur_row;
+	int	max_row;
+}					t_termdata;
+
 typedef struct		s_history
 {
 	struct s_history	*next;
@@ -121,6 +128,7 @@ typedef struct		s_termcaps
 	char	*go_up;
 	char	*go_down;
 	char	*del_one_char;
+	char	*del_line;
 }					t_termcaps;
 
 typedef struct		s_shell
@@ -135,7 +143,7 @@ typedef struct		s_shell
 	pid_t			pipe_pgid;
 	t_process		*pipe_processes;
 	t_process		*saved_processes;
-	size_t			nb_cols;
+	int				nb_cols;
 	int				cmd_cancel;
 	struct termios	orig_termios;
 	t_termcaps		*termcaps;
@@ -349,31 +357,39 @@ void				reset_sighandlers(void);
 void				ignore_signals(void);
 
 /*
+** termdata.c
+*/
+
+void    init_termdata(t_termdata *termdata);
+
+/*
 ** input.c
 */
 
-void				add_to_input(char *line, size_t	*cur, size_t *cur_term, char *keybuff);
+void				clear_cmd(t_termdata *termdata);
+void				print_cmd(char *cmd, t_termdata *termdata);
+void				add_to_input(char *cmd, size_t	*cur, t_termdata *termdata, char *keybuff);
 char				*ask_for_input(t_env **env);
 
 /*
 ** input_actions.c
 */
 
-void				perform_actions(char *line, size_t *cur, size_t *cur_term, char *keybuff);
+void				perform_actions(char *cmd, size_t *cur, t_termdata *termdata, char *keybuff);
 
 /*
 ** input_actions_[action].c
 */
 
-void				input_action_delete(char *line, size_t *cur, size_t *cur_term);
-void				input_action_arrowright(char *line, size_t *cur, size_t *cur_term);
-void				input_action_arrowleft(char *line, size_t *cur, size_t *cur_term);
+void				input_action_delete(char *cmd, size_t *cur, t_termdata *termdata);
+void				input_action_arrowright(char *cmd, size_t *cur, t_termdata *termdata);
+void				input_action_arrowleft(char *cmd, size_t *cur, t_termdata *termdata);
 
 /*
 ** output.c
 */
 
-size_t				print_prompt(t_env **env);
+int					print_prompt(t_env **env);
 void				print_sig_error(int sig);
 void				print_chdir_error(char *path);
 

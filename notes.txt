@@ -22,6 +22,8 @@ TODO line edit :
 		- clear la line et reprint
 - tester fenetre trop petite pour le prompt
 - quand on est trop pres du INPUT_MAX_LEN, on arrete de detecter les touches sauf enter (et del ?)
+- fix ctrl+c
+- fichier utils_termcaps.c useful ???
 
 csh :
 - 'exit qweqwejiowqe' : Expression syntax.

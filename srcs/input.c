@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:37:26 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/11 17:41:13 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/11 19:51:31 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,57 @@ char		*ask_for_input(int fd, t_env **env, char **errmsg)
 	return (ret);
 }*/
 
-void	add_to_input(char *line, size_t *cur, size_t *cur_term, char *keybuff)
+void	clear_cmd(t_termdata *termdata)
+{
+	while (termdata->cur_row < termdata->max_row)
+	{
+		ft_putstr(g_shell.termcaps->go_down);
+		++termdata->cur_row;
+	}
+	while (termdata->cur_row >= 0)
+	{
+		ft_putstr(tgoto(g_shell.termcaps->go_col, 0, 0));
+		ft_putstr(g_shell.termcaps->del_line);
+		if (termdata->cur_row > 0)
+			ft_putstr(g_shell.termcaps->go_up);
+		--termdata->cur_row;
+	}
+	termdata->cur_col = 0;
+	termdata->cur_row = 0;
+	termdata->max_row = 0;
+}
+
+void	print_cmd(char *cmd, t_termdata *termdata)
+{
+	size_t	i;
+
+	i = 0;
+	
+	termdata->cur_col = print_prompt(g_shell.env);
+	while (cmd[i])
+	{
+		ft_putchar(cmd[i]);
+		if (termdata->cur_col == g_shell.nb_cols - 1)
+		{
+			ft_putstr(g_shell.termcaps->go_down);
+			ft_putstr(tgoto(g_shell.termcaps->go_col, 0, 0));
+			termdata->cur_col = 0;
+			++termdata->cur_row;
+			++termdata->max_row;
+		}
+		else
+			++termdata->cur_col;
+		++i;
+	}
+}
+
+void	add_to_input(char *line, size_t *cur, t_termdata *termdata, char *keybuff)
 {
 	size_t	i;
 	char	tmp;
 	char	tmp2;
 
-	(void)cur_term;
+	clear_cmd(termdata);
 	i = *cur;
 	tmp = '\0';
 	while (line[i]) // if i == INPUT_MAX_LEN => faire gaffe. possible de check avant aussi, genre plus detecter de touches sauf enter quand c'est plein
@@ -74,38 +118,41 @@ void	add_to_input(char *line, size_t *cur, size_t *cur_term, char *keybuff)
 	}
 	line[*cur] = keybuff[0];
 	++*cur;
+	print_cmd(line, termdata);
 }
 
 char	*ask_for_input(t_env **env)
 {
 	int			read_size;
 	size_t		cur;
-	size_t		cur_term;
+	t_termdata	termdata;
 	static char	keybuff[KEYBUFF_SIZE];
-	static char	line[INPUT_MAX_LEN];
+	static char	cmd[INPUT_MAX_LEN];
 
+	(void)env; // yes faut l'enlever
 	cur = 0;
+	init_termdata(&termdata);
 	ft_bzero(keybuff, KEYBUFF_SIZE);
-	ft_bzero(line, INPUT_MAX_LEN);
-	cur_term = print_prompt(env);
+	ft_bzero(cmd, INPUT_MAX_LEN);
 	enable_raw_mode();
+	print_cmd(cmd, &termdata);
 	while ((read_size = read(0, &keybuff, KEYBUFF_SIZE)) != 0)
 	{
 		if (g_shell.cmd_cancel == 1)
 		{
 			cur = 0;
 			g_shell.cmd_cancel = 0;
-			ft_bzero(line, INPUT_MAX_LEN);
-			cur_term = print_prompt(env);
+			ft_bzero(cmd, INPUT_MAX_LEN);
+			termdata.cur_col = print_prompt(env);
 		}
 		if (read_size == -1)
 			exit_error("read() error");
 		if (keybuff[0] == '\n')
 			break ;
-		perform_actions(line, &cur, &cur_term, keybuff);
+		perform_actions(cmd, &cur, &termdata, keybuff);
 		ft_bzero(keybuff, KEYBUFF_SIZE);
 	}
 	disable_raw_mode();
 	ft_putchar('\n');
-	return (ft_strdup(line));
+	return (ft_strdup(cmd));
 }

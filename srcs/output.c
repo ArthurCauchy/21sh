@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:35:34 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/11 14:54:26 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/11 18:27:16 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** returns the printed prompt size (column used)
 */
 
-size_t	print_prompt(t_env **env)
+int	print_prompt(t_env **env)
 {
 	char	*user;
 	char	hostname[1024];

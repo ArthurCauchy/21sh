@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:48:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/11 15:52:05 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/11 17:59:36 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ static t_termcaps	*init_termcaps(void)
 	new->go_up = tgetstr("up", NULL);
 	new->go_down = tgetstr("do", NULL);
 	new->del_one_char = tgetstr("dc", NULL);
+	new->del_line = tgetstr("ce", NULL);
 	if (!new->go_col || !new->go_left || !new->del_one_char
-			|| !new->go_up || !new->go_down || !new->del_one_char)
+			|| !new->go_up || !new->go_down || !new->del_one_char
+			|| !new->del_line)
 	{
 		// check fuites memoire si le premier termcap existe mais pas les autres
 		free(new);
