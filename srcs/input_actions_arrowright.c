@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 16:05:50 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/11 19:35:26 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/12 16:27:28 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	input_action_arrowright(char *cmd, size_t *cur, t_termdata *termdata)
 {
-	(void)termdata;
 	if (cmd[*cur])
+	{
 		++*cur;
+		go_forward(termdata);
+	}
 }

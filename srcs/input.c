@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:37:26 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/11 19:51:31 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/12 16:42:57 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ char		*ask_for_input(int fd, t_env **env, char **errmsg)
 
 void	clear_cmd(t_termdata *termdata)
 {
+	termdata->saved_col = termdata->cur_col;
+	termdata->saved_row = termdata->cur_row;
 	while (termdata->cur_row < termdata->max_row)
 	{
 		ft_putstr(g_shell.termcaps->go_down);
@@ -100,25 +102,27 @@ void	print_cmd(char *cmd, t_termdata *termdata)
 	}
 }
 
-void	add_to_input(char *line, size_t *cur, t_termdata *termdata, char *keybuff)
+void	add_to_input(char *cmd, size_t *cur, t_termdata *termdata, char *keybuff)
 {
 	size_t	i;
-	char	tmp;
-	char	tmp2;
 
+	go_forward(termdata);
 	clear_cmd(termdata);
-	i = *cur;
-	tmp = '\0';
-	while (line[i]) // if i == INPUT_MAX_LEN => faire gaffe. possible de check avant aussi, genre plus detecter de touches sauf enter quand c'est plein
+	if (cmd[0])
 	{
-		tmp2 = line[i];
-		line[i] = tmp;
-		tmp = tmp2;
-		++i;
+		i = ft_strlen(cmd) - 1;
+		while (i >= *cur)
+		{
+			cmd[i + 1] = cmd[i];
+			if (i == 0)
+				break ;
+			--i;
+		}
 	}
-	line[*cur] = keybuff[0];
+	cmd[*cur] = keybuff[0];
 	++*cur;
-	print_cmd(line, termdata);
+	print_cmd(cmd, termdata);
+	restore_pos(termdata);
 }
 
 char	*ask_for_input(t_env **env)

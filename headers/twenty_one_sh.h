@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/11 19:33:14 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/12 16:38:46 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ typedef struct		s_termdata
 	int	cur_col;
 	int	cur_row;
 	int	max_row;
+	int	saved_col;
+	int	saved_row;
 }					t_termdata;
 
 typedef struct		s_history
@@ -360,7 +362,10 @@ void				ignore_signals(void);
 ** termdata.c
 */
 
-void    init_termdata(t_termdata *termdata);
+void				init_termdata(t_termdata *termdata);
+void				go_forward(t_termdata *termdata);
+void				go_backward(t_termdata *termdata);
+void				restore_pos(t_termdata *termdata);
 
 /*
 ** input.c
