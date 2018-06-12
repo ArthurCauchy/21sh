@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/11 14:47:16 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/12 16:58:46 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	input_and_parse(t_ast **ast)
 
 	errmsg = NULL;
 	wordlist = NULL;
-	rep = ask_for_input(g_shell.env);
+	rep = ask_for_input();
 	// save to history
 	lex_analysis(rep, &wordlist, &errmsg);
 	free(rep);

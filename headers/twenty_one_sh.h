@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/12 16:54:53 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/12 17:12:22 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -374,7 +374,7 @@ void				restore_pos(t_termdata *termdata);
 void				clear_cmd(t_termdata *termdata);
 void				print_cmd(char *cmd, t_termdata *termdata);
 void				add_to_input(char *cmd, size_t	*cur, t_termdata *termdata, char *keybuff);
-char				*ask_for_input(t_env **env);
+char				*ask_for_input(void);
 
 /*
 ** input_actions.c

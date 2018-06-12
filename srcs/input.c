@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:37:26 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/12 16:42:57 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/12 17:14:45 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	add_to_input(char *cmd, size_t *cur, t_termdata *termdata, char *keybuff)
 	restore_pos(termdata);
 }
 
-char	*ask_for_input(t_env **env)
+char	*ask_for_input(void)
 {
 	int			read_size;
 	size_t		cur;
@@ -133,21 +133,20 @@ char	*ask_for_input(t_env **env)
 	static char	keybuff[KEYBUFF_SIZE];
 	static char	cmd[INPUT_MAX_LEN];
 
-	(void)env; // yes faut l'enlever
 	cur = 0;
 	init_termdata(&termdata);
 	ft_bzero(keybuff, KEYBUFF_SIZE);
 	ft_bzero(cmd, INPUT_MAX_LEN);
 	enable_raw_mode();
 	print_cmd(cmd, &termdata);
-	while ((read_size = read(0, &keybuff, KEYBUFF_SIZE)) != 0)
+	while ((read_size = read(0, &keybuff, KEYBUFF_SIZE)) != 0) // mettre ca dans une fct static
 	{
 		if (g_shell.cmd_cancel == 1)
 		{
 			cur = 0;
 			g_shell.cmd_cancel = 0;
 			ft_bzero(cmd, INPUT_MAX_LEN);
-			termdata.cur_col = print_prompt(env);
+			termdata.cur_col = print_prompt(g_shell.env);
 		}
 		if (read_size == -1)
 			exit_error("read() error");
@@ -155,6 +154,11 @@ char	*ask_for_input(t_env **env)
 			break ;
 		perform_actions(cmd, &cur, &termdata, keybuff);
 		ft_bzero(keybuff, KEYBUFF_SIZE);
+	}
+	while (termdata.cur_row < termdata.max_row) // put this in a static fct too
+	{
+		ft_putstr(g_shell.termcaps->go_down);
+		++termdata.cur_row;
 	}
 	disable_raw_mode();
 	ft_putchar('\n');
