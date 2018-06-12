@@ -17,9 +17,6 @@ TODO norme :
 
 TODO line edit :
 - atexit pour reset les termcap (meme en cas de exit_error du coup)
-- gerer les fleches gauche et droite + insert
-		- decaler le texte dans le buffer
-		- clear la line et reprint
 - tester fenetre trop petite pour le prompt
 - quand on est trop pres du INPUT_MAX_LEN, on arrete de detecter les touches sauf enter (et del ?)
 - fix ctrl+c

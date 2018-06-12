@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:37:26 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/12 17:14:45 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/12 17:53:18 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,14 @@ char	*ask_for_input(void)
 			exit_error("read() error");
 		if (keybuff[0] == '\n')
 			break ;
+		else if (keybuff[0] == 4)
+		{
+			if (!cmd[0])
+				ft_strcpy(cmd, "exit");
+			else
+				ft_bzero(cmd, INPUT_MAX_LEN);
+			break ;
+		}
 		perform_actions(cmd, &cur, &termdata, keybuff);
 		ft_bzero(keybuff, KEYBUFF_SIZE);
 	}

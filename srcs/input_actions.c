@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 15:29:42 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/12 16:55:40 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/12 18:13:09 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	perform_actions(char *cmd, size_t *cur, t_termdata *termdata, char *keybuff
 		input_action_end(cmd, cur, termdata);
 	else if (keybuff[0] == 127)
 		input_action_delete(cmd, cur, termdata);
-	else if (keybuff[0] == 4)
-		ft_putstr("ctrl+d");
 	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 65)
 		ft_putstr("arrowup");
 	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 66)
@@ -32,10 +30,10 @@ void	perform_actions(char *cmd, size_t *cur, t_termdata *termdata, char *keybuff
 		input_action_arrowleft(cmd, cur, termdata);
 	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 49
 			&& keybuff[3] == 59 && keybuff[4] == 50 && keybuff[5] == 67)
-		ft_putstr("shift+arrowright");
+		input_action_shiftarrowright(cmd, cur, termdata);
 	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 49
 			&& keybuff[3] == 59 && keybuff[4] == 50 && keybuff[5] == 68)
-		ft_putstr("shift+arrowleft");
+		input_action_shiftarrowleft(cmd, cur, termdata);
 	else if (keybuff[0] == 27 && keybuff[1] == 0) //tmp
 		exit(42);
 	else if (ft_isprint(keybuff[0]))

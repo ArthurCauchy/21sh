@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/06/12 16:54:37 by acauchy          ###   ########.fr        #
+#    Updated: 2018/06/12 18:13:46 by acauchy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,6 +87,8 @@ SRC_NAME = main.c \
 		   input_actions_delete.c \
 		   input_actions_arrowright.c \
 		   input_actions_arrowleft.c \
+		   input_actions_shiftarrowright.c \
+		   input_actions_shiftarrowleft.c \
 		   input_actions_home.c \
 		   input_actions_end.c \
 		   output.c \
