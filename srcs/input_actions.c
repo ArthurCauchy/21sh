@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 15:29:42 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/11 19:36:47 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/12 16:55:40 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	perform_actions(char *cmd, size_t *cur, t_termdata *termdata, char *keybuff)
 {
 	if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 72)
-		ft_putstr("home");
+		input_action_home(cmd, cur, termdata);
 	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 70)
-		ft_putstr("end");
+		input_action_end(cmd, cur, termdata);
 	else if (keybuff[0] == 127)
 		input_action_delete(cmd, cur, termdata);
 	else if (keybuff[0] == 4)
