@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:37:26 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/13 13:58:24 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/13 15:52:28 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,8 @@ char	*ask_for_input(void)
 				ft_bzero(cmd, INPUT_MAX_LEN);
 			break ;
 		}
-		perform_actions(cmd, &cur, &termdata, keybuff);
+		else if (cur < INPUT_MAX_LEN - 2)
+			perform_actions(cmd, &cur, &termdata, keybuff);
 		ft_bzero(keybuff, KEYBUFF_SIZE);
 	}
 	while (termdata.cur_row < termdata.max_row) // put this in a static fct too
