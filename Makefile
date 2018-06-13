@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/06/13 13:47:10 by acauchy          ###   ########.fr        #
+#    Updated: 2018/06/13 14:56:30 by acauchy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,6 +93,8 @@ SRC_NAME = main.c \
 		   input_actions_shiftarrowdown.c \
 		   input_actions_home.c \
 		   input_actions_end.c \
+		   input_actions_shifthome.c \
+		   input_actions_shiftend.c \
 		   output.c \
 		   pipe.c \
 		   process.c \

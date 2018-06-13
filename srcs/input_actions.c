@@ -6,21 +6,15 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 15:29:42 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/13 13:58:17 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/13 15:13:13 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-void	perform_actions(char *cmd, size_t *cur, t_termdata *termdata, char *keybuff)
+static int	perform_actions_arrows(char *cmd, size_t *cur, t_termdata *termdata, char *keybuff)
 {
-	if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 72)
-		input_action_home(cmd, cur, termdata);
-	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 70)
-		input_action_end(cmd, cur, termdata);
-	else if (keybuff[0] == 127)
-		input_action_delete(cmd, cur, termdata);
-	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 65)
+	if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 65)
 		ft_putstr("arrowup");
 	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 66)
 		ft_putstr("arrowdown");
@@ -40,8 +34,27 @@ void	perform_actions(char *cmd, size_t *cur, t_termdata *termdata, char *keybuff
 	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 49
 			&& keybuff[3] == 59 && keybuff[4] == 50 && keybuff[5] == 68)
 		input_action_shiftarrowleft(cmd, cur, termdata);
-	else if (keybuff[0] == 27 && keybuff[1] == 0) //tmp
-		exit(42);
+	else
+		return (0);
+	return (1);
+}
+
+void	perform_actions(char *cmd, size_t *cur, t_termdata *termdata, char *keybuff)
+{
+	if (perform_actions_arrows(cmd, cur, termdata, keybuff))
+		(void)0;
+	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 72)
+		input_action_home(cmd, cur, termdata);
+	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 70)
+		input_action_end(cmd, cur, termdata);
+	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 49
+			&& keybuff[3] == 59 && keybuff[4] == 50 && keybuff[5] == 72)
+		input_action_shifthome(cmd, cur, termdata);
+	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 49
+			&& keybuff[3] == 59 && keybuff[4] == 50 && keybuff[5] == 70)
+		input_action_shiftend(cmd, cur, termdata);
+	else if (keybuff[0] == 127)
+		input_action_delete(cmd, cur, termdata);
 	else if (ft_isprint(keybuff[0]))
 		add_to_input(cmd, cur, termdata, keybuff);
 	else

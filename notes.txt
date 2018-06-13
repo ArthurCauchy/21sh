@@ -16,11 +16,9 @@ TODO norme :
 - separer fonctions builtin_cd_l en plusieurs fichiers
 
 TODO line edit :
-- atexit pour reset les termcap (meme en cas de exit_error du coup)
-- tester fenetre trop petite pour le prompt
 - quand on est trop pres du INPUT_MAX_LEN, on arrete de detecter les touches sauf enter (et del ?)
 - fix ctrl+c
-- fichier utils_termcaps.c useful ???
+- sigwinch a gerer (redimensionnement de base)
 
 csh :
 - 'exit qweqwejiowqe' : Expression syntax.
