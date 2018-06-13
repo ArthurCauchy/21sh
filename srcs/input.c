@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:37:26 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/13 15:52:28 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/13 16:02:15 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,9 +144,10 @@ char	*ask_for_input(void)
 		if (g_shell.cmd_cancel == 1)
 		{
 			cur = 0;
-			g_shell.cmd_cancel = 0;
+			init_termdata(&termdata);
 			ft_bzero(cmd, INPUT_MAX_LEN);
 			termdata.cur_col = print_prompt(g_shell.env);
+			g_shell.cmd_cancel = 0;
 		}
 		if (read_size == -1)
 			exit_error("read() error");

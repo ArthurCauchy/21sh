@@ -16,8 +16,6 @@ TODO norme :
 - separer fonctions builtin_cd_l en plusieurs fichiers
 
 TODO line edit :
-- quand on est trop pres du INPUT_MAX_LEN, on arrete de detecter les touches sauf enter (et del ?)
-- fix ctrl+c
 - copy paste
 
 csh :
