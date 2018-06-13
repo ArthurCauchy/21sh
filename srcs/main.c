@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/12 16:58:46 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/13 15:22:50 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int			main(int argc, char **argv, char **envp)
 	init(&env, envp);
 	while (g_shell.exit_now != 1)
 	{
+		g_shell.nb_cols = get_term_cols();
 		if (input_and_parse(&ast) == 0)
 		{
 			g_shell.abort_command = 0;

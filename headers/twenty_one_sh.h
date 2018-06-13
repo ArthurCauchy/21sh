@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/13 14:57:47 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/13 15:22:43 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ void				delete_args(char **args);
 
 void				enable_raw_mode(void);
 void				disable_raw_mode(void);
-size_t				get_term_cols(void);
+int					get_term_cols(void);
 
 /*
 ** utils_termcaps.c

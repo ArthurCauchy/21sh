@@ -18,7 +18,6 @@ TODO norme :
 TODO line edit :
 - quand on est trop pres du INPUT_MAX_LEN, on arrete de detecter les touches sauf enter (et del ?)
 - fix ctrl+c
-- sigwinch a gerer (redimensionnement de base)
 
 csh :
 - 'exit qweqwejiowqe' : Expression syntax.
