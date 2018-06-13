@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/12 18:13:26 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/13 13:49:40 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -391,6 +391,8 @@ void				input_action_arrowright(char *cmd, size_t *cur, t_termdata *termdata);
 void				input_action_arrowleft(char *cmd, size_t *cur, t_termdata *termdata);
 void				input_action_shiftarrowright(char *cmd, size_t *cur, t_termdata *termdata);
 void				input_action_shiftarrowleft(char *cmd, size_t *cur, t_termdata *termdata);
+void				input_action_shiftarrowup(char *cmd, size_t *cur, t_termdata *termdata);
+void				input_action_shiftarrowdown(char *cmd, size_t *cur, t_termdata *termdata);
 void				input_action_home(char *cmd, size_t *cur, t_termdata *termdata);
 void				input_action_end(char *cmd, size_t *cur, t_termdata *termdata);
 

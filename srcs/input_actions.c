@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 15:29:42 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/12 18:13:09 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/13 13:58:17 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ void	perform_actions(char *cmd, size_t *cur, t_termdata *termdata, char *keybuff
 	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 49
 			&& keybuff[3] == 59 && keybuff[4] == 50 && keybuff[5] == 67)
 		input_action_shiftarrowright(cmd, cur, termdata);
+	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 49
+			&& keybuff[3] == 59 && keybuff[4] == 50 && keybuff[5] == 65)
+		input_action_shiftarrowup(cmd, cur, termdata);
+	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 49
+			&& keybuff[3] == 59 && keybuff[4] == 50 && keybuff[5] == 66)
+		input_action_shiftarrowdown(cmd, cur, termdata);
 	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 49
 			&& keybuff[3] == 59 && keybuff[4] == 50 && keybuff[5] == 68)
 		input_action_shiftarrowleft(cmd, cur, termdata);
