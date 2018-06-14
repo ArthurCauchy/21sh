@@ -23,7 +23,7 @@ static int	input_and_parse(t_ast **ast)
 	errmsg = NULL;
 	wordlist = NULL;
 	rep = ask_for_input();
-	// save to history
+	add_history_elem(&g_shell.history, rep);
 	lex_analysis(rep, &wordlist, &errmsg);
 	free(rep);
 	if (errmsg)
@@ -67,6 +67,7 @@ int			main(int argc, char **argv, char **envp)
 	}
 	clear_env(env);
 	clear_builtins();
+	delete_history(g_shell.history);
 	if (g_shell.saved_processes)
 		delete_processes(g_shell.saved_processes);
 	return (g_shell.exit_status);

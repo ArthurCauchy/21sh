@@ -149,6 +149,7 @@ typedef struct		s_shell
 	int				cmd_cancel;
 	struct termios	orig_termios;
 	t_termcaps		*termcaps;
+	t_history			*history;
 }					t_shell;
 
 typedef int	(*t_builtin_fct)(t_env**, char**);

@@ -57,4 +57,5 @@ void	init_shell(void)
 	tcsetpgrp(0, g_shell.shell_pgid);
 	if (!(g_shell.termcaps = init_termcaps()))
 		exit_error("Termcaps not fully supported.");
+	g_shell.history = NULL;
 }
