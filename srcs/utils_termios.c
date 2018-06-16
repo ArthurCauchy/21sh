@@ -31,10 +31,25 @@ void	disable_raw_mode(void)
 		exit_error("Can't set terminal back to default mode.");
 }
 
+#ifdef TIOCGSIZE
+
 int		get_term_cols(void)
 {
 	struct ttysize	ts;
 
+	
 	ioctl(0, TIOCGSIZE, &ts);
 	return (ts.ts_cols);
 }
+
+#else
+
+int		get_term_cols(void)
+{
+	struct winsize	ws;
+
+	ioctl(0, TIOCGWINSZ, &ws);
+	return (ws.ws_col);
+}
+
+#endif
