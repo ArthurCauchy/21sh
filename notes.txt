@@ -17,6 +17,7 @@ TODO norme :
 
 TODO line edit :
 - copy paste
+- transformer termdata en inputdata et y mettre cmd et cur (et history ?)
 
 csh :
 - 'exit qweqwejiowqe' : Expression syntax.

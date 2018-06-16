@@ -23,7 +23,8 @@ static int	input_and_parse(t_ast **ast)
 	errmsg = NULL;
 	wordlist = NULL;
 	rep = ask_for_input();
-	add_history_elem(&g_shell.history, rep);
+	if (ft_strlen(rep) > 0)
+		add_history_elem(&g_shell.history, rep);
 	lex_analysis(rep, &wordlist, &errmsg);
 	free(rep);
 	if (errmsg)

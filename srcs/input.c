@@ -132,11 +132,13 @@ char	*ask_for_input(void)
 	t_termdata	termdata;
 	static char	keybuff[KEYBUFF_SIZE];
 	static char	cmd[INPUT_MAX_LEN];
+	t_history		*history;
 
 	cur = 0;
 	init_termdata(&termdata);
 	ft_bzero(keybuff, KEYBUFF_SIZE);
 	ft_bzero(cmd, INPUT_MAX_LEN);
+	history = g_shell.history;
 	enable_raw_mode();
 	print_cmd(cmd, &termdata);
 	while ((read_size = read(0, &keybuff, KEYBUFF_SIZE)) != 0) // mettre ca dans une fct static
@@ -162,7 +164,7 @@ char	*ask_for_input(void)
 			break ;
 		}
 		else if (cur < INPUT_MAX_LEN - 2)
-			perform_actions(cmd, &cur, &termdata, keybuff);
+			perform_actions(cmd, &cur, &termdata, keybuff, &history);
 		ft_bzero(keybuff, KEYBUFF_SIZE);
 	}
 	while (termdata.cur_row < termdata.max_row) // put this in a static fct too

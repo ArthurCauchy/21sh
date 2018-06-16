@@ -12,10 +12,11 @@
 
 #include "twenty_one_sh.h"
 
-void	input_action_shifthome(char *cmd, size_t *cur, t_termdata *termdata)
+void	input_action_shifthome(char *cmd, size_t *cur, t_termdata *termdata, t_history **history)
 {
 	(void)cmd;
 	(void)cur;
 	(void)termdata;
+	(void)history;
 	ft_putstr("shifthome");
 }

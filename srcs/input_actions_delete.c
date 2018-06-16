@@ -12,10 +12,11 @@
 
 #include "twenty_one_sh.h"
 
-void	input_action_delete(char *cmd, size_t *cur, t_termdata *termdata)
+void	input_action_delete(char *cmd, size_t *cur, t_termdata *termdata, t_history **history)
 {
 	size_t	i;
 
+	(void)history;
 	if (*cur > 0)
 	{
 		go_backward(termdata);

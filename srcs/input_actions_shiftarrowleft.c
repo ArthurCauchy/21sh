@@ -12,8 +12,9 @@
 
 #include "twenty_one_sh.h"
 
-void	input_action_shiftarrowleft(char *cmd, size_t *cur, t_termdata *termdata)
+void	input_action_shiftarrowleft(char *cmd, size_t *cur, t_termdata *termdata, t_history **history)
 {
+	(void)history;
 	while (*cur > 0 && cmd[*cur] != ' ')
 	{
 		--*cur;
