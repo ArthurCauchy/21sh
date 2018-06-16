@@ -127,6 +127,8 @@ LIBFT = -L$(LIBFT_PATH) -lft
 
 LIBTERMCAP = -ltermcap
 
+LIBCURSES = -lcurses
+
 all: compile
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEADER)
@@ -134,7 +136,7 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEADER)
 
 $(NAME): $(OBJ)
 	@echo -e $(COLOR_YELLOW)"Linking "$@"..."$(COLOR_RESET)
-	$(CC) $^ $(LIBTERMCAP) $(LIBFT) -o $@
+	$(CC) $^ $(LIBCURSES) $(LIBTERMCAP) $(LIBFT) -o $@
 	@echo -e $(COLOR_GREEN)$(NAME)" successfully created."$(COLOR_RESET)
 
 $(OBJ_PATH):
