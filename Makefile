@@ -105,7 +105,6 @@ SRC_NAME = main.c \
 		   utils_redirects.c \
 		   utils_args.c \
 		   utils_termios.c \
-		   utils_termcaps.c \
 		   s_env.c \
 		   env.c \
 		   path.c \

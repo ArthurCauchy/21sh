@@ -191,12 +191,6 @@ void				disable_raw_mode(void);
 int					get_term_cols(void);
 
 /*
-** utils_termcaps.c
-*/
-
-
-
-/*
 ** builtin_manager.c
 */
 
