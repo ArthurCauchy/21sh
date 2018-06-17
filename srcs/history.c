@@ -19,6 +19,7 @@ static t_history	*create_history_elem(char *cmd)
 	if (!(new = (t_history*)malloc(sizeof(t_history))))
 		exit_error("malloc() error");
 	new->next = NULL;
+	new->prev = NULL;
 	new->cmd = ft_strdup(cmd);
 	return (new);
 }
@@ -29,6 +30,7 @@ void		add_history_elem(t_history **history, char *cmd)
 
 	new = create_history_elem(cmd);
 	new->next = *history;
+	(*history)->prev = new;
 	*history = new;
 }
 
