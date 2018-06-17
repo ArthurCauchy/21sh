@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_actions_arrowup.c                            :+:      :+:    :+:   */
+/*   input_actions_arrowdown.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,23 +12,24 @@
 
 #include "twenty_one_sh.h"
 
-void	input_action_arrowup(char *cmd, size_t *cur, t_termdata *termdata, t_history **history)
+void	input_action_arrowdown(char *cmd, size_t *cur, t_termdata *termdata, t_history **history)
 {
 	t_history	*his;
 
 	if (!*history)
-		his = g_shell.history;
-	else
-		his = (*history)->next;
-	if (!his)
 		return ;
+	else
+		his = (*history)->prev;
 	ft_bzero(cmd, INPUT_MAX_LEN);
 	*cur = 0;
 	clear_cmd(termdata);
-	while (his->cmd[*cur])
+	if (his)
 	{
-		cmd[*cur] = his->cmd[*cur];
-		++*cur;
+		while (his->cmd[*cur])
+		{
+			cmd[*cur] = his->cmd[*cur];
+			++*cur;
+		}
 	}
 	print_cmd(cmd, termdata);
 	*history = his;

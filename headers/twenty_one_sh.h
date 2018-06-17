@@ -119,6 +119,7 @@ typedef struct		s_termdata
 typedef struct		s_history
 {
 	struct s_history	*next;
+	struct s_history	*prev;
 	char				*cmd;
 }					t_history;
 
@@ -383,6 +384,7 @@ void				perform_actions(char *cmd, size_t *cur, t_termdata *termdata, char *keyb
 
 void				input_action_delete(char *cmd, size_t *cur, t_termdata *termdata, t_history **history);
 void				input_action_arrowup(char *cmd, size_t *cur, t_termdata *termdata, t_history **history);
+void				input_action_arrowdown(char *cmd, size_t *cur, t_termdata *termdata, t_history **history);
 void				input_action_arrowright(char *cmd, size_t *cur, t_termdata *termdata, t_history **history);
 void				input_action_arrowleft(char *cmd, size_t *cur, t_termdata *termdata, t_history **history);
 void				input_action_shiftarrowright(char *cmd, size_t *cur, t_termdata *termdata, t_history **history);

@@ -30,7 +30,8 @@ void		add_history_elem(t_history **history, char *cmd)
 
 	new = create_history_elem(cmd);
 	new->next = *history;
-	(*history)->prev = new;
+	if (*history)
+		(*history)->prev = new;
 	*history = new;
 }
 

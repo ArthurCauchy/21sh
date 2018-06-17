@@ -138,7 +138,7 @@ char	*ask_for_input(void)
 	init_termdata(&termdata);
 	ft_bzero(keybuff, KEYBUFF_SIZE);
 	ft_bzero(cmd, INPUT_MAX_LEN);
-	history = g_shell.history;
+	history = NULL;
 	enable_raw_mode();
 	print_cmd(cmd, &termdata);
 	while ((read_size = read(0, &keybuff, KEYBUFF_SIZE)) != 0) // mettre ca dans une fct static

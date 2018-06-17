@@ -17,7 +17,7 @@ static int	perform_actions_arrows(char *cmd, size_t *cur, t_termdata *termdata, 
 	if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 65)
 		input_action_arrowup(cmd, cur, termdata, history);
 	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 66)
-		ft_putstr("arrowdown");
+		input_action_arrowdown(cmd, cur, termdata, history);
 	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 67)
 		input_action_arrowright(cmd, cur, termdata, history);
 	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 68)

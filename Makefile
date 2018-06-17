@@ -86,6 +86,7 @@ SRC_NAME = main.c \
 		   input_actions.c \
 		   input_actions_delete.c \
 		   input_actions_arrowup.c \
+		   input_actions_arrowdown.c \
 		   input_actions_arrowright.c \
 		   input_actions_arrowleft.c \
 		   input_actions_shiftarrowright.c \
