@@ -56,99 +56,93 @@ char		*ask_for_input(int fd, t_env **env, char **errmsg)
 	return (ret);
 }*/
 
-void	clear_cmd(t_termdata *termdata)
+void	clear_cmd(t_inputdata *inputdata)
 {
-	termdata->saved_col = termdata->cur_col;
-	termdata->saved_row = termdata->cur_row;
-	while (termdata->cur_row < termdata->max_row)
+	inputdata->saved_col = inputdata->cur_col;
+	inputdata->saved_row = inputdata->cur_row;
+	while (inputdata->cur_row < inputdata->max_row)
 	{
 		ft_putstr(g_shell.termcaps->go_down);
-		++termdata->cur_row;
+		++inputdata->cur_row;
 	}
-	while (termdata->cur_row >= 0)
+	while (inputdata->cur_row >= 0)
 	{
 		ft_putstr(tgoto(g_shell.termcaps->go_col, 0, 0));
 		ft_putstr(g_shell.termcaps->del_line);
-		if (termdata->cur_row > 0)
+		if (inputdata->cur_row > 0)
 			ft_putstr(g_shell.termcaps->go_up);
-		--termdata->cur_row;
+		--inputdata->cur_row;
 	}
-	termdata->cur_col = 0;
-	termdata->cur_row = 0;
-	termdata->max_row = 0;
+	inputdata->cur_col = 0;
+	inputdata->cur_row = 0;
+	inputdata->max_row = 0;
 }
 
-void	print_cmd(char *cmd, t_termdata *termdata)
+void	print_cmd(t_inputdata *inputdata)
 {
 	size_t	i;
 
 	i = 0;
 	
-	termdata->cur_col = print_prompt(g_shell.env);
-	while (cmd[i])
+	inputdata->cur_col = print_prompt(g_shell.env);
+	while (inputdata->cmd[i])
 	{
-		ft_putchar(cmd[i]);
-		if (termdata->cur_col == g_shell.nb_cols - 1)
+		ft_putchar(inputdata->cmd[i]);
+		if (inputdata->cur_col == g_shell.nb_cols - 1)
 		{
 			ft_putstr(g_shell.termcaps->go_down);
 			ft_putstr(tgoto(g_shell.termcaps->go_col, 0, 0));
-			termdata->cur_col = 0;
-			++termdata->cur_row;
-			++termdata->max_row;
+			inputdata->cur_col = 0;
+			++inputdata->cur_row;
+			++inputdata->max_row;
 		}
 		else
-			++termdata->cur_col;
+			++inputdata->cur_col;
 		++i;
 	}
 }
 
-void	add_to_input(char *cmd, size_t *cur, t_termdata *termdata, char *keybuff)
+void	add_to_input(t_inputdata *inputdata, char *keybuff)
 {
-	size_t	i;
+	int	i;
 
-	go_forward(termdata);
-	clear_cmd(termdata);
-	if (cmd[0])
+	go_forward(inputdata);
+	clear_cmd(inputdata);
+	if (inputdata->cmd[0])
 	{
-		i = ft_strlen(cmd) - 1;
-		while (i >= *cur)
+		i = ft_strlen(inputdata->cmd) - 1;
+		while (i >= inputdata->cur_cmd)
 		{
-			cmd[i + 1] = cmd[i];
+			inputdata->cmd[i + 1] = inputdata->cmd[i];
 			if (i == 0)
 				break ;
 			--i;
 		}
 	}
-	cmd[*cur] = keybuff[0];
-	++*cur;
-	print_cmd(cmd, termdata);
-	restore_pos(termdata);
+	inputdata->cmd[inputdata->cur_cmd] = keybuff[0];
+	++inputdata->cur_cmd;
+	print_cmd(inputdata);
+	restore_pos(inputdata);
 }
 
 char	*ask_for_input(void)
 {
 	int			read_size;
-	size_t		cur;
-	t_termdata	termdata;
+	t_inputdata	inputdata;
 	static char	keybuff[KEYBUFF_SIZE];
-	static char	cmd[INPUT_MAX_LEN];
 	t_history		*history;
 
-	cur = 0;
-	init_termdata(&termdata);
+	init_inputdata(&inputdata);
 	ft_bzero(keybuff, KEYBUFF_SIZE);
-	ft_bzero(cmd, INPUT_MAX_LEN);
 	history = NULL;
 	enable_raw_mode();
-	print_cmd(cmd, &termdata);
+	print_cmd(&inputdata);
 	while ((read_size = read(0, &keybuff, KEYBUFF_SIZE)) != 0) // mettre ca dans une fct static
 	{
 		if (g_shell.cmd_cancel == 1)
 		{
-			cur = 0;
-			init_termdata(&termdata);
-			ft_bzero(cmd, INPUT_MAX_LEN);
-			termdata.cur_col = print_prompt(g_shell.env);
+			init_inputdata(&inputdata);
+			inputdata.cur_col = print_prompt(g_shell.env);
 			g_shell.cmd_cancel = 0;
 		}
 		if (read_size == -1)
@@ -157,22 +151,22 @@ char	*ask_for_input(void)
 			break ;
 		else if (keybuff[0] == 4)
 		{
-			if (!cmd[0])
-				ft_strcpy(cmd, "exit");
+			if (!inputdata.cmd[0])
+				ft_strcpy(inputdata.cmd, "exit");
 			else
-				ft_bzero(cmd, INPUT_MAX_LEN);
+				ft_bzero(inputdata.cmd, INPUT_MAX_LEN);
 			break ;
 		}
-		else if (cur < INPUT_MAX_LEN - 2)
-			perform_actions(cmd, &cur, &termdata, keybuff, &history);
+		else if (inputdata.cur_cmd < INPUT_MAX_LEN - 2)
+			perform_actions(&inputdata, keybuff, &history);
 		ft_bzero(keybuff, KEYBUFF_SIZE);
 	}
-	while (termdata.cur_row < termdata.max_row) // put this in a static fct too
+	while (inputdata.cur_row < inputdata.max_row) // put this in a static fct too
 	{
 		ft_putstr(g_shell.termcaps->go_down);
-		++termdata.cur_row;
+		++inputdata.cur_row;
 	}
 	disable_raw_mode();
 	ft_putchar('\n');
-	return (ft_strdup(cmd));
+	return (ft_strdup(inputdata.cmd));
 }

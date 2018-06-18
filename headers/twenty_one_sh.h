@@ -107,14 +107,16 @@ typedef struct		s_process
 	pid_t				pid;
 }					t_process;
 
-typedef struct		s_termdata
+typedef struct		s_inputdata
 {
-	int	cur_col;
-	int	cur_row;
-	int	max_row;
-	int	saved_col;
-	int	saved_row;
-}					t_termdata;
+	char	cmd[INPUT_MAX_LEN];
+	int		cur_cmd;
+	int		cur_col;
+	int		cur_row;
+	int		max_row;
+	int		saved_col;
+	int		saved_row;
+}					t_inputdata;
 
 typedef struct		s_history
 {
@@ -355,46 +357,46 @@ void				reset_sighandlers(void);
 void				ignore_signals(void);
 
 /*
-** termdata.c
+** inputdata.c
 */
 
-void				init_termdata(t_termdata *termdata);
-void				go_forward(t_termdata *termdata);
-void				go_backward(t_termdata *termdata);
-void				restore_pos(t_termdata *termdata);
+void				init_inputdata(t_inputdata *inputdata);
+void				go_forward(t_inputdata *inputdata);
+void				go_backward(t_inputdata *inputdata);
+void				restore_pos(t_inputdata *inputdata);
 
 /*
 ** input.c
 */
 
-void				clear_cmd(t_termdata *termdata);
-void				print_cmd(char *cmd, t_termdata *termdata);
-void				add_to_input(char *cmd, size_t	*cur, t_termdata *termdata, char *keybuff);
+void				clear_cmd(t_inputdata *inputdata);
+void				print_cmd(t_inputdata *inputdata);
+void				add_to_input(t_inputdata *inputdata, char *keybuff);
 char				*ask_for_input(void);
 
 /*
 ** input_actions.c
 */
 
-void				perform_actions(char *cmd, size_t *cur, t_termdata *termdata, char *keybuff, t_history **history);
+void				perform_actions(t_inputdata *inputdata, char *keybuff, t_history **history);
 
 /*
 ** input_actions_[action].c
 */
 
-void				input_action_delete(char *cmd, size_t *cur, t_termdata *termdata, t_history **history);
-void				input_action_arrowup(char *cmd, size_t *cur, t_termdata *termdata, t_history **history);
-void				input_action_arrowdown(char *cmd, size_t *cur, t_termdata *termdata, t_history **history);
-void				input_action_arrowright(char *cmd, size_t *cur, t_termdata *termdata, t_history **history);
-void				input_action_arrowleft(char *cmd, size_t *cur, t_termdata *termdata, t_history **history);
-void				input_action_shiftarrowright(char *cmd, size_t *cur, t_termdata *termdata, t_history **history);
-void				input_action_shiftarrowleft(char *cmd, size_t *cur, t_termdata *termdata, t_history **history);
-void				input_action_shiftarrowup(char *cmd, size_t *cur, t_termdata *termdata, t_history **history);
-void				input_action_shiftarrowdown(char *cmd, size_t *cur, t_termdata *termdata, t_history **history);
-void				input_action_home(char *cmd, size_t *cur, t_termdata *termdata, t_history **history);
-void				input_action_end(char *cmd, size_t *cur, t_termdata *termdata, t_history **history);
-void				input_action_shifthome(char *cmd, size_t *cur, t_termdata *termdata, t_history **history);
-void				input_action_shiftend(char *cmd, size_t *cur, t_termdata *termdata, t_history **history);
+void				input_action_delete(t_inputdata *inputdata, t_history **history);
+void				input_action_arrowup(t_inputdata *inputdata, t_history **history);
+void				input_action_arrowdown(t_inputdata *inputdata, t_history **history);
+void				input_action_arrowright(t_inputdata *inputdata, t_history **history);
+void				input_action_arrowleft(t_inputdata *inputdata, t_history **history);
+void				input_action_shiftarrowright(t_inputdata *inputdata, t_history **history);
+void				input_action_shiftarrowleft(t_inputdata *inputdata, t_history **history);
+void				input_action_shiftarrowup(t_inputdata *inputdata, t_history **history);
+void				input_action_shiftarrowdown(t_inputdata *inputdata, t_history **history);
+void				input_action_home(t_inputdata *inputdata, t_history **history);
+void				input_action_end(t_inputdata *inputdata, t_history **history);
+void				input_action_shifthome(t_inputdata *inputdata, t_history **history);
+void				input_action_shiftend(t_inputdata *inputdata, t_history **history);
 
 /*
 ** output.c

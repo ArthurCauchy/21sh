@@ -12,7 +12,7 @@
 
 #include "twenty_one_sh.h"
 
-void	input_action_arrowdown(char *cmd, size_t *cur, t_termdata *termdata, t_history **history)
+void	input_action_arrowdown(t_inputdata *inputdata, t_history **history)
 {
 	t_history	*his;
 
@@ -20,17 +20,17 @@ void	input_action_arrowdown(char *cmd, size_t *cur, t_termdata *termdata, t_hist
 		return ;
 	else
 		his = (*history)->prev;
-	ft_bzero(cmd, INPUT_MAX_LEN);
-	*cur = 0;
-	clear_cmd(termdata);
+	ft_bzero(inputdata->cmd, INPUT_MAX_LEN);
+	inputdata->cur_cmd = 0;
+	clear_cmd(inputdata);
 	if (his)
 	{
-		while (his->cmd[*cur])
+		while (his->cmd[inputdata->cur_cmd])
 		{
-			cmd[*cur] = his->cmd[*cur];
-			++*cur;
+			inputdata->cmd[inputdata->cur_cmd] = his->cmd[inputdata->cur_cmd];
+			++inputdata->cur_cmd;
 		}
 	}
-	print_cmd(cmd, termdata);
+	print_cmd(inputdata);
 	*history = his;
 }

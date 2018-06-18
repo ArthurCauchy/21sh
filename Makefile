@@ -81,7 +81,7 @@ SRC_NAME = main.c \
 		   interpreter_and.c \
 		   interpreter_pipe.c \
 		   interpreter_arg.c \
-		   termdata.c \
+		   inputdata.c \
 		   input.c \
 		   input_actions.c \
 		   input_actions_delete.c \

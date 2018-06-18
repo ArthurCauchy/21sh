@@ -12,23 +12,23 @@
 
 #include "twenty_one_sh.h"
 
-void	input_action_delete(char *cmd, size_t *cur, t_termdata *termdata, t_history **history)
+void	input_action_delete(t_inputdata *inputdata, t_history **history)
 {
 	size_t	i;
 
 	(void)history;
-	if (*cur > 0)
+	if (inputdata->cur_cmd > 0)
 	{
-		go_backward(termdata);
-		clear_cmd(termdata);
-		--*cur;
-		i = *cur;
-		while (cmd[i])
+		go_backward(inputdata);
+		clear_cmd(inputdata);
+		--inputdata->cur_cmd;
+		i = inputdata->cur_cmd;
+		while (inputdata->cmd[i])
 		{
-			cmd[i] = cmd[i + 1];
+			inputdata->cmd[i] = inputdata->cmd[i + 1];
 			++i;
 		}
-		print_cmd(cmd, termdata);
-		restore_pos(termdata);
+		print_cmd(inputdata);
+		restore_pos(inputdata);
 	}
 }

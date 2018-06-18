@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   termdata.c                                         :+:      :+:    :+:   */
+/*   inputdata.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,62 +12,64 @@
 
 #include "twenty_one_sh.h"
 
-void	init_termdata(t_termdata *termdata)
+void	init_inputdata(t_inputdata *inputdata)
 {
-	termdata->cur_col = 0;
-	termdata->cur_row = 0;
-	termdata->max_row = 0;
-	termdata->saved_col = 0;
-	termdata->saved_row = 0;
+	ft_bzero(inputdata->cmd, INPUT_MAX_LEN);
+	inputdata->cur_cmd = 0;
+	inputdata->cur_col = 0;
+	inputdata->cur_row = 0;
+	inputdata->max_row = 0;
+	inputdata->saved_col = 0;
+	inputdata->saved_row = 0;
 }
 
-void	go_forward(t_termdata *termdata)
+void	go_forward(t_inputdata *inputdata)
 {
-	if (termdata->cur_col == g_shell.nb_cols - 1)
+	if (inputdata->cur_col == g_shell.nb_cols - 1)
 	{
 		ft_putstr(g_shell.termcaps->go_down);
 		ft_putstr(tgoto(g_shell.termcaps->go_col, 0, 0));
-		termdata->cur_col = 0;
-		++termdata->cur_row;
+		inputdata->cur_col = 0;
+		++inputdata->cur_row;
 	}
 	else
 	{
 		ft_putstr(g_shell.termcaps->go_right);
-		++termdata->cur_col;
+		++inputdata->cur_col;
 	}
 }
 
-void	go_backward(t_termdata *termdata)
+void	go_backward(t_inputdata *inputdata)
 {
-	if (termdata->cur_col == 0)
+	if (inputdata->cur_col == 0)
 	{
 		ft_putstr(g_shell.termcaps->go_up);
 		ft_putstr(tgoto(g_shell.termcaps->go_col, 0, g_shell.nb_cols - 1));
-		termdata->cur_col = g_shell.nb_cols - 1;
-		--termdata->cur_row;
+		inputdata->cur_col = g_shell.nb_cols - 1;
+		--inputdata->cur_row;
 	}
 	else
 	{
 		ft_putstr(g_shell.termcaps->go_left);
-		--termdata->cur_col;
+		--inputdata->cur_col;
 	}
 }
 
-void	restore_pos(t_termdata *termdata)
+void	restore_pos(t_inputdata *inputdata)
 {
-	while (termdata->cur_row != termdata->saved_row)
+	while (inputdata->cur_row != inputdata->saved_row)
 	{
-		if (termdata->cur_row > termdata->saved_row)
+		if (inputdata->cur_row > inputdata->saved_row)
 		{
 			ft_putstr(g_shell.termcaps->go_up);
-			--termdata->cur_row;
+			--inputdata->cur_row;
 		}
 		else
 		{
 			ft_putstr(g_shell.termcaps->go_down);
-			++termdata->cur_row;
+			++inputdata->cur_row;
 		}
 	}
-	ft_putstr(tgoto(g_shell.termcaps->go_col, 0, termdata->saved_col));
-	termdata->cur_col = termdata->saved_col;
+	ft_putstr(tgoto(g_shell.termcaps->go_col, 0, inputdata->saved_col));
+	inputdata->cur_col = inputdata->saved_col;
 }
