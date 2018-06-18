@@ -12,11 +12,9 @@
 
 #include "twenty_one_sh.h"
 
-void	input_action_shiftend(char *cmd, size_t *cur, t_termdata *termdata, t_history **history)
+void	input_action_shiftend(t_inputdata *inputdata, t_history **history)
 {
-	(void)cmd;
-	(void)cur;
-	(void)termdata;
+	(void)inputdata;
 	(void)history;
 	ft_putstr("shiftend");
 }

@@ -12,17 +12,17 @@
 
 #include "twenty_one_sh.h"
 
-void	input_action_shiftarrowleft(char *cmd, size_t *cur, t_termdata *termdata, t_history **history)
+void	input_action_shiftarrowleft(t_inputdata *inputdata, t_history **history)
 {
 	(void)history;
-	while (*cur > 0 && cmd[*cur] != ' ')
+	while (inputdata->cur_cmd > 0 && inputdata->cmd[inputdata->cur_cmd] != ' ')
 	{
-		--*cur;
-		go_backward(termdata);
+		--inputdata->cur_cmd;
+		go_backward(inputdata);
 	}
-	while (*cur > 0 && cmd[*cur] == ' ')
+	while (inputdata->cur_cmd > 0 && inputdata->cmd[inputdata->cur_cmd] == ' ')
 	{
-		--*cur;
-		go_backward(termdata);
+		--inputdata->cur_cmd;
+		go_backward(inputdata);
 	}
 }

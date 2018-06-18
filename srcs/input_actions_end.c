@@ -12,12 +12,12 @@
 
 #include "twenty_one_sh.h"
 
-void	input_action_end(char *cmd, size_t *cur, t_termdata *termdata, t_history **history)
+void	input_action_end(t_inputdata *inputdata, t_history **history)
 {
 	(void)history;
-	while (cmd[*cur])
+	while (inputdata->cmd[inputdata->cur_cmd])
 	{
-		go_forward(termdata);
-		++*cur;
+		go_forward(inputdata);
+		++inputdata->cur_cmd;
 	}
 }

@@ -12,13 +12,12 @@
 
 #include "twenty_one_sh.h"
 
-void	input_action_arrowleft(char *cmd, size_t *cur, t_termdata *termdata, t_history **history)
+void	input_action_arrowleft(t_inputdata *inputdata, t_history **history)
 {
-	(void)cmd;
 	(void)history;
-	if (*cur > 0)
+	if (inputdata->cur_cmd > 0)
 	{
-		--*cur;
-		go_backward(termdata);
+		--inputdata->cur_cmd;
+		go_backward(inputdata);
 	}
 }

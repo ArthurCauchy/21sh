@@ -12,17 +12,16 @@
 
 #include "twenty_one_sh.h"
 
-void	input_action_shiftarrowup(char *cmd, size_t *cur, t_termdata *termdata, t_history **history)
+void	input_action_shiftarrowup(t_inputdata *inputdata, t_history **history)
 {
 	int	i;
 
-	(void)cmd;
 	(void)history;
 	i = 0;
-	while (*cur > 0 && i < g_shell.nb_cols)
+	while (inputdata->cur_cmd > 0 && i < g_shell.nb_cols)
 	{
-		--*cur;
-		go_backward(termdata);
+		--inputdata->cur_cmd;
+		go_backward(inputdata);
 		++i;
 	}
 }
