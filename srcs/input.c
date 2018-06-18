@@ -141,6 +141,7 @@ char	*ask_for_input(void)
 	{
 		if (g_shell.cmd_cancel == 1)
 		{
+			g_shell.nb_cols = get_term_cols();
 			init_inputdata(&inputdata);
 			inputdata.cur_col = print_prompt(g_shell.env);
 			g_shell.cmd_cancel = 0;
