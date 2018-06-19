@@ -6,17 +6,35 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:48:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/19 14:10:23 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/19 15:12:04 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
+static void			free_termcaps(t_termcaps *termcaps)
+{
+	if (termcaps->go_col)
+		free(termcaps->go_col);
+	if (termcaps->go_right)
+		free(termcaps->go_right);
+	if (termcaps->go_left)
+		free(termcaps->go_left);
+	if (termcaps->go_up)
+		free(termcaps->go_up);
+	if (termcaps->go_down)
+		free(termcaps->go_down);
+	if (termcaps->del_one_char)
+		free(termcaps->del_one_char);
+	if (termcaps->del_line)
+		free(termcaps->del_line);
+}
+
 static t_termcaps	*init_termcaps(void)
 {
 	t_termcaps *new;
 
-	if (!(new = (t_termcaps*)malloc(sizeof(t_termcaps))))
+	if (!(new = (t_termcaps*)ft_memalloc(sizeof(t_termcaps))))
 		exit_error("malloc() error");
 	new->go_col = tgetstr("ch", NULL);
 	new->go_right = tgetstr("nd", NULL);
@@ -29,7 +47,7 @@ static t_termcaps	*init_termcaps(void)
 			|| !new->go_up || !new->go_down || !new->del_one_char
 			|| !new->del_line)
 	{
-		// check fuites memoire si le premier termcap existe mais pas les autres
+		free_termcaps(new);
 		free(new);
 		return (NULL);
 	}

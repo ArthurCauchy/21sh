@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 15:29:42 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/13 15:52:19 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/19 15:47:10 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,10 @@ void	perform_actions(t_inputdata *inputdata, char *keybuff, t_history **history)
 		input_action_shiftend(inputdata, history);
 	else if (keybuff[0] == 127)
 		input_action_delete(inputdata, history);
+	else if (keybuff[0] == 4)
+		input_action_del(inputdata, history);
+	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 51 && keybuff[3] == 126)
+		input_action_del(inputdata, history);
 	else if (ft_isprint(keybuff[0]))
 		add_to_input(inputdata, keybuff);
 	else

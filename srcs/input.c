@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:37:26 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/19 14:14:39 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/19 15:47:09 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	*ask_for_input(void)
 			exit_error("read() error");
 		if (keybuff[0] == '\n')
 			break ;
-		else if (keybuff[0] == 4)
+		else if (keybuff[0] == 4 && inputdata.cur_cmd == (int)ft_strlen(inputdata.cmd))
 		{
 			if (!inputdata.cmd[0])
 				ft_strcpy(inputdata.cmd, "exit");
@@ -114,7 +114,7 @@ char	*ask_for_input(void)
 				ft_bzero(inputdata.cmd, INPUT_MAX_LEN);
 			break ;
 		}
-		else if (inputdata.cur_cmd < INPUT_MAX_LEN - 2)
+		if (inputdata.cur_cmd < INPUT_MAX_LEN - 2)
 			perform_actions(&inputdata, keybuff, &history);
 		ft_bzero(keybuff, KEYBUFF_SIZE);
 	}

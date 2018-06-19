@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/19 14:01:04 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/19 15:26:17 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -386,6 +386,7 @@ void				perform_actions(t_inputdata *inputdata, char *keybuff, t_history **histo
 */
 
 void				input_action_delete(t_inputdata *inputdata, t_history **history);
+void				input_action_del(t_inputdata *inputdata, t_history **history);
 void				input_action_arrowup(t_inputdata *inputdata, t_history **history);
 void				input_action_arrowdown(t_inputdata *inputdata, t_history **history);
 void				input_action_arrowright(t_inputdata *inputdata, t_history **history);
