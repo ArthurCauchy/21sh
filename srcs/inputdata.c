@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 18:21:39 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/19 11:47:00 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/19 14:01:22 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	init_inputdata(t_inputdata *inputdata)
 {
 	ft_bzero(inputdata->cmd, INPUT_MAX_LEN);
-	ft_bzero(inputdata->clipboard, INPUT_MAX_LEN);
 	inputdata->cur_cmd = 0;
 	inputdata->cur_col = 0;
 	inputdata->cur_row = 0;

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/19 11:46:35 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/19 14:01:04 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ typedef struct		s_process
 typedef struct		s_inputdata
 {
 	char	cmd[INPUT_MAX_LEN];
-	char	clipboard[INPUT_MAX_LEN];
 	int		cur_cmd;
 	int		cur_col;
 	int		cur_row;
@@ -153,7 +152,8 @@ typedef struct		s_shell
 	int				cmd_cancel;
 	struct termios	orig_termios;
 	t_termcaps		*termcaps;
-	t_history			*history;
+	t_history		*history;
+	char			clipboard[INPUT_MAX_LEN];
 }					t_shell;
 
 typedef int	(*t_builtin_fct)(t_env**, char**);

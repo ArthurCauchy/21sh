@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 16:05:50 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/19 12:00:55 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/19 14:05:57 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 void	input_action_shifthome(t_inputdata *inputdata, t_history **history)
 {
 	(void)history;
-	ft_bzero(inputdata->clipboard, INPUT_MAX_LEN);
-	ft_strncpy(inputdata->clipboard, inputdata->cmd, inputdata->cur_cmd);
+	ft_bzero(g_shell.clipboard, INPUT_MAX_LEN);
+	ft_strncpy(g_shell.clipboard, inputdata->cmd, inputdata->cur_cmd);
 }
