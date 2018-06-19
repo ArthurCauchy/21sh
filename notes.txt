@@ -16,7 +16,7 @@ TODO norme :
 - separer fonctions builtin_cd_l en plusieurs fichiers
 
 TODO line edit :
-- copy paste
+- copy/cut paste
 
 csh :
 - 'exit qweqwejiowqe' : Expression syntax.
