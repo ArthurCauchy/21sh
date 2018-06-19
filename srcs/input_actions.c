@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 15:29:42 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/19 15:47:10 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/19 16:12:56 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	perform_actions(t_inputdata *inputdata, char *keybuff, t_history **history)
 	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 49
 			&& keybuff[3] == 59 && keybuff[4] == 50 && keybuff[5] == 72)
 		input_action_shifthome(inputdata, history);
+	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 90)
+		input_action_shifttab(inputdata, history);
 	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 49
 			&& keybuff[3] == 59 && keybuff[4] == 50 && keybuff[5] == 70)
 		input_action_shiftend(inputdata, history);

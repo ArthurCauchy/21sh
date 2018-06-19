@@ -6,16 +6,20 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 16:05:50 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/19 14:14:35 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/19 17:25:17 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
+/*
+** paste
+*/
 void	input_action_shiftend(t_inputdata *inputdata, t_history **history)
 {
 	char	*tmp;
 	size_t	i;
+	int		j;
 
 	(void)history;
 	if (!g_shell.clipboard[0])
@@ -33,6 +37,7 @@ void	input_action_shiftend(t_inputdata *inputdata, t_history **history)
 		++i;
 		++inputdata->cur_cmd;
 	}
+	j = inputdata->cur_cmd;
 	i = 0;
 	while (inputdata->cur_cmd < INPUT_MAX_LEN - 2 && i < ft_strlen(tmp))
 	{
@@ -40,6 +45,7 @@ void	input_action_shiftend(t_inputdata *inputdata, t_history **history)
 		++i;
 		++inputdata->cur_cmd;
 	}
+	inputdata->cur_cmd = j;
 	free(tmp);
 	print_cmd(inputdata);
 	restore_pos(inputdata);
