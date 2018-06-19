@@ -6,8 +6,6 @@ TODO :
 - interdire certains builtins dans un pipe / builtin env
 - CDPATH
 - full check redirections
-- fix mem leak in init_shell's termcaps
-- fix "ls -lr / | cat " then "procs" with valgrind
 
 TODO bonus :
 - 21shrc
