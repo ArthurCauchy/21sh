@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/19 15:26:17 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/19 15:54:10 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define MAX_PATH_SIZE 4096
 # define KEYBUFF_SIZE 8
 
-typedef struct	s_env
+typedef struct		s_env
 {
 	char			*key;
 	char			*value;
@@ -281,8 +281,10 @@ void				lex_rshift_word(char *cmdline, t_word **wordlist,
 		t_lexdata *lexdata, char **errmsg);
 void				lex_lshift_word(char *cmdline, t_word **wordlist,
 		t_lexdata *lexdata, char **errmsg);
-void    lex_tilde_exp(char *cmdline, t_lexdata *lexdata, char **errmsg);
-void    lex_dollar_exp(char *cmdline, t_lexdata *lexdata, char **errmsg);
+void				lex_tilde_exp(char *cmdline,
+		t_lexdata *lexdata, char **errmsg);
+void				lex_dollar_exp(char *cmdline,
+		t_lexdata *lexdata, char **errmsg);
 
 /*
 ** parsing.c, parsing_[token].c
@@ -379,26 +381,41 @@ char				*ask_for_input(void);
 ** input_actions.c
 */
 
-void				perform_actions(t_inputdata *inputdata, char *keybuff, t_history **history);
+void				perform_actions(t_inputdata *inputdata,
+		char *keybuff, t_history **history);
 
 /*
 ** input_actions_[action].c
 */
 
-void				input_action_delete(t_inputdata *inputdata, t_history **history);
-void				input_action_del(t_inputdata *inputdata, t_history **history);
-void				input_action_arrowup(t_inputdata *inputdata, t_history **history);
-void				input_action_arrowdown(t_inputdata *inputdata, t_history **history);
-void				input_action_arrowright(t_inputdata *inputdata, t_history **history);
-void				input_action_arrowleft(t_inputdata *inputdata, t_history **history);
-void				input_action_shiftarrowright(t_inputdata *inputdata, t_history **history);
-void				input_action_shiftarrowleft(t_inputdata *inputdata, t_history **history);
-void				input_action_shiftarrowup(t_inputdata *inputdata, t_history **history);
-void				input_action_shiftarrowdown(t_inputdata *inputdata, t_history **history);
-void				input_action_home(t_inputdata *inputdata, t_history **history);
-void				input_action_end(t_inputdata *inputdata, t_history **history);
-void				input_action_shifthome(t_inputdata *inputdata, t_history **history);
-void				input_action_shiftend(t_inputdata *inputdata, t_history **history);
+void				input_action_delete(t_inputdata *inputdata,
+		t_history **history);
+void				input_action_del(t_inputdata *inputdata,
+		t_history **history);
+void				input_action_arrowup(t_inputdata *inputdata,
+		t_history **history);
+void				input_action_arrowdown(t_inputdata *inputdata,
+		t_history **history);
+void				input_action_arrowright(t_inputdata *inputdata,
+		t_history **history);
+void				input_action_arrowleft(t_inputdata *inputdata,
+		t_history **history);
+void				input_action_shiftarrowright(t_inputdata *inputdata,
+		t_history **history);
+void				input_action_shiftarrowleft(t_inputdata *inputdata,
+		t_history **history);
+void				input_action_shiftarrowup(t_inputdata *inputdata,
+		t_history **history);
+void				input_action_shiftarrowdown(t_inputdata *inputdata,
+		t_history **history);
+void				input_action_home(t_inputdata *inputdata,
+		t_history **history);
+void				input_action_end(t_inputdata *inputdata,
+		t_history **history);
+void				input_action_shifthome(t_inputdata *inputdata,
+		t_history **history);
+void				input_action_shiftend(t_inputdata *inputdata,
+		t_history **history);
 
 /*
 ** output.c
@@ -421,7 +438,7 @@ int					wait_pipe(void);
 
 t_process			*new_process(void);
 t_process			*copy_processes(t_process *src);
-void                delete_processes(t_process *procs);
+void				delete_processes(t_process *procs);
 
 /*
 ** process_control.c
@@ -448,8 +465,8 @@ void				delete_history(t_history *history);
 */
 
 void				init(t_env **env, char **envp);
-void                init_shell(void);
-void                init_signals(void);
+void				init_shell(void);
+void				init_signals(void);
 void				init_env(t_env **env, char **envp);
 void				init_builtins(void);
 
