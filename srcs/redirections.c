@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 10:59:12 by acauchy           #+#    #+#             */
-/*   Updated: 2018/05/27 12:45:03 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/20 11:24:57 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	is_redirection(t_token token)
 {
 	if (token == LSHIFT
 			|| token == LSHIFT_AMP
-//			|| token == LSHIFT2
+			|| token == LSHIFT2
 			|| token == RSHIFT
 			|| token == RSHIFT_AMP
 			|| token == RSHIFT2)

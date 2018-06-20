@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/19 16:13:20 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/20 12:05:10 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ typedef struct		s_shell
 	t_process		*pipe_processes;
 	t_process		*saved_processes;
 	int				nb_cols;
-	int				cmd_cancel;
+	int				input_cancel;
 	struct termios	orig_termios;
 	t_termcaps		*termcaps;
 	t_history		*history;
@@ -333,6 +333,8 @@ int					apply_redirect_lshift(t_redirect *redir,
 		int *fdtmp_array, int *fdsave_array, char **errmsg);
 int					apply_redirect_lshift_amp(t_redirect *redir,
 		int *fdtmp_array, int *fdsave_array, char **errmsg);
+int					apply_redirect_lshift2(t_redirect *redir,
+		int *fdtmp_array, int *fdsave_array, char **errmsg);
 int					apply_redirect_rshift(t_redirect *redir,
 		int *fdtmp_array, int *fdsave_array, char **errmsg);
 int					apply_redirect_rshift_amp(t_redirect *redir,
@@ -418,6 +420,12 @@ void				input_action_shifttab(t_inputdata *inputdata,
 		t_history **history);
 void				input_action_shiftend(t_inputdata *inputdata,
 		t_history **history);
+
+/*
+** heredoc.c
+*/
+
+int					open_heredoc_file(char *filename, char **errmsg);
 
 /*
 ** output.c

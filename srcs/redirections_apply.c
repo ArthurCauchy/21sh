@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 13:29:12 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/05 10:08:46 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/20 11:20:29 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	apply_redirects(t_redirect *redirs, int *fdtmp_array, int *fdsave_array, cha
 			ret = apply_redirect_lshift(cur, fdtmp_array, fdsave_array, errmsg);
 		else if (cur->token == LSHIFT_AMP)
 			ret = apply_redirect_lshift_amp(cur, fdtmp_array, fdsave_array, errmsg);
+		else if (cur->token == LSHIFT2)
+			ret = apply_redirect_lshift2(cur, fdtmp_array, fdsave_array, errmsg);
 		else if (cur->token == RSHIFT)
 			ret = apply_redirect_rshift(cur, fdtmp_array, fdsave_array, errmsg);
 		else if (cur->token == RSHIFT_AMP)

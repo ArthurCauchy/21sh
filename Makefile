@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/06/19 16:11:42 by acauchy          ###   ########.fr        #
+#    Updated: 2018/06/20 11:21:20 by acauchy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,6 +72,7 @@ SRC_NAME = main.c \
 		   redirections_apply_pipe.c \
 		   redirections_apply_lshift.c \
 		   redirections_apply_lshift_amp.c \
+		   redirections_apply_lshift2.c \
 		   redirections_apply_rshift.c \
 		   redirections_apply_rshift_amp.c \
 		   redirections_apply_rshift2.c \
@@ -99,6 +100,7 @@ SRC_NAME = main.c \
 		   input_actions_shifthome.c \
 		   input_actions_shifttab.c \
 		   input_actions_shiftend.c \
+		   heredoc.c \
 		   output.c \
 		   pipe.c \
 		   process.c \
