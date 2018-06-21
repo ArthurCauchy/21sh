@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:35:34 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/11 18:27:16 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/21 14:13:47 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 
 int	print_prompt(t_env **env)
 {
-	char	*user;
-	char	hostname[1024];
-	size_t	ret;
+	char		*user;
+	static char	hostname[1024];
+	size_t		ret;
 
 	ret = 0;
 	ft_putstr("\033[1;33;40m");
@@ -38,6 +38,13 @@ int	print_prompt(t_env **env)
 	ret += ft_strlen(hostname) + 3;
 	free(user);
 	return (ret);
+}
+
+int	print_heredoc_prompt(t_env **env)
+{
+	(void)env;
+	ft_putstr("? ");
+	return (2);
 }
 
 void	print_sig_error(int sig)

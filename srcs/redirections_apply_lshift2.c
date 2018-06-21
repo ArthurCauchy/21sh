@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 13:29:35 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/20 12:10:10 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/21 17:41:43 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ int	apply_redirect_lshift2(t_redirect *redir, int *fdtmp_array, int *fdsave_arra
 	heredoc_fd = open_heredoc_file("/tmp/heredoc-tmp", errmsg);
 	if (heredoc_fd == -1)
 		return (-1);
-	write(heredoc_fd, "heredoc test", 12);
+	if (*errmsg)
+		return (-1);
+	write_heredoc(heredoc_fd, redir->right);
 	close(heredoc_fd);
 	file_fd = open_file_fd("/tmp/heredoc-tmp", 0, 0, errmsg);
 	unlink("/tmp/heredoc-tmp");

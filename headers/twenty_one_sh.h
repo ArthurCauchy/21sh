@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/20 12:05:10 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/21 17:14:10 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ typedef struct		s_shell
 }					t_shell;
 
 typedef int	(*t_builtin_fct)(t_env**, char**);
+typedef int	(*t_prompt_fct)(t_env**);
 
 extern t_shell		g_shell;
 
@@ -375,63 +376,80 @@ void				restore_pos(t_inputdata *inputdata);
 */
 
 void				clear_cmd(t_inputdata *inputdata);
-void				print_cmd(t_inputdata *inputdata);
-void				add_to_input(t_inputdata *inputdata, char *keybuff);
+void				print_cmd(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata);
+void				add_to_input(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata, char *keybuff);
 char				*ask_for_input(void);
 
 /*
 ** input_actions.c
 */
 
-void				perform_actions(t_inputdata *inputdata,
-		char *keybuff, t_history **history);
+void				perform_actions(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata, char *keybuff, t_history **history);
 
 /*
 ** input_actions_[action].c
 */
 
-void				input_action_delete(t_inputdata *inputdata,
-		t_history **history);
-void				input_action_del(t_inputdata *inputdata,
-		t_history **history);
-void				input_action_arrowup(t_inputdata *inputdata,
-		t_history **history);
-void				input_action_arrowdown(t_inputdata *inputdata,
-		t_history **history);
-void				input_action_arrowright(t_inputdata *inputdata,
-		t_history **history);
-void				input_action_arrowleft(t_inputdata *inputdata,
-		t_history **history);
-void				input_action_shiftarrowright(t_inputdata *inputdata,
-		t_history **history);
-void				input_action_shiftarrowleft(t_inputdata *inputdata,
-		t_history **history);
-void				input_action_shiftarrowup(t_inputdata *inputdata,
-		t_history **history);
-void				input_action_shiftarrowdown(t_inputdata *inputdata,
-		t_history **history);
-void				input_action_home(t_inputdata *inputdata,
-		t_history **history);
-void				input_action_end(t_inputdata *inputdata,
-		t_history **history);
-void				input_action_shifthome(t_inputdata *inputdata,
-		t_history **history);
-void				input_action_shifttab(t_inputdata *inputdata,
-		t_history **history);
-void				input_action_shiftend(t_inputdata *inputdata,
-		t_history **history);
+void				input_action_delete(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata, t_history **history);
+void				input_action_del(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata, t_history **history);
+void				input_action_arrowup(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata, t_history **history);
+void				input_action_arrowdown(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata, t_history **history);
+void				input_action_arrowright(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata, t_history **history);
+void				input_action_arrowleft(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata, t_history **history);
+void				input_action_shiftarrowright(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata, t_history **history);
+void				input_action_shiftarrowleft(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata, t_history **history);
+void				input_action_shiftarrowup(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata, t_history **history);
+void				input_action_shiftarrowdown(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata, t_history **history);
+void				input_action_home(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata, t_history **history);
+void				input_action_end(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata, t_history **history);
+void				input_action_shifthome(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata, t_history **history);
+void				input_action_shifttab(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata, t_history **history);
+void				input_action_shiftend(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata, t_history **history);
 
 /*
 ** heredoc.c
 */
 
 int					open_heredoc_file(char *filename, char **errmsg);
+void				write_heredoc(int fd, char *end_delim);
+
+/*
+** heredoc_input.c
+*/
+
+char				*ask_for_heredoc(void);
+
+/*
+** heredoc_input_actions.c
+*/
+
+void                heredoc_perform_actions(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata, char *keybuff);
 
 /*
 ** output.c
 */
 
 int					print_prompt(t_env **env);
+int					print_heredoc_prompt(t_env **env);
 void				print_sig_error(int sig);
 void				print_chdir_error(char *path);
 

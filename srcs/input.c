@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:37:26 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/20 11:04:10 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/21 16:08:15 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ void	clear_cmd(t_inputdata *inputdata)
 	inputdata->max_row = 0;
 }
 
-void	print_cmd(t_inputdata *inputdata)
+void	print_cmd(t_prompt_fct prompt_fct, t_inputdata *inputdata)
 {
 	size_t	i;
 
 	i = 0;
 	
-	inputdata->cur_col = print_prompt(g_shell.env);
+	inputdata->cur_col = prompt_fct(g_shell.env);
 	while (inputdata->cmd[i])
 	{
 		ft_putchar(inputdata->cmd[i]);
@@ -58,7 +58,7 @@ void	print_cmd(t_inputdata *inputdata)
 	}
 }
 
-void	add_to_input(t_inputdata *inputdata, char *keybuff)
+void	add_to_input(t_prompt_fct prompt_fct, t_inputdata *inputdata, char *keybuff)
 {
 	int	i;
 
@@ -77,7 +77,7 @@ void	add_to_input(t_inputdata *inputdata, char *keybuff)
 	}
 	inputdata->cmd[inputdata->cur_cmd] = keybuff[0];
 	++inputdata->cur_cmd;
-	print_cmd(inputdata);
+	print_cmd(prompt_fct, inputdata);
 	restore_pos(inputdata);
 }
 
@@ -92,7 +92,7 @@ char	*ask_for_input(void)
 	ft_bzero(keybuff, KEYBUFF_SIZE);
 	history = NULL;
 	enable_raw_mode();
-	print_cmd(&inputdata);
+	print_cmd(&print_prompt, &inputdata);
 	while ((read_size = read(0, &keybuff, KEYBUFF_SIZE)) != 0) // mettre ca dans une fct static
 	{
 		if (g_shell.input_cancel == 1)
@@ -115,7 +115,7 @@ char	*ask_for_input(void)
 			break ;
 		}
 		if (inputdata.cur_cmd < INPUT_MAX_LEN - 2)
-			perform_actions(&inputdata, keybuff, &history);
+			perform_actions(&print_prompt, &inputdata, keybuff, &history);
 		ft_bzero(keybuff, KEYBUFF_SIZE);
 	}
 	while (inputdata.cur_row < inputdata.max_row) // put this in a static fct too

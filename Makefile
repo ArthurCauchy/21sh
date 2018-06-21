@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/06/20 11:21:20 by acauchy          ###   ########.fr        #
+#    Updated: 2018/06/21 17:17:28 by arthur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,6 +101,8 @@ SRC_NAME = main.c \
 		   input_actions_shifttab.c \
 		   input_actions_shiftend.c \
 		   heredoc.c \
+		   heredoc_input.c \
+		   heredoc_input_actions.c \
 		   output.c \
 		   pipe.c \
 		   process.c \

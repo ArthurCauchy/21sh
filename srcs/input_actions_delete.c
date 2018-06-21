@@ -6,13 +6,13 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 16:05:50 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/19 15:45:36 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/21 16:10:43 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-void	input_action_delete(t_inputdata *inputdata, t_history **history)
+void	input_action_delete(t_prompt_fct prompt_fct, t_inputdata *inputdata, t_history **history)
 {
 	size_t	i;
 
@@ -28,7 +28,7 @@ void	input_action_delete(t_inputdata *inputdata, t_history **history)
 			inputdata->cmd[i] = inputdata->cmd[i + 1];
 			++i;
 		}
-		print_cmd(inputdata);
+		print_cmd(prompt_fct, inputdata);
 		restore_pos(inputdata);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 16:05:50 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/19 17:18:38 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/21 16:17:39 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 /*
 ** cut
 */
-void	input_action_shifttab(t_inputdata *inputdata, t_history **history)
+void	input_action_shifttab(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata, t_history **history)
 {
 	char	*tmp;
 
@@ -30,6 +31,6 @@ void	input_action_shifttab(t_inputdata *inputdata, t_history **history)
 	inputdata->cur_cmd = 0;
 	ft_strncpy(inputdata->cmd, tmp, INPUT_MAX_LEN);
 	free(tmp);
-	print_cmd(inputdata);
+	print_cmd(prompt_fct, inputdata);
 	restore_pos(inputdata);
 }

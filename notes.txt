@@ -3,6 +3,10 @@ TODO :
 - interdire certains builtins dans un pipe / builtin env
 - CDPATH
 - full check redirections
+- 'ls << heu' memory leak pas forcement lie au heredoc (quand heredoc-tmp existe)
+- heredoc doit etre applique ailleur sinon erreur avec
+	- "cat < anotherfile << a"
+	- "cat << a << b"
 
 TODO bonus :
 - 21shrc
