@@ -6,20 +6,20 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 13:29:35 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/22 11:38:00 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 15:49:27 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-int	apply_redirect_lshift2(t_redirect *redir, int *fdtmp_array, int *fdsave_array, char **errmsg)
+int	apply_redirect_lshift2(t_redirect *redir,
+		int *fdtmp_array, int *fdsave_array, char **errmsg)
 {
 	int	left_fd;
 	int	heredoc_fd;
 
 	left_fd = ft_atoi(redir->left);
 	heredoc_fd = ft_atoi(redir->right);
-
 	if (fdtmp_array && fdsave_array)
 		save_filedes(fdtmp_array, fdsave_array, left_fd);
 	if (dup2(heredoc_fd, left_fd) == -1)

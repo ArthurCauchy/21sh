@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/04 16:16:28 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 15:52:39 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static t_list	*str_to_compo(char *str)
 	return (list);
 }
 
-static char	*compo_to_str(t_list *list)
+static char		*compo_to_str(t_list *list)
 {
 	t_list	*prev;
 	char	buff[MAX_PATH_SIZE * 2];

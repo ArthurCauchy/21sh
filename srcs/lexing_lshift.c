@@ -6,13 +6,14 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 14:15:05 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/22 10:06:50 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 15:51:12 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-static void	lex_lshift_heredoc(char *cmdline, t_lexdata *lexdata, t_token *token)
+static void	lex_lshift_heredoc(char *cmdline,
+		t_lexdata *lexdata, t_token *token)
 {
 	(void)cmdline;
 	*token = LSHIFT2;

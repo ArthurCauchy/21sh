@@ -6,13 +6,13 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 14:19:50 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/22 15:19:42 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 15:46:06 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-void enable_raw_mode(void)
+void	enable_raw_mode(void)
 {
 	struct termios raw;
 
@@ -37,7 +37,6 @@ int		get_term_cols(void)
 {
 	struct ttysize	ts;
 
-	
 	ioctl(0, TIOCGSIZE, &ts);
 	return (ts.ts_cols);
 }

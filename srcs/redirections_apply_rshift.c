@@ -6,13 +6,14 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 13:29:29 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/05 09:58:46 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/22 15:49:16 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-int	apply_redirect_rshift(t_redirect *redir, int *fdtmp_array, int *fdsave_array, char **errmsg)
+int	apply_redirect_rshift(t_redirect *redir,
+		int *fdtmp_array, int *fdsave_array, char **errmsg)
 {
 	int	left_fd;
 	int	file_fd;

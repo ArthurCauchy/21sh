@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 14:31:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/04 14:31:20 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 15:53:52 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 pid_t	restore_process(void)
 {
 	pid_t pgid;
-	
+
 	if (!g_shell.saved_processes)
 		return (-1);
 	pgid = g_shell.saved_processes->pid;

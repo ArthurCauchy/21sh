@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 16:05:50 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/21 16:17:39 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/22 15:57:41 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** cut
 */
+
 void	input_action_shifttab(t_prompt_fct prompt_fct,
 		t_inputdata *inputdata, t_history **history)
 {

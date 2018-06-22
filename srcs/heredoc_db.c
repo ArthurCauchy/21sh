@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 11:17:28 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/22 11:29:34 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 16:02:05 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		register_heredoc_fd(int fd)
 void	clear_heredocs_fds(void)
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < MAX_HEREDOC_TMP && g_shell.heredoc_fds[i])
 	{

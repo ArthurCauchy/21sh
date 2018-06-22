@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 11:00:26 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/22 15:00:03 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 16:03:41 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int			open_heredoc_file(char *filename, char **errmsg)
 	return (fd);
 }
 
-
-void	write_heredoc_line(char *line, int fd)
+void		write_heredoc_line(char *line, int fd)
 {
 	static char	buff[4096];
 	int			i;
@@ -53,7 +52,6 @@ void	write_heredoc_line(char *line, int fd)
 	write(fd, buff, j);
 	j = 0;
 }
-
 
 static int	write_heredoc(int fd, char *end_delim)
 {

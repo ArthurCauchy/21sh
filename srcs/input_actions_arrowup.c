@@ -6,13 +6,14 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 16:05:50 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/21 16:11:45 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/22 15:56:29 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-void	input_action_arrowup(t_prompt_fct prompt_fct, t_inputdata *inputdata, t_history **history)
+void	input_action_arrowup(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata, t_history **history)
 {
 	t_history	*his;
 

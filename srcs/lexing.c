@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 13:53:13 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/04 16:17:27 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 15:51:32 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void			lex_analysis(char *cmdline, t_word **wordlist, char **errmsg)
 			lex_rshift_word(cmdline, wordlist, lexdata, errmsg);
 		else if (!lexdata->quoted && cmdline[lexdata->i] == '<')
 			lex_lshift_word(cmdline, wordlist, lexdata, errmsg);
-		else if (!lexdata->quoted && cmdline[lexdata->i] == '~' && lexdata->j == 0)
+		else if (!lexdata->quoted && cmdline[lexdata->i] == '~'
+				&& lexdata->j == 0)
 			lex_tilde_exp(cmdline, lexdata, errmsg);
 		else if (lexdata->quoted != 1 && cmdline[lexdata->i] == '$')
 			lex_dollar_exp(cmdline, lexdata, errmsg);

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 14:27:33 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/04 14:27:34 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 15:52:18 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	builtin_fg(t_env **env, char **args)
 {
 	t_process	*tmp_proc;
-	pid_t	pid;
-	int		status;
-	int		ret;
+	pid_t		pid;
+	int			status;
+	int			ret;
 
 	(void)env;
 	if (args[1])

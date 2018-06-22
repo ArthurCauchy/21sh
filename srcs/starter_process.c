@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:42:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/12 15:15:11 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 15:46:31 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			start_process(t_env **env, t_process *proc)
 	else if (pid == 0)
 	{
 		pid = getpid();
-		if (g_shell.pipe_lvl == 0 || g_shell.pipe_processes == NULL)	
+		if (g_shell.pipe_lvl == 0 || g_shell.pipe_processes == NULL)
 		{
 			setpgid(pid, pid);
 			tcsetpgrp(0, pid);

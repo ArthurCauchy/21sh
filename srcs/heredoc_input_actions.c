@@ -6,14 +6,14 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 15:29:42 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/21 17:36:36 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/22 16:00:15 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-static int	perform_actions_arrows(t_prompt_fct prompt_fct, t_inputdata *inputdata,
-		char *keybuff)
+static int	perform_actions_arrows(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata, char *keybuff)
 {
 	if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 67)
 		input_action_arrowright(prompt_fct, inputdata, NULL);
@@ -36,8 +36,8 @@ static int	perform_actions_arrows(t_prompt_fct prompt_fct, t_inputdata *inputdat
 	return (1);
 }
 
-void	heredoc_perform_actions(t_prompt_fct prompt_fct, t_inputdata *inputdata,
-		char *keybuff)
+void		heredoc_perform_actions(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata, char *keybuff)
 {
 	if (perform_actions_arrows(prompt_fct, inputdata, keybuff))
 		(void)0;
@@ -57,7 +57,8 @@ void	heredoc_perform_actions(t_prompt_fct prompt_fct, t_inputdata *inputdata,
 		input_action_delete(prompt_fct, inputdata, NULL);
 	else if (keybuff[0] == 4)
 		input_action_del(prompt_fct, inputdata, NULL);
-	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 51 && keybuff[3] == 126)
+	else if (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 51
+			&& keybuff[3] == 126)
 		input_action_del(prompt_fct, inputdata, NULL);
 	else if (ft_isprint(keybuff[0]))
 		add_to_input(prompt_fct, inputdata, keybuff);
