@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:48:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/22 14:58:31 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 16:13:17 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static t_termcaps	*init_termcaps(void)
 	return (new);
 }
 
-void	init_shell(void)
+void				init_shell(void)
 {
 	g_shell.exit_now = 0;
 	g_shell.exit_status = 0;
@@ -76,5 +76,5 @@ void	init_shell(void)
 		exit_error("Termcaps not fully supported.");
 	g_shell.history = NULL;
 	ft_bzero(g_shell.clipboard, INPUT_MAX_LEN);
-	ft_bzero(g_shell.heredoc_fds, MAX_HEREDOC_TMP * sizeof(int));
+	ft_bzero(g_shell.heredoc_fds, sizeof(int) * MAX_HEREDOC_TMP);
 }

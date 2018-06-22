@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 14:31:05 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/19 15:12:00 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 16:16:55 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int		wait_pipe(void)
 	while (cur)
 	{
 		waitpid(cur->pid, &status, WUNTRACED);
-		if (cur == g_shell.pipe_processes && WIFSTOPPED(status) && !g_shell.saved_processes)
+		if (cur == g_shell.pipe_processes && WIFSTOPPED(status)
+				&& !g_shell.saved_processes)
 			g_shell.saved_processes = copy_processes(cur);
 		cur = cur->next;
 	}

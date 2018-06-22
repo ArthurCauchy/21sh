@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 14:08:29 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/08 14:36:14 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 16:06:46 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static t_history	*create_history_elem(char *cmd)
 	return (new);
 }
 
-void		add_history_elem(t_history **history, char *cmd)
+void				add_history_elem(t_history **history, char *cmd)
 {
 	t_history	*new;
 
@@ -35,7 +35,7 @@ void		add_history_elem(t_history **history, char *cmd)
 	*history = new;
 }
 
-void		delete_history(t_history *history)
+void				delete_history(t_history *history)
 {
 	t_history	*prev;
 	t_history	*cur;

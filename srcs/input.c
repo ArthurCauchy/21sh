@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:37:26 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/22 15:19:22 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 16:14:06 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	print_cmd(t_prompt_fct prompt_fct, t_inputdata *inputdata)
 	size_t	i;
 
 	i = 0;
-	
+
 	inputdata->cur_col = prompt_fct(g_shell.env);
 	while (inputdata->cmd[i])
 	{
