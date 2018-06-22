@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/22 13:01:17 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 14:58:50 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,8 +150,6 @@ typedef struct		s_shell
 	t_process		*pipe_processes;
 	t_process		*saved_processes;
 	int				nb_cols;
-	int				input_cancel;
-	int				(*current_prompt)(t_env**);
 	struct termios	orig_termios;
 	t_termcaps		*termcaps;
 	t_history		*history;
@@ -361,7 +359,6 @@ int					exec_ast_arg(t_ast *node, int *pipein, int *pipeout);
 ** signals.c
 */
 
-void				sighandler(int signo);
 void				reset_sighandlers(void);
 void				ignore_signals(void);
 

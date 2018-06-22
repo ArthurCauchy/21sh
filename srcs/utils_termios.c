@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 14:19:50 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/13 15:22:32 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 15:19:42 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void enable_raw_mode(void)
 	struct termios raw;
 
 	raw = g_shell.orig_termios;
-	raw.c_lflag &= ~(ECHO | ICANON);
+	raw.c_lflag &= ~(ECHO | ICANON | ISIG);
 	raw.c_oflag &= ~(OPOST);
 	raw.c_cc[VMIN] = 1;
 	raw.c_cc[VTIME] = 0;

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:37:26 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/21 16:08:15 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/22 15:19:22 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,15 +95,11 @@ char	*ask_for_input(void)
 	print_cmd(&print_prompt, &inputdata);
 	while ((read_size = read(0, &keybuff, KEYBUFF_SIZE)) != 0) // mettre ca dans une fct static
 	{
-		if (g_shell.input_cancel == 1)
+		if (keybuff[0] == 3)
 		{
-			g_shell.nb_cols = get_term_cols();
-			init_inputdata(&inputdata);
-			inputdata.cur_col = print_prompt(g_shell.env);
-			g_shell.input_cancel = 0;
+			inputdata.cmd[0] = '\0';
+			break ;
 		}
-		if (read_size == -1)
-			exit_error("read() error");
 		if (keybuff[0] == '\n')
 			break ;
 		else if (keybuff[0] == 4 && inputdata.cur_cmd == (int)ft_strlen(inputdata.cmd))

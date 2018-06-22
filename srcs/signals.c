@@ -6,23 +6,11 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:37:44 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/22 12:37:17 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 14:50:37 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
-
-void	sighandler(int signo)
-{
-	if (signo == SIGINT)
-	{
-		g_shell.input_cancel = 1;
-		ft_putchar('\n');
-		ft_putstr(tgoto(g_shell.termcaps->go_col, 0, 0));
-		if (g_shell.current_prompt)
-			g_shell.current_prompt(g_shell.env);
-	}
-}
 
 void	reset_sighandlers(void)
 {

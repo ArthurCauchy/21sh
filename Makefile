@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/06/22 11:28:18 by acauchy          ###   ########.fr        #
+#    Updated: 2018/06/22 14:57:36 by acauchy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,6 +82,7 @@ SRC_NAME = main.c \
 		   interpreter_and.c \
 		   interpreter_pipe.c \
 		   interpreter_arg.c \
+		   signals.c \
 		   inputdata.c \
 		   input.c \
 		   input_actions.c \
@@ -108,7 +109,6 @@ SRC_NAME = main.c \
 		   pipe.c \
 		   process.c \
 		   process_control.c \
-		   signals.c \
 		   utils.c \
 		   utils2.c \
 		   utils_redirects.c \
@@ -120,7 +120,6 @@ SRC_NAME = main.c \
 		   history.c \
 		   init.c \
 		   init_shell.c \
-		   init_signals.c \
 		   init_builtins.c \
 		   init_env.c
 

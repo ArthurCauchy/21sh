@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 11:00:26 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/22 13:01:13 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 15:00:03 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static int	write_heredoc(int fd, char *end_delim)
 {
 	char	*line;
 
-	g_shell.current_prompt = NULL;
 	while ((line = ask_for_heredoc()))
 	{
 		if (ft_strcmp(end_delim, line) == 0)
@@ -67,7 +66,6 @@ static int	write_heredoc(int fd, char *end_delim)
 		write_heredoc_line(line, fd);
 		free(line);
 	}
-	g_shell.current_prompt = &print_prompt;
 	if (!line)
 		return (-1);
 	free(line);
