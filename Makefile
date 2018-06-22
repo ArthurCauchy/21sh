@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/06/21 17:17:28 by arthur           ###   ########.fr        #
+#    Updated: 2018/06/22 11:28:18 by acauchy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,6 +103,7 @@ SRC_NAME = main.c \
 		   heredoc.c \
 		   heredoc_input.c \
 		   heredoc_input_actions.c \
+		   heredoc_db.c \
 		   output.c \
 		   pipe.c \
 		   process.c \

@@ -1,12 +1,8 @@
 TODO :
-- FIX waitpid dans le cas des pipes pas forcement clean (waitpid() error may happen)
 - interdire certains builtins dans un pipe / builtin env
 - CDPATH
 - full check redirections
 - 'ls << heu' memory leak pas forcement lie au heredoc (quand heredoc-tmp existe)
-- heredoc doit etre applique ailleur sinon erreur avec
-	- "cat < anotherfile << a"
-	- "cat << a << b"
 
 TODO bonus :
 - 21shrc
@@ -20,7 +16,6 @@ TODO line edit :
 
 TODO heredoc :
 - uid for tmp file (at least one different file for each shell)
-- read input with proper line edition
 
 csh :
 - 'exit qweqwejiowqe' : Expression syntax.

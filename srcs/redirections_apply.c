@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 13:29:12 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/20 11:20:29 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 10:55:34 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	apply_redirects(t_redirect *redirs, int *fdtmp_array, int *fdsave_array, cha
 	{
 		if (cur->token == PIPE)
 			ret = apply_redirect_pipe(cur, fdtmp_array, fdsave_array, errmsg);
-		if (cur->token == PIPECLOSE)
+		if (cur->token == FDCLOSE)
 		{
 			close(ft_atoi(cur->right));
 			ret = 0;

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/21 17:14:10 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/22 11:47:15 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define FD_MAX 1024
 # define REDIRECT_MAX 512
 # define MAX_PATH_SIZE 4096
+# define MAX_HEREDOC_TMP 512
 # define KEYBUFF_SIZE 8
 
 typedef struct		s_env
@@ -68,7 +69,7 @@ typedef enum		e_token
 	RSHIFT_AMP,
 	RSHIFT2,
 	PIPE,
-	PIPECLOSE,
+	FDCLOSE,
 	AND,
 	OR,
 	SEMICOL,
@@ -154,6 +155,7 @@ typedef struct		s_shell
 	t_termcaps		*termcaps;
 	t_history		*history;
 	char			clipboard[INPUT_MAX_LEN];
+	int				heredoc_fds[MAX_HEREDOC_TMP];
 }					t_shell;
 
 typedef int	(*t_builtin_fct)(t_env**, char**);
@@ -429,7 +431,7 @@ void				input_action_shiftend(t_prompt_fct prompt_fct,
 */
 
 int					open_heredoc_file(char *filename, char **errmsg);
-void				write_heredoc(int fd, char *end_delim);
+void				apply_heredocs(t_word *wordlist, char **errmsg);
 
 /*
 ** heredoc_input.c
@@ -441,8 +443,15 @@ char				*ask_for_heredoc(void);
 ** heredoc_input_actions.c
 */
 
-void                heredoc_perform_actions(t_prompt_fct prompt_fct,
+void				heredoc_perform_actions(t_prompt_fct prompt_fct,
 		t_inputdata *inputdata, char *keybuff);
+
+/*
+** heredoc_db.c
+*/
+
+int					register_heredoc_fd(int fd);
+void				clear_heredocs_fds(void);
 
 /*
 ** output.c

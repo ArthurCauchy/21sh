@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/21 18:14:20 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/22 11:56:27 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,21 @@ static int	input_and_parse(t_ast **ast)
 		delete_wordlist(&wordlist);
 		return (-1);
 	}
+	apply_heredocs(wordlist, &errmsg);
+	if (errmsg)
+	{
+		print_n_free_errmsg(&errmsg);
+		delete_wordlist(&wordlist);
+		clear_heredocs_fds();
+		return (-1);
+	}
 	syntax_analysis(&wordlist, ast);
 	delete_wordlist(&wordlist);
 	if (validate_ast(*ast, &errmsg) != 0)
 	{
 		print_n_free_errmsg(&errmsg);
 		delete_ast(ast);
+		clear_heredocs_fds();
 		return (-1);
 	}
 	return (0);
@@ -62,6 +71,7 @@ int			main(int argc, char **argv, char **envp)
 			g_shell.abort_command = 0;
 			g_shell.last_command_status = exec_ast(ast, NULL, NULL);
 			delete_ast(&ast);
+			clear_heredocs_fds();
 		}
 		else
 			g_shell.last_command_status = 1;

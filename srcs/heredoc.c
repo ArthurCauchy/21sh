@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 11:00:26 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/21 18:22:03 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/22 12:03:39 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	write_heredoc_line(char *line, int fd)
 }
 
 
-void	write_heredoc(int fd, char *end_delim)
+static void	write_heredoc(int fd, char *end_delim)
 {
 	char	*line;
 
@@ -63,5 +63,36 @@ void	write_heredoc(int fd, char *end_delim)
 	{
 		write_heredoc_line(line, fd);
 		free(line);
+	}
+	free(line);
+}
+
+void		apply_heredocs(t_word *wordlist, char **errmsg)
+{
+	int	heredoc_fd;
+
+	while (wordlist)
+	{
+		if (wordlist->token == LSHIFT2)
+		{
+			if (!wordlist->next || wordlist->next->token != ARG)
+			{
+				*errmsg = ft_strdup("Missing name for redirect.");
+				return ;
+			}
+			heredoc_fd = open_heredoc_file("/tmp/heredoc-tmp", errmsg);
+			if (heredoc_fd == -1)
+				return ;
+			write_heredoc(heredoc_fd, wordlist->next->str);
+			close(heredoc_fd);
+			heredoc_fd = open_file_fd("/tmp/heredoc-tmp", 0, 0, errmsg);
+			if (heredoc_fd == -1)
+				return ;
+			unlink("/tmp/heredoc-tmp");
+			free(wordlist->next->str);
+			register_heredoc_fd(heredoc_fd);
+			wordlist->next->str = ft_itoa(heredoc_fd);
+		}
+		wordlist = wordlist->next;
 	}
 }
