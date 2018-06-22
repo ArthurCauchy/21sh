@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 11:00:26 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/22 11:15:36 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 13:01:15 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ char	*ask_for_heredoc(void)
 	ft_bzero(keybuff, KEYBUFF_SIZE);
 	enable_raw_mode();
 	print_cmd(&print_heredoc_prompt, &inputdata);
-	while ((read_size = read(0, &keybuff, KEYBUFF_SIZE)) != 0)
+	while (!g_shell.input_cancel && (read_size = read(0, &keybuff, KEYBUFF_SIZE)) != 0)
 	{
-		//if (g_shell.input_cancel == 1)
+		if (g_shell.input_cancel == 1)
+			continue ;
 		if (read_size == -1)
 			exit_error("read_error()");
 		if (keybuff[0] == '\n')
@@ -39,6 +40,11 @@ char	*ask_for_heredoc(void)
 		++inputdata.cur_row;
 	}
 	disable_raw_mode();
+	if (g_shell.input_cancel)
+	{
+		g_shell.input_cancel = 0;
+		return (NULL);
+	}
 	ft_putchar('\n');
 	return (ft_strdup(inputdata.cmd));
 }

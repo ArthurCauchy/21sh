@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 11:00:26 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/22 12:03:39 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 13:01:13 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,26 @@ void	write_heredoc_line(char *line, int fd)
 }
 
 
-static void	write_heredoc(int fd, char *end_delim)
+static int	write_heredoc(int fd, char *end_delim)
 {
 	char	*line;
 
-	while (ft_strcmp(end_delim, line = ask_for_heredoc()) != 0)
+	g_shell.current_prompt = NULL;
+	while ((line = ask_for_heredoc()))
 	{
+		if (ft_strcmp(end_delim, line) == 0)
+			break ;
 		write_heredoc_line(line, fd);
 		free(line);
 	}
+	g_shell.current_prompt = &print_prompt;
+	if (!line)
+		return (-1);
 	free(line);
+	return (0);
 }
 
-void		apply_heredocs(t_word *wordlist, char **errmsg)
+int			apply_heredocs(t_word *wordlist, char **errmsg)
 {
 	int	heredoc_fd;
 
@@ -78,16 +85,21 @@ void		apply_heredocs(t_word *wordlist, char **errmsg)
 			if (!wordlist->next || wordlist->next->token != ARG)
 			{
 				*errmsg = ft_strdup("Missing name for redirect.");
-				return ;
+				return (-1);
 			}
 			heredoc_fd = open_heredoc_file("/tmp/heredoc-tmp", errmsg);
 			if (heredoc_fd == -1)
-				return ;
-			write_heredoc(heredoc_fd, wordlist->next->str);
+				return (-1);
+			if (write_heredoc(heredoc_fd, wordlist->next->str) == -1)
+			{
+				close(heredoc_fd);
+				unlink("/tmp/heredoc-tmp");
+				return (-1);
+			}
 			close(heredoc_fd);
 			heredoc_fd = open_file_fd("/tmp/heredoc-tmp", 0, 0, errmsg);
 			if (heredoc_fd == -1)
-				return ;
+				return (-1);
 			unlink("/tmp/heredoc-tmp");
 			free(wordlist->next->str);
 			register_heredoc_fd(heredoc_fd);
@@ -95,4 +107,5 @@ void		apply_heredocs(t_word *wordlist, char **errmsg)
 		}
 		wordlist = wordlist->next;
 	}
+	return (0);
 }

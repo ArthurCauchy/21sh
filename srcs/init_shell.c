@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:48:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/22 11:15:50 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 12:19:16 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	init_shell(void)
 	g_shell.saved_processes = NULL;
 	g_shell.nb_cols = get_term_cols();
 	g_shell.input_cancel = 0;
+	g_shell.current_prompt = &print_prompt;
 	if (setpgid(g_shell.shell_pgid, g_shell.shell_pgid) == -1)
 		exit_error("Could not set the shell in it's own process group.");
 	if (tcgetattr(0, &g_shell.orig_termios) < 0)

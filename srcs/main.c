@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/22 11:56:27 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 12:52:42 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ static int	input_and_parse(t_ast **ast)
 		delete_wordlist(&wordlist);
 		return (-1);
 	}
-	apply_heredocs(wordlist, &errmsg);
-	if (errmsg)
+	if (apply_heredocs(wordlist, &errmsg) == -1)
 	{
-		print_n_free_errmsg(&errmsg);
+		if (errmsg)
+			print_n_free_errmsg(&errmsg);
 		delete_wordlist(&wordlist);
 		clear_heredocs_fds();
 		return (-1);

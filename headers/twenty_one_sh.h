@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/22 11:47:15 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/22 13:01:17 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ typedef struct		s_shell
 	t_process		*saved_processes;
 	int				nb_cols;
 	int				input_cancel;
+	int				(*current_prompt)(t_env**);
 	struct termios	orig_termios;
 	t_termcaps		*termcaps;
 	t_history		*history;
@@ -431,7 +432,7 @@ void				input_action_shiftend(t_prompt_fct prompt_fct,
 */
 
 int					open_heredoc_file(char *filename, char **errmsg);
-void				apply_heredocs(t_word *wordlist, char **errmsg);
+int					apply_heredocs(t_word *wordlist, char **errmsg);
 
 /*
 ** heredoc_input.c
