@@ -5,7 +5,6 @@ TODO bonus :
 - builtin help
 
 TODO norme :
-- separer fonctions builtin_cd_l en plusieurs fichiers
 
 csh :
 - 'exit qweqwejiowqe' : Expression syntax.

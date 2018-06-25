@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/22 14:58:50 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/25 16:24:48 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,13 +213,25 @@ int					builtin_parse_options(char **args,
 int					builtin_validate_options(char *options, char *valid_set);
 
 /*
+** builtin_cd_[...].c
+*/
+
+int					try_cd_l(t_env **env, char *path);
+int					try_cd_p(t_env **env, char *path);
+void				add_to_compo_lst(t_list **list, char *buff);
+void				remove_from_compo_lst(t_list **list, t_list *to_rm);
+t_list				*str_to_compo(char *str);
+char				*compo_to_str(t_list *list);
+void				simplify_path_dot(t_list **list);
+void				simplify_path_dotdot(t_list **list);
+void				simplify_path_slash(t_list **list);
+
+/*
 ** builtin_[builtin_name].c
 */
 
 int					builtin_exit(t_env **env, char **args);
 int					builtin_cd(t_env **env, char **args);
-int					try_cd_l(t_env **env, char *path);
-int					try_cd_p(t_env **env, char *path);
 int					builtin_env(t_env **env, char **args);
 int					builtin_setenv(t_env **env, char **args);
 int					builtin_unsetenv(t_env **env, char **args);
