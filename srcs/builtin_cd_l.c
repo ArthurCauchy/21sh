@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/25 16:23:40 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/25 17:16:31 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@ static char		*add_final_slash(char **path)
 	if ((*path)[ft_strlen(*path) - 1] != '/')
 		*path = ft_strjoin_free(*path, ft_strdup("/"));
 	return (*path);
+}
+
+static void		simplify(t_list **comp_lst)
+{
+	simplify_path_dot(comp_lst);
+	simplify_path_dotdot(comp_lst);
+	simplify_path_slash(comp_lst);
 }
 
 int				try_cd_l(t_env **env, char *path)
@@ -38,9 +45,7 @@ int				try_cd_l(t_env **env, char *path)
 		curpath = ft_strdup(buff);
 	free(old_env_pwd);
 	comp_lst = str_to_compo(curpath);
-	simplify_path_dot(&comp_lst);
-	simplify_path_dotdot(&comp_lst);
-	simplify_path_slash(&comp_lst);
+	simplify(&comp_lst);
 	free(curpath);
 	curpath = compo_to_str(comp_lst);
 	if (chdir(curpath) == -1)

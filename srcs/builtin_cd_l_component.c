@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/25 16:18:35 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/25 17:16:44 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,15 @@ t_list		*str_to_compo(char *str)
 {
 	t_list	*list;
 	char	inslash;
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		j;
 	char	buff[MAX_PATH_SIZE];
 
 	list = NULL;
 	inslash = 0;
-	i = 0;
+	i = -1;
 	j = 0;
-	while (str[i])
+	while (str[++i])
 	{
 		if ((!inslash && str[i] == '/') || (inslash && str[i] != '/'))
 		{
@@ -76,7 +76,6 @@ t_list		*str_to_compo(char *str)
 		}
 		if (!inslash || j == 0)
 			buff[j++] = str[i];
-		++i;
 	}
 	buff[j] = '\0';
 	add_to_compo_lst(&list, buff);

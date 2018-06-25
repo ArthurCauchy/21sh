@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/05 10:04:24 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/25 17:15:24 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ int			start_command(t_env **env, t_env **cmd_env, t_process *proc)
 	clear_arrays(fdtmp_array, fdsave_array);
 	if ((builtin = search_builtin(proc->args[0])) && g_shell.pipe_lvl == 0)
 	{
-		if (apply_redirects(proc->redirs, fdtmp_array, fdsave_array, &errmsg) == -1)
+		if (apply_redirects(proc->redirs,
+					fdtmp_array, fdsave_array, &errmsg) == -1)
 		{
 			print_n_free_errmsg(&errmsg);
 			restore_filedes(fdtmp_array, fdsave_array);

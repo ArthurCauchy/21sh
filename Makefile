@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/06/25 16:24:09 by acauchy          ###   ########.fr        #
+#    Updated: 2018/06/25 16:53:12 by acauchy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -120,6 +120,7 @@ SRC_NAME = main.c \
 		   env.c \
 		   path.c \
 		   history.c \
+		   termcaps.c \
 		   init.c \
 		   init_shell.c \
 		   init_builtins.c \

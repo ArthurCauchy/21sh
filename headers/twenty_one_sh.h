@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/25 16:24:48 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/25 17:05:34 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -506,6 +506,12 @@ char				*find_cmd_path(t_env **env, t_env **cmd_env, char *cmd);
 
 void				add_history_elem(t_history **history, char *cmd);
 void				delete_history(t_history *history);
+
+/*
+** termcaps.c
+*/
+
+t_termcaps			*load_termcaps(void);
 
 /*
 ** init.c, init_[feature].c
