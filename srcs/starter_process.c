@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:42:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/22 15:46:31 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/25 16:07:14 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int			start_process(t_env **env, t_process *proc)
 				tcsetpgrp(0, pid);
 				g_shell.pipe_pgid = pid;
 			}
-			add_proc_to_pipe(proc);
+			add_proc_to_pipe(copy_processes(proc));
 		}
 	}
 	return (0);

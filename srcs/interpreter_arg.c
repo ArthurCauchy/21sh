@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 11:37:02 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/25 14:29:35 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/25 16:07:13 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int			exec_ast_arg(t_ast *node, int *pipein, int *pipeout)
 	ret = start_command(g_shell.env, g_shell.env, proc);
 	if (g_shell.pipe_lvl > 0)
 		--g_shell.pipe_lvl;
-	else
-		delete_processes(proc);
+	delete_processes(proc);
 	return (ret);
 }

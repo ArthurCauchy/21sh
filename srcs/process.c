@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:42:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/22 15:55:32 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/25 16:07:11 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@ t_process	*new_process(void)
 	return (new);
 }
 
-/*
-** not a real copy here, we just keep the name (args not copied)
-*/
-
 t_process	*copy_processes(t_process *src)
 {
 	t_process	*new;
@@ -39,9 +35,7 @@ t_process	*copy_processes(t_process *src)
 		return (NULL);
 	if (!(new = (t_process*)malloc(sizeof(t_process))))
 		exit_error("malloc() error");
-	new_args = (char**)malloc(sizeof(char*) * 2);
-	new_args[0] = ft_strdup(src->args[0]);
-	new_args[1] = NULL;
+	new_args = copy_args(src->args);
 	if (src->path)
 		new->path = ft_strdup(src->path);
 	else

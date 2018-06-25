@@ -1,12 +1,7 @@
 TODO :
 - interdire certains builtins dans un pipe / builtin env
-- CDPATH
-- full check redirections
-- 'ls << heu' memory leak pas forcement lie au heredoc (quand heredoc-tmp existe)
-	-des fois oui, des fois non mais quoi qu'il en soit c'est au niveau des structs process
 
 TODO bonus :
-- 21shrc
 - builtin help
 
 TODO norme :
