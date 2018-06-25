@@ -12,12 +12,6 @@ TODO bonus :
 TODO norme :
 - separer fonctions builtin_cd_l en plusieurs fichiers
 
-TODO line edit :
-- ctrl+d reprint
-
-TODO heredoc :
-- uid for tmp file (at least one different file for each shell)
-
 csh :
 - 'exit qweqwejiowqe' : Expression syntax.
 - '""' : : Command not found.
