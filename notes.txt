@@ -1,6 +1,5 @@
 TODO :
 - interdire certains builtins dans un pipe / builtin env
-- fix 'ls | cd / | cd /'
 - fix possible probleme avec env dans un pipe
 
 TODO bonus :

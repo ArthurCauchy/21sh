@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   starter_process.c                                  :+:      :+:    :+:   */
+/*   starter_process_builtin.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/20 09:42:57 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/26 17:28:35 by acauchy          ###   ########.fr       */
+/*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
+/*   Updated: 2018/06/26 17:28:32 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-static void	start_forked(t_env **env, t_process *proc, char **errmsg)
+static int	start_forked(t_env **env, t_process *proc, t_builtin_fct builtin)
 {
 	pid_t	pid;
 
@@ -25,10 +25,7 @@ static void	start_forked(t_env **env, t_process *proc, char **errmsg)
 	else
 		setpgid(pid, g_shell.pipe_pgid);
 	reset_sighandlers();
-	if (apply_redirects(proc->redirs, NULL, NULL, errmsg) == -1)
-		exit_error(*errmsg);
-	execve(proc->path, proc->args, env_to_array(env));
-	exit_error("execve() error");
+	exit(builtin(env, proc->args));
 }
 
 static int	father_register_child(t_process *proc, pid_t pid)
@@ -55,18 +52,17 @@ static int	father_register_child(t_process *proc, pid_t pid)
 	return (0);
 }
 
-int			start_process(t_env **env, t_process *proc)
+int			fork_start_builtin(t_env **env,
+		t_process *proc, t_builtin_fct builtin)
 {
 	int		ret;
 	pid_t	pid;
-	char	*errmsg;
 
 	ret = 0;
-	errmsg = NULL;
 	if ((pid = fork()) < 0)
 		exit_error("fork() error");
 	else if (pid == 0)
-		start_forked(env, proc, &errmsg);
+		ret = start_forked(env, proc, builtin);
 	else
 		ret = father_register_child(proc, pid);
 	return (ret);

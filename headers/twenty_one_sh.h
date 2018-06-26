@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/26 15:23:33 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/26 17:24:00 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -540,6 +540,13 @@ void				clear_all(void);
 
 int					start_command(t_env **env,
 		t_env **cmd_env, t_process *proc);
+
+/*
+** starter_process_builtin.c
+*/
+
+int					fork_start_builtin(t_env **env,
+		t_process *proc, t_builtin_fct builtin);
 
 /*
 ** starter_process.c

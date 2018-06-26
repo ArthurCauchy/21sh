@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/02 13:18:05 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/26 16:50:15 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,25 @@ static void	add_to_tmp_env(t_env **env, char *str)
 	set_env(env, ft_strsub(str, 0, eq_char - str), ft_strdup(eq_char + 1));
 }
 
-int			builtin_env(t_env **env, char **args)
+static int	start_proc(char **args, t_env **env, t_env **tmp_env)
 {
 	int			ret;
+	t_process	*proc;
+
+	proc = new_process();
+	proc->args = copy_args(args);
+	ret = start_command(env, tmp_env, proc);
+	delete_processes(proc);
+	clear_env(*tmp_env);
+	return (ret);
+}
+
+int			builtin_env(t_env **env, char **args)
+{
 	t_env		*tmp_env;
 	int			i;
 	char		options[4096];
-	t_process	*proc;
 
-	ft_bzero(options, 4096);
 	i = builtin_parse_options(args, options, 4096);
 	if (builtin_validate_options(options, "i") == -1)
 	{
@@ -49,10 +59,5 @@ int			builtin_env(t_env **env, char **args)
 		clear_env(tmp_env);
 		return (0);
 	}
-	proc = new_process();
-	proc->args = copy_args(args + i);
-	ret = start_command(env, &tmp_env, proc);
-	delete_processes(proc);
-	clear_env(tmp_env);
-	return (ret);
+	return (start_proc(args + i, env, &tmp_env));
 }

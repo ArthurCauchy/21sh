@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/06/26 15:22:18 by acauchy          ###   ########.fr        #
+#    Updated: 2018/06/26 17:15:28 by acauchy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ HEADER = $(addprefix $(HEADER_PATH)/,$(HEADER_NAME))
 SRC_PATH = srcs
 SRC_NAME = main.c \
 		   starter.c \
+		   starter_process_builtin.c \
 		   starter_process.c \
 		   builtins_manager.c \
 		   builtins_utils.c \

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/04 14:34:53 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/26 16:50:30 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int			builtin_cd(t_env **env, char **args)
 	int		start;
 	char	options[4096];
 
-	ft_bzero(options, 4096);
 	start = builtin_parse_options(args, options, 4096);
 	if (builtin_validate_options(options, "pl") == -1)
 	{

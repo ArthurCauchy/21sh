@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:06:00 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/26 15:48:50 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/26 17:03:42 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,19 @@ static void		simplify(t_list **comp_lst)
 	simplify_path_slash(comp_lst);
 }
 
+static char		*base_path(char *buff, char *path, char *old_env_pwd)
+{
+	char	*curpath;
+
+	ft_strncpy(buff, path, MAX_PATH_SIZE);
+	if (buff[0] != '/')
+		curpath = ft_strjoin(add_final_slash(&old_env_pwd), buff);
+	else
+		curpath = ft_strdup(buff);
+	free(old_env_pwd);
+	return (curpath);
+}
+
 int				try_cd_l(t_env **env, char *path)
 {
 	char	*curpath;
@@ -33,20 +46,15 @@ int				try_cd_l(t_env **env, char *path)
 	char	*old_env_pwd;
 	t_list	*comp_lst;
 
-	ft_strncpy(buff, path, MAX_PATH_SIZE);
 	if (!(old_env_pwd = read_from_env(env, "PWD")))
 	{
 		ft_putendl_fd("cd: PWD env variable not found !", 2);
 		return (1);
 	}
-	if (buff[0] != '/')
-		curpath = ft_strjoin(add_final_slash(&old_env_pwd), buff);
-	else
-		curpath = ft_strdup(buff);
-	free(old_env_pwd);
+	curpath = base_path(buff, path, old_env_pwd);
 	comp_lst = str_to_compo(curpath);
-	simplify(&comp_lst);
 	free(curpath);
+	simplify(&comp_lst);
 	curpath = compo_to_str(comp_lst);
 	if (chdir(curpath) == -1)
 	{

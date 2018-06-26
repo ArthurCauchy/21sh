@@ -6,55 +6,11 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/26 16:24:36 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/26 18:03:59 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
-
-static int	fork_start_builtin(t_env **cmd_env,
-		t_process *proc, t_builtin_fct builtin)
-{
-	pid_t	pid;
-	int		status;
-
-	if ((pid = fork()) < 0)
-		exit_error("fork() error");
-	else if (pid == 0)
-	{
-		pid = getpid();
-		if (g_shell.pipe_lvl == 0 || g_shell.pipe_processes == NULL)
-		{
-			setpgid(pid, pid);
-			tcsetpgrp(0, pid);
-		}
-		else
-			setpgid(pid, g_shell.pipe_pgid);
-		reset_sighandlers();
-		exit(builtin(cmd_env, proc->args));
-	}
-	else
-	{
-		proc->pid = pid;
-		if (g_shell.pipe_lvl == 0)
-		{
-			tcsetpgrp(0, pid);
-			if (waitpid(pid, &status, WUNTRACED) == -1)
-				exit_error("waitpid() error");
-			return (post_process(proc, status));
-		}
-		else
-		{
-			if (!g_shell.pipe_processes)
-			{
-				tcsetpgrp(0, pid);
-				g_shell.pipe_pgid = pid;
-			}
-			add_proc_to_pipe(copy_processes(proc));
-		}
-	}
-	return (0);
-}
 
 static int	try_start_process(t_env **cmd_env, t_process *proc)
 {
@@ -84,20 +40,14 @@ static int	command_file_exist(char *name)
 	return (0);
 }
 
-int			start_command(t_env **env, t_env **cmd_env, t_process *proc)
+static int	start_command_builtin(t_env **env,
+		t_process *proc, int *fdtmp_array, int *fdsave_array)
 {
 	int				ret;
-	char			*errmsg;
 	t_builtin_fct	builtin;
-	char			*after_path;
-	int				fdtmp_array[FD_MAX];
-	int				fdsave_array[FD_MAX];
+	char			*errmsg;
 
-	ret = 0;
 	errmsg = NULL;
-	if (!proc->args[0])
-		return (0);
-	clear_arrays(fdtmp_array, fdsave_array);
 	if ((builtin = search_builtin(proc->args[0])) && g_shell.pipe_lvl == 0)
 	{
 		if (apply_redirects(proc->redirs,
@@ -107,10 +57,28 @@ int			start_command(t_env **env, t_env **cmd_env, t_process *proc)
 			restore_filedes(fdtmp_array, fdsave_array);
 			return (1);
 		}
-		ret = builtin(cmd_env, proc->args);
+		ret = builtin(env, proc->args);
 	}
 	else if (builtin)
-		ret = fork_start_builtin(cmd_env, proc, builtin);
+		ret = fork_start_builtin(env, proc, builtin);
+	else
+		ret = -1;
+	return (ret);
+}
+
+int			start_command(t_env **env, t_env **cmd_env, t_process *proc)
+{
+	int				ret;
+	char			*after_path;
+	int				fdtmp_array[FD_MAX];
+	int				fdsave_array[FD_MAX];
+
+	ret = 0;
+	if (!proc->args[0])
+		return (0);
+	clear_arrays(fdtmp_array, fdsave_array);
+	if (start_command_builtin(cmd_env, proc, fdtmp_array, fdsave_array) != -1)
+		(void)0;
 	else if (command_file_exist(proc->args[0]))
 	{
 		proc->path = ft_strdup(proc->args[0]);

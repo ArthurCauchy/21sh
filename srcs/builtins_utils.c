@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/30 12:07:09 by acauchy           #+#    #+#             */
-/*   Updated: 2018/04/30 12:07:10 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/26 16:50:12 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int		builtin_parse_options(char **args, char *options, int options_size)
 
 	i = 1;
 	k = 0;
+	ft_bzero(options, options_size);
 	while (args[i])
 	{
 		if (ft_strcmp(args[i], "--") == 0 || args[i][0] != '-' || !args[i][1])
