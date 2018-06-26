@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 14:15:05 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/05 09:35:24 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/26 13:04:34 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,15 @@ static int	is_delim(char c)
 	return (0);
 }
 
+static void	handle_special_varnames(char *cmdline, t_lexdata *lexdata, char **var_value)
+{
+	if (cmdline[lexdata->i] == '$')
+		*var_value = ft_itoa(g_shell.shell_pgid);
+	else if (cmdline[lexdata->i] == '?')
+		*var_value = ft_itoa(g_shell.last_command_status);
+	++lexdata->i;
+}
+
 void		lex_dollar_exp(char *cmdline, t_lexdata *lexdata, char **errmsg)
 {
 	char	var_name[4096];
@@ -36,16 +45,8 @@ void		lex_dollar_exp(char *cmdline, t_lexdata *lexdata, char **errmsg)
 
 	var_value = NULL;
 	++lexdata->i;
-	if (cmdline[lexdata->i] == '$')
-	{
-		var_value = ft_itoa(g_shell.shell_pgid);
-		++lexdata->i;
-	}
-	else if (cmdline[lexdata->i] == '?')
-	{
-		var_value = ft_itoa(g_shell.last_command_status);
-		++lexdata->i;
-	}
+	if (cmdline[lexdata->i] == '$' || cmdline[lexdata->i] == '?')
+		handle_special_varnames(cmdline, lexdata, &var_value);
 	else
 	{
 		i = 0;
