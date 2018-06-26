@@ -1,39 +1,44 @@
 Norme: ./srcs/ast.c
 Norme: ./srcs/builtin_cd_l.c
 Error (line 29): function try_cd_l has 30 lines
-Norme: ./srcs/builtin_cd.c
 Norme: ./srcs/builtin_cd_p.c
+Norme: ./srcs/builtin_cd.c
 Norme: ./srcs/builtin_echo.c
-Norme: ./srcs/builtin_exit.c
 Norme: ./srcs/builtin_cd_l_simplify.c
-Norme: ./srcs/builtin_cd_l_component.c
-Norme: ./srcs/builtin_fg.c
-Error (line 15): function builtin_fg has 36 lines
 Norme: ./srcs/builtin_env.c
 Error (line 23): function builtin_env has 33 lines
+Norme: ./srcs/builtin_cd_l_component.c
+Norme: ./srcs/builtin_exit.c
 Norme: ./srcs/builtin_unsetenv.c
 Norme: ./srcs/builtin_procs.c
 Norme: ./srcs/builtin_setenv.c
+Norme: ./srcs/builtin_fg.c
+Error (line 15): declarations must be followed by one empty line in restart_pipe
+Error (line 18): spaces at the end of line
+Error (line 27): Empty line
+Error (line 28, col 0): no empty line before block
+Error (line 30): function builtin_fg has 27 lines
+Norme: ./srcs/clear.c
+Error: 42 header not at top of the file
 Norme: ./srcs/builtin_which.c
 Norme: ./srcs/builtins_utils.c
-Norme: ./srcs/env.c
 Norme: ./srcs/builtins_manager.c
+Norme: ./srcs/env.c
 Norme: ./srcs/heredoc_db.c
 Norme: ./srcs/heredoc_input.c
 Error (line 15): function ask_for_heredoc has 33 lines
 Norme: ./srcs/history.c
-Norme: ./srcs/init.c
 Norme: ./srcs/init_builtins.c
-Norme: ./srcs/init_shell.c
+Norme: ./srcs/init_env.c
 Norme: ./srcs/heredoc.c
 Error (line 73): function apply_heredocs has 32 lines
-Norme: ./srcs/init_env.c
+Norme: ./srcs/init.c
+Norme: ./srcs/heredoc_input_actions.c
 Norme: ./srcs/input_actions_arrowdown.c
+Norme: ./srcs/init_shell.c
 Norme: ./srcs/input_actions_arrowleft.c
 Norme: ./srcs/input_actions_arrowright.c
-Norme: ./srcs/input_actions_arrowup.c
-Norme: ./srcs/heredoc_input_actions.c
-Norme: ./srcs/input_actions_del.c
+Norme: ./srcs/input_actions.c
 Norme: ./srcs/input.c
 Error (line 60): line has 85 characters
 Error (line 83): function ask_for_input has 48 lines
@@ -44,76 +49,74 @@ Error (line 104): line has 88 characters
 Error (line 125): missing newline after while
 Error (line 125): C++ comment
 Error (line 125): line has 82 characters
-Norme: ./srcs/input_actions_home.c
-Norme: ./srcs/input_actions_delete.c
-Norme: ./srcs/input_actions_shiftarrowdown.c
-Norme: ./srcs/input_actions_shiftarrowleft.c
-Norme: ./srcs/input_actions_shiftarrowup.c
-Norme: ./srcs/input_actions_shiftarrowright.c
-Norme: ./srcs/input_actions_shiftend.c
-Error (line 19): function input_action_shiftend has 32 lines
-Norme: ./srcs/input_actions.c
-Norme: ./srcs/input_actions_shifttab.c
+Norme: ./srcs/input_actions_del.c
 Norme: ./srcs/input_actions_end.c
-Norme: ./srcs/interpreter_and.c
+Norme: ./srcs/input_actions_delete.c
+Norme: ./srcs/input_actions_home.c
+Norme: ./srcs/input_actions_arrowup.c
+Norme: ./srcs/input_actions_shiftarrowleft.c
+Norme: ./srcs/input_actions_shiftarrowright.c
+Norme: ./srcs/input_actions_shiftarrowup.c
+Norme: ./srcs/input_actions_shiftarrowdown.c
 Norme: ./srcs/input_actions_shifthome.c
+Norme: ./srcs/input_actions_shifttab.c
 Norme: ./srcs/interpreter.c
+Norme: ./srcs/input_actions_shiftend.c
+Norme: ./srcs/interpreter_and.c
 Norme: ./srcs/interpreter_or.c
 Norme: ./srcs/interpreter_semicol.c
-Norme: ./srcs/interpreter_pipe.c
 Norme: ./srcs/inputdata.c
 Norme: ./srcs/interpreter_arg.c
 Norme: ./srcs/lexing_amp_and.c
+Norme: ./srcs/interpreter_pipe.c
 Norme: ./srcs/lexing_pipe_or.c
-Norme: ./srcs/lexing_lshift.c
 Norme: ./srcs/lexing_dollar.c
-Error (line 31): function lex_dollar_exp has 33 lines
+Error (line 31): line has 89 characters
+Norme: ./srcs/lexing_lshift.c
 Norme: ./srcs/lexing_semicol.c
 Norme: ./srcs/lexing_space.c
-Norme: ./srcs/lexing_rshift.c
+Norme: ./srcs/lexing_shift.c
 Norme: ./srcs/lexing_tilde.c
 Norme: ./srcs/output.c
-Error: global scope bad aligned
-Norme: ./srcs/main.c
-Error (line 17): function input_and_parse has 35 lines
-Error (line 56): function main has 28 lines
 Norme: ./srcs/parsing.c
 Norme: ./srcs/parsing_parse_and.c
-Norme: ./srcs/parsing_parse_or.c
-Norme: ./srcs/parsing_parse_pipe.c
-Norme: ./srcs/parsing_parse_semicol.c
 Norme: ./srcs/lexing.c
 Error (line 65): function lex_analysis has 36 lines
-Norme: ./srcs/parsing_validator.c
-Norme: ./srcs/lexing_shift.c
-Norme: ./srcs/path.c
-Norme: ./srcs/pipe.c
 Norme: ./srcs/parsing_parse_arg.c
+Norme: ./srcs/parsing_parse_pipe.c
+Norme: ./srcs/parsing_parse_semicol.c
+Norme: ./srcs/lexing_rshift.c
+Norme: ./srcs/parsing_validator.c
+Norme: ./srcs/path.c
+Norme: ./srcs/main.c
+Error (line 33): function do_lexing has 26 lines
+Norme: ./srcs/process.c
+Norme: ./srcs/parsing_parse_or.c
 Norme: ./srcs/process_control.c
 Norme: ./srcs/redirect.c
+Norme: ./srcs/pipe.c
 Norme: ./srcs/redirections_apply_lshift.c
-Norme: ./srcs/process.c
 Norme: ./srcs/redirections_apply_lshift2.c
-Norme: ./srcs/redirections_apply_pipe.c
-Norme: ./srcs/redirections_apply_lshift_amp.c
-Norme: ./srcs/redirections_apply.c
-Error (line 46): function apply_redirects has 36 lines
 Norme: ./srcs/redirections.c
-Norme: ./srcs/redirections_apply_rshift.c
-Norme: ./srcs/signals.c
+Norme: ./srcs/redirections_apply_lshift_amp.c
+Norme: ./srcs/redirections_apply_pipe.c
 Norme: ./srcs/redirections_apply_rshift2.c
 Norme: ./srcs/redirections_apply_rshift_amp.c
+Norme: ./srcs/redirections_apply.c
+Error (line 71): bad indentation
+Norme: ./srcs/signals.c
+Norme: ./srcs/redirections_apply_rshift.c
 Norme: ./srcs/termcaps.c
 Norme: ./srcs/starter_process.c
 Error (line 15): function start_process has 44 lines
 Norme: ./srcs/utils2.c
-Norme: ./srcs/utils.c
-Norme: ./srcs/utils_redirects.c
 Norme: ./srcs/s_env.c
-Norme: ./srcs/utils_args.c
+Norme: ./srcs/utils_redirects.c
+Norme: ./srcs/utils.c
+Norme: ./srcs/utils_termios.c
 Norme: ./srcs/word.c
 Norme: ./srcs/starter.c
 Error (line 15): function fork_start_builtin has 39 lines
 Error (line 87): function start_command has 43 lines
 Error (line 87, col 0): start_command has 6 variables
-Norme: ./srcs/utils_termios.c
+Norme: ./srcs/utils_args.c

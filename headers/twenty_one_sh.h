@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/26 12:29:47 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/26 15:23:33 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -387,12 +387,17 @@ void				restore_pos(t_inputdata *inputdata);
 ** input.c
 */
 
-void				clear_cmd(t_inputdata *inputdata);
-void				print_cmd(t_prompt_fct prompt_fct,
-		t_inputdata *inputdata);
 void				add_to_input(t_prompt_fct prompt_fct,
 		t_inputdata *inputdata, char *keybuff);
 char				*ask_for_input(void);
+
+/*
+** input_display.c
+*/
+
+void				clear_cmd(t_inputdata *inputdata);
+void				print_cmd(t_prompt_fct prompt_fct,
+		t_inputdata *inputdata);
 
 /*
 ** input_actions.c

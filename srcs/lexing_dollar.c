@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 14:15:05 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/26 13:04:34 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/26 14:44:39 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int	is_delim(char c)
 	return (0);
 }
 
-static void	handle_special_varnames(char *cmdline, t_lexdata *lexdata, char **var_value)
+static void	handle_special_varnames(char *cmdline,
+		t_lexdata *lexdata, char **var_value)
 {
 	if (cmdline[lexdata->i] == '$')
 		*var_value = ft_itoa(g_shell.shell_pgid);

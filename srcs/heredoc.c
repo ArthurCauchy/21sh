@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 11:00:26 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/22 16:03:41 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/26 15:19:16 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,23 @@ static int	write_heredoc(int fd, char *end_delim)
 	return (0);
 }
 
+static int	ask_input_heredoc(t_word *wordlist, char **errmsg)
+{
+	int	heredoc_fd;
+
+	heredoc_fd = open_heredoc_file("/tmp/heredoc-tmp", errmsg);
+	if (heredoc_fd == -1)
+		return (-1);
+	if (write_heredoc(heredoc_fd, wordlist->next->str) == -1)
+	{
+		close(heredoc_fd);
+		unlink("/tmp/heredoc-tmp");
+		return (-1);
+	}
+	close(heredoc_fd);
+	return (0);
+}
+
 int			apply_heredocs(t_word *wordlist, char **errmsg)
 {
 	int	heredoc_fd;
@@ -83,16 +100,8 @@ int			apply_heredocs(t_word *wordlist, char **errmsg)
 				*errmsg = ft_strdup("Missing name for redirect.");
 				return (-1);
 			}
-			heredoc_fd = open_heredoc_file("/tmp/heredoc-tmp", errmsg);
-			if (heredoc_fd == -1)
+			if (ask_input_heredoc(wordlist, errmsg) == -1)
 				return (-1);
-			if (write_heredoc(heredoc_fd, wordlist->next->str) == -1)
-			{
-				close(heredoc_fd);
-				unlink("/tmp/heredoc-tmp");
-				return (-1);
-			}
-			close(heredoc_fd);
 			heredoc_fd = open_file_fd("/tmp/heredoc-tmp", 0, 0, errmsg);
 			if (heredoc_fd == -1)
 				return (-1);

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/26 12:47:49 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/26 14:48:40 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,18 @@ static int	do_lexing(t_ast **ast, char *cmd)
 	char	*errmsg;
 	t_word	*wordlist;
 
+	ret = -1;
 	errmsg = NULL;
 	wordlist = NULL;
 	lex_analysis(cmd, &wordlist, &errmsg);
 	if (errmsg)
-	{
 		print_n_free_errmsg(&errmsg);
-		ret = -1;
-	}
 	else
 	{
 		if (apply_heredocs(wordlist, &errmsg) == -1)
 		{
 			if (errmsg)
 				print_n_free_errmsg(&errmsg);
-			ret = -1;
 			clear_heredocs_fds();
 		}
 		else
