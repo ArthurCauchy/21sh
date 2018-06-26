@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/25 17:02:49 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/26 12:47:49 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,12 @@
 
 t_shell		g_shell;
 
-static int	input_and_parse(t_ast **ast)
+static int	do_parsing(t_ast **ast, t_word **wordlist)
 {
 	char	*errmsg;
-	char	*rep;
-	t_word	*wordlist;
 
 	errmsg = NULL;
-	wordlist = NULL;
-	rep = ask_for_input();
-	if (ft_strlen(rep) > 0)
-		add_history_elem(&g_shell.history, rep);
-	lex_analysis(rep, &wordlist, &errmsg);
-	free(rep);
-	if (errmsg)
-	{
-		print_n_free_errmsg(&errmsg);
-		delete_wordlist(&wordlist);
-		return (-1);
-	}
-	if (apply_heredocs(wordlist, &errmsg) == -1)
-	{
-		if (errmsg)
-			print_n_free_errmsg(&errmsg);
-		delete_wordlist(&wordlist);
-		clear_heredocs_fds();
-		return (-1);
-	}
-	syntax_analysis(&wordlist, ast);
-	delete_wordlist(&wordlist);
+	syntax_analysis(wordlist, ast);
 	if (validate_ast(*ast, &errmsg) != 0)
 	{
 		print_n_free_errmsg(&errmsg);
@@ -51,6 +28,49 @@ static int	input_and_parse(t_ast **ast)
 		return (-1);
 	}
 	return (0);
+}
+
+static int	do_lexing(t_ast **ast, char *cmd)
+{
+	int		ret;
+	char	*errmsg;
+	t_word	*wordlist;
+
+	errmsg = NULL;
+	wordlist = NULL;
+	lex_analysis(cmd, &wordlist, &errmsg);
+	if (errmsg)
+	{
+		print_n_free_errmsg(&errmsg);
+		ret = -1;
+	}
+	else
+	{
+		if (apply_heredocs(wordlist, &errmsg) == -1)
+		{
+			if (errmsg)
+				print_n_free_errmsg(&errmsg);
+			ret = -1;
+			clear_heredocs_fds();
+		}
+		else
+			ret = do_parsing(ast, &wordlist);
+	}
+	delete_wordlist(&wordlist);
+	return (ret);
+}
+
+static int	input_and_parse(t_ast **ast)
+{
+	int		ret;
+	char	*cmd;
+
+	cmd = ask_for_input();
+	if (ft_strlen(cmd) > 0)
+		add_history_elem(&g_shell.history, cmd);
+	ret = do_lexing(ast, cmd);
+	free(cmd);
+	return (ret);
 }
 
 int			main(int argc, char **argv, char **envp)
@@ -70,17 +90,12 @@ int			main(int argc, char **argv, char **envp)
 		{
 			g_shell.abort_command = 0;
 			g_shell.last_command_status = exec_ast(ast, NULL, NULL);
-			delete_ast(&ast);
 			clear_heredocs_fds();
 		}
 		else
 			g_shell.last_command_status = 1;
+		delete_ast(&ast);
 	}
-	clear_env(env);
-	clear_builtins();
-	delete_history(g_shell.history);
-	if (g_shell.saved_processes)
-		delete_processes(g_shell.saved_processes);
-	free(g_shell.termcaps);
+	clear_all();
 	return (g_shell.exit_status);
 }

@@ -6,17 +6,17 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 09:35:34 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/21 14:13:47 by arthur           ###   ########.fr       */
+/*   Updated: 2018/06/26 11:51:29 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
 /*
-** returns the printed prompt size (column used)
+** returns the printed prompt size (columns used)
 */
 
-int	print_prompt(t_env **env)
+int		print_prompt(t_env **env)
 {
 	char		*user;
 	static char	hostname[1024];
@@ -40,7 +40,7 @@ int	print_prompt(t_env **env)
 	return (ret);
 }
 
-int	print_heredoc_prompt(t_env **env)
+int		print_heredoc_prompt(t_env **env)
 {
 	(void)env;
 	ft_putstr("? ");

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:10:52 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/25 17:05:34 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/26 12:29:47 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -522,6 +522,12 @@ void				init_shell(void);
 void				init_signals(void);
 void				init_env(t_env **env, char **envp);
 void				init_builtins(void);
+
+/*
+** clear.c
+*/
+
+void				clear_all(void);
 
 /*
 ** starter.c
