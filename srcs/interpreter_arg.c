@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 11:37:02 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/25 16:07:13 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/26 11:38:46 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,14 @@ int			exec_ast_arg(t_ast *node, int *pipein, int *pipeout)
 	if (analyze_redirects(&node->arglist, &proc->redirs, &errmsg) == -1)
 	{
 		print_n_free_errmsg(&errmsg);
-		return (1);
+		ret = 1;
 	}
-	proc->args = ft_memalloc(sizeof(char*) * PARAMS_MAX);
-	analyze_arglist(node->arglist, proc->args);
-	ret = start_command(g_shell.env, g_shell.env, proc);
+	else
+	{
+		proc->args = ft_memalloc(sizeof(char*) * PARAMS_MAX);
+		analyze_arglist(node->arglist, proc->args);
+		ret = start_command(g_shell.env, g_shell.env, proc);
+	}
 	if (g_shell.pipe_lvl > 0)
 		--g_shell.pipe_lvl;
 	delete_processes(proc);

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 13:29:12 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/22 15:48:44 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/26 11:18:53 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** 1) write
 */
 
-int	open_file_fd(char *filename, int mode, int append, char **errmsg)
+int			open_file_fd(char *filename, int mode, int append, char **errmsg)
 {
 	int flags;
 	int fd;
@@ -43,7 +43,38 @@ int	open_file_fd(char *filename, int mode, int append, char **errmsg)
 	return (fd);
 }
 
-int	apply_redirects(t_redirect *redirs, int *fdtmp_array,
+static int	apply_redirect(t_redirect *redir, int *fdtmp_array,
+		int *fdsave_array, char **errmsg)
+{
+	if (redir->token == PIPE)
+		return (apply_redirect_pipe(redir, fdtmp_array, fdsave_array, errmsg));
+	if (redir->token == FDCLOSE)
+	{
+		close(ft_atoi(redir->right));
+		return (0);
+	}
+	else if (redir->token == LSHIFT)
+		return (apply_redirect_lshift(redir,
+				fdtmp_array, fdsave_array, errmsg));
+	else if (redir->token == LSHIFT_AMP)
+		return (apply_redirect_lshift_amp(redir,
+				fdtmp_array, fdsave_array, errmsg));
+	else if (redir->token == LSHIFT2)
+		return (apply_redirect_lshift2(redir,
+				fdtmp_array, fdsave_array, errmsg));
+	else if (redir->token == RSHIFT)
+		return (apply_redirect_rshift(redir,
+				fdtmp_array, fdsave_array, errmsg));
+	else if (redir->token == RSHIFT_AMP)
+		return (apply_redirect_rshift_amp(redir,
+				fdtmp_array, fdsave_array, errmsg));
+	else if (redir->token == RSHIFT2)
+		return (apply_redirect_rshift2(redir,
+				fdtmp_array, fdsave_array, errmsg));
+	return (0);
+}
+
+int			apply_redirects(t_redirect *redirs, int *fdtmp_array,
 		int *fdsave_array, char **errmsg)
 {
 	t_redirect	*cur;
@@ -52,31 +83,7 @@ int	apply_redirects(t_redirect *redirs, int *fdtmp_array,
 	cur = redirs;
 	while (cur)
 	{
-		if (cur->token == PIPE)
-			ret = apply_redirect_pipe(cur, fdtmp_array, fdsave_array, errmsg);
-		if (cur->token == FDCLOSE)
-		{
-			close(ft_atoi(cur->right));
-			ret = 0;
-		}
-		else if (cur->token == LSHIFT)
-			ret = apply_redirect_lshift(cur,
-					fdtmp_array, fdsave_array, errmsg);
-		else if (cur->token == LSHIFT_AMP)
-			ret = apply_redirect_lshift_amp(cur,
-					fdtmp_array, fdsave_array, errmsg);
-		else if (cur->token == LSHIFT2)
-			ret = apply_redirect_lshift2(cur,
-					fdtmp_array, fdsave_array, errmsg);
-		else if (cur->token == RSHIFT)
-			ret = apply_redirect_rshift(cur,
-					fdtmp_array, fdsave_array, errmsg);
-		else if (cur->token == RSHIFT_AMP)
-			ret = apply_redirect_rshift_amp(cur,
-					fdtmp_array, fdsave_array, errmsg);
-		else if (cur->token == RSHIFT2)
-			ret = apply_redirect_rshift2(cur,
-					fdtmp_array, fdsave_array, errmsg);
+		ret = apply_redirect(cur, fdtmp_array, fdsave_array, errmsg);
 		if (ret == -1)
 			return (-1);
 		cur = cur->next;
