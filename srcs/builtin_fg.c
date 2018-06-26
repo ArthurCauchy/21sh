@@ -6,13 +6,28 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 14:27:33 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/25 15:34:00 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/26 13:28:30 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one_sh.h"
 
-int	builtin_fg(t_env **env, char **args)
+static int	restart_pipe(t_process *tmp_proc)
+{
+	int	ret;
+	
+	g_shell.pipe_pgid = tmp_proc->pid;
+	g_shell.pipe_processes = tmp_proc;
+	ret = wait_pipe();
+	g_shell.pipe_pgid = -1;
+	delete_processes(g_shell.pipe_processes);
+	g_shell.pipe_processes = NULL;
+	tcsetpgrp(0, g_shell.shell_pgid);
+	return (ret);
+
+}
+
+int			builtin_fg(t_env **env, char **args)
 {
 	t_process	*tmp_proc;
 	pid_t		pid;
@@ -34,16 +49,7 @@ int	builtin_fg(t_env **env, char **args)
 	delete_processes(g_shell.saved_processes);
 	g_shell.saved_processes = NULL;
 	if (tmp_proc->next)
-	{
-		g_shell.pipe_pgid = tmp_proc->pid;
-		g_shell.pipe_processes = tmp_proc;
-		ret = wait_pipe();
-		g_shell.pipe_pgid = -1;
-		delete_processes(g_shell.pipe_processes);
-		g_shell.pipe_processes = NULL;
-		tcsetpgrp(0, g_shell.shell_pgid);
-		return (ret);
-	}
+		return (restart_pipe(tmp_proc));
 	if (waitpid(pid, &status, WUNTRACED) == -1)
 		exit_error("waitpid() error");
 	ret = post_process(tmp_proc, status);
