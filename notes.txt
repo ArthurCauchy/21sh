@@ -6,8 +6,6 @@ TODO bonus :
 - builtin help
 
 TODO norme :
-- cur lexing.c in multiple files
-- starter.c
 
 csh :
 - 'exit qweqwejiowqe' : Expression syntax.

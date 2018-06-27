@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 12:03:19 by acauchy           #+#    #+#             */
-/*   Updated: 2018/06/26 18:03:59 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/06/27 10:38:26 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,28 @@ static int	start_command_builtin(t_env **env,
 	return (ret);
 }
 
+static int	start_command_external(t_env **env, t_env **cmd_env, t_process *proc)
+{
+	char			*after_path;
+
+	if (command_file_exist(proc->args[0]))
+	{
+		proc->path = ft_strdup(proc->args[0]);
+		return (try_start_process(cmd_env, proc));
+	}
+	else if (!ft_strchr(proc->args[0], '/') &&
+			(after_path = find_cmd_path(env, cmd_env, proc->args[0])))
+	{
+		proc->path = after_path;
+		return (try_start_process(cmd_env, proc));
+	}
+	else
+		return (-1);
+}
+
 int			start_command(t_env **env, t_env **cmd_env, t_process *proc)
 {
 	int				ret;
-	char			*after_path;
 	int				fdtmp_array[FD_MAX];
 	int				fdsave_array[FD_MAX];
 
@@ -77,20 +95,9 @@ int			start_command(t_env **env, t_env **cmd_env, t_process *proc)
 	if (!proc->args[0])
 		return (0);
 	clear_arrays(fdtmp_array, fdsave_array);
-	if (start_command_builtin(cmd_env, proc, fdtmp_array, fdsave_array) != -1)
-		(void)0;
-	else if (command_file_exist(proc->args[0]))
-	{
-		proc->path = ft_strdup(proc->args[0]);
-		ret = try_start_process(cmd_env, proc);
-	}
-	else if (!ft_strchr(proc->args[0], '/') &&
-			(after_path = find_cmd_path(env, cmd_env, proc->args[0])))
-	{
-		proc->path = after_path;
-		ret = try_start_process(cmd_env, proc);
-	}
-	else
+	if ((ret = start_command_builtin(cmd_env, proc, fdtmp_array, fdsave_array)) == -1)
+		ret = start_command_external(env, cmd_env, proc);
+	if (ret == -1)
 	{
 		ft_fminiprint(2, "%l0s%: Command not found.\n", proc->args[0]);
 		ret = 1;
